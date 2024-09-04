@@ -404,7 +404,7 @@ ggplot(coef_df, aes(y = Feature, x = Coefficient)) +
 print(coef_df)
 
 # Save the results table as a CSV file
-write.csv(coef_df, "C:/Users/msy71/OneDrive/¹ÙÅÁ È­¸é/PRISM-V/prism_datacleaned/npj_cross_regression_results(clean)_male.csv", row.names = FALSE)
+write.csv(coef_df, "C:/Users/msy71/OneDrive/Â¹Ã™Ã…Ã ÃˆÂ­Â¸Ã©/PRISM-V/prism_datacleaned/npj_cross_regression_results(clean)_male.csv", row.names = FALSE)
 
 
 
