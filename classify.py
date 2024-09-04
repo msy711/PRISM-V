@@ -1,5 +1,6 @@
 import argparse
 import json
+import lightgbm as lgb
 import random
 from itertools import product
 from pathlib import Path
@@ -28,6 +29,8 @@ from sklearn.utils import resample
 from tqdm import tqdm
 
 random.seed(78)
+
+TEST_ITERATIONS = 1000
 
 
 def get_clf(algorithm, svc_predict_proba=False):
@@ -60,6 +63,8 @@ def get_clf(algorithm, svc_predict_proba=False):
         clf = StackingClassifier(estimators=estimators, final_estimator=final_estimator)
     elif algorithm == "xgb":
         clf = xgb.XGBClassifier(objective="reg:squarederror", random_state=42)
+    elif algorithm == "lgb": 
+        clf = lgb.LGBMClassifier(random_state=42)
     else:
         raise ValueError(f"Wrong algo: {algorithm}")
     return clf
@@ -129,28 +134,39 @@ def run_experiment(run_id, split, algorithm, df, do_smote, model_save_path):
         y = y_oversampled
 
     if split == "train":
-        clf = get_clf(algorithm)
-        scores = cross_validate(
-            clf,
-            X,
-            y,
-            cv=5,
-            scoring=["roc_auc", "accuracy", "f1", "precision", "recall"],
-            return_estimator=True,
-            return_indices=True,
-        )
 
-        aucs = scores["test_roc_auc"].tolist()
-        accuracies = scores["test_accuracy"].tolist()
+        all_indices = list(range(X.shape[0]))
+        aucs, accuracies, test_runs = [], [], []
+        for i in tqdm(range(TEST_ITERATIONS)):
 
-        test_runs = [
-            (est, X[indices], y[indices])
-            for est, indices in zip(scores["estimator"], scores["indices"]["test"])
-        ]
+            clf = get_clf(algorithm)
+
+            sampled_indices = resample(all_indices, n_samples=X.shape[0], random_state=i)
+            sampled_indices_set = set(sampled_indices)
+
+            test_indices = [i for i in all_indices if i not in sampled_indices_set]
+
+            X_sampled = X[sampled_indices]
+            y_sampled = y[sampled_indices]
+
+            #scores = cross_validate(
+                #clf,
+                #X_sampled,
+                #y_sampled,
+                #cv=5,
+                #scoring=["roc_auc", "accuracy", "f1", "precision", "recall"],
+                #return_estimator=True,
+                #return_indices=True,
+            #)sampled_indices
+
+            #aucs.extend(scores["test_roc_auc"].tolist())
+            #accuracies.extend(scores["test_accuracy"].tolist())
+            clf.fit(X_sampled, y_sampled)
+            test_runs.append((clf, X[test_indices], y[test_indices]))
 
         (
-            _,
-            _,
+            aucs,
+            accuracies,
             confusion_matrices,
             specificities,
             classification_reports,
@@ -166,12 +182,11 @@ def run_experiment(run_id, split, algorithm, df, do_smote, model_save_path):
 
     else:
         clf = load(model_save_path)
-        test_iterations = 200
         all_indices = list(range(X.shape[0]))
 
         sampled_indices = [
             resample(all_indices, n_samples=X.shape[0], random_state=i)
-            for i, _ in enumerate(range(test_iterations))
+            for i, _ in enumerate(range(TEST_ITERATIONS))
         ]
         test_runs = [(clf, X[indices], y[indices]) for indices in sampled_indices]
 
@@ -261,8 +276,10 @@ if __name__ == "__main__":
         ("longi", "internal", "features/longi_internal.csv"),
         ("longi", "external", "features/longi_external.csv"),
     ]
-    smote = [False, True]
-    algorithms = ["gbc", "xgb", "ensemble_soft"]
+    #smote = [False, True]
+    smote = [False]
+    #algorithms = ["gbc", "xgb", "ensemble_soft"]
+    algorithms = ["gbc"]
 
     results = {}
     for experiment_type, split, feature_file in feature_files:
