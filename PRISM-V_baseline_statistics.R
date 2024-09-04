@@ -25,7 +25,7 @@ suicidal_count <- baseline_data %>%
 print(suicidal_count)
 
 # Export suicidal count and percentage to CSV
-write.csv(suicidal_count, "C:/Users/msy71/OneDrive/¹ÙÅÁ È­¸é/PRISM-V/prism_datacleaned/suicidal_count.csv", row.names = FALSE)
+write.csv(suicidal_count, "C:/Users/msy71/OneDrive/Â¹Ã™Ã…Ã ÃˆÂ­Â¸Ã©/PRISM-V/prism_datacleaned/suicidal_count.csv", row.names = FALSE)
 
 # Perform t-test for continuous variables and calculate mean and standard deviation
 continuous_vars <- c("age", "bmi", "edu_yrs", "income", "AP_dose", "HAMD", "SSI", "PHQ", "BAI", "BHOL", "BIS")
