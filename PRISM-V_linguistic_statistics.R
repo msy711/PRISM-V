@@ -341,8 +341,8 @@ print(coef_df)
 #### Within-person 
 
 # Define the file paths
-internal_file <- "C:/Users/msy71/OneDrive/¹ÙÅÁ È­¸é/PRISM-V/prism_datacleaned/longi_internal.csv"
-external_file <- "C:/Users/msy71/OneDrive/¹ÙÅÁ È­¸é/PRISM-V/prism_datacleaned/longi_external.csv"
+internal_file <- "C:/Users/msy71/OneDrive/ë°”íƒ• í™”ë©´/PRISM-V/prism_datacleaned/longi_internal.csv"
+external_file <- "C:/Users/msy71/OneDrive/ë°”íƒ• í™”ë©´/PRISM-V/prism_datacleaned/longi_external.csv"
 
 # Read the CSV files
 internal_df <- read.csv(internal_file)
@@ -354,9 +354,9 @@ merged_df <- merge(internal_df, external_df, by = intersect(names(internal_df), 
 
 # Print the first few rows of the merged dataframe to check the result
 head(merged_df)
-write.csv(merged_df, "C:/Users/msy71/OneDrive/¹ÙÅÁ È­¸é/PRISM-V/prism_datacleaned/npj_longitudinal_all.csv", row.names = FALSE)
+write.csv(merged_df, "C:/Users/msy71/OneDrive/ë°”íƒ• í™”ë©´/PRISM-V/prism_datacleaned/npj_longitudinal_all.csv", row.names = FALSE)
 
-data_within_all <- read.csv("C:/Users/msy71/OneDrive/¹ÙÅÁ È­¸é/PRISM-V/prism_datacleaned/npj_longitudinal_all.csv", header=TRUE, stringsAsFactors=FALSE)
+data_within_all <- read.csv("C:/Users/msy71/OneDrive/ë°”íƒ• í™”ë©´/PRISM-V/prism_datacleaned/npj_longitudinal_all.csv", header=TRUE, stringsAsFactors=FALSE)
 
 table(data_within_all$label) # count recordings by suicidal risk
 
@@ -437,7 +437,7 @@ results <- run_analysis(data_within_all, variables_to_test2)
 ## Linear regression
 ## Linguistic 
 
-data_within_all <- read.csv("C:/Users/msy71/OneDrive/¹ÙÅÁ È­¸é/PRISM-V/prism_datacleaned/npj_longi_all.csv", header=TRUE, stringsAsFactors=FALSE) # with AP data
+data_within_all <- read.csv("C:/Users/msy71/OneDrive/ë°”íƒ• í™”ë©´/PRISM-V/prism_datacleaned/npj_longi_all.csv", header=TRUE, stringsAsFactors=FALSE) # with AP data
 
 data_within_all <- data_within_all %>%
   mutate(
