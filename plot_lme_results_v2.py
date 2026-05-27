@@ -119,6 +119,11 @@ print("✓ v2_forest_F0_SSI.png")
 # ─────────────────────────────────────────────
 # FIGURE 3: Combined Summary (significant only)
 # ─────────────────────────────────────────────
+import matplotlib.font_manager as fm
+
+# Arial 폰트 설정
+plt.rcParams['font.family'] = 'Arial'
+
 fig, axes = plt.subplots(1, 2, figsize=(16, 9))
 
 panels = [
@@ -163,14 +168,13 @@ for ax, (res_sorted, ftype, subtitle) in zip(axes, panels):
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
 
-plt.suptitle(
-    'Features Significantly Associated with Suicidal Ideation (SSI)\n'
-    'Mixed Effects Models with Clinical Covariates (N=104 patients, up to 5 time points)',
-    fontsize=12, fontweight='bold', y=1.01
-)
+# 큰 제목 제거
 plt.tight_layout()
 plt.savefig(f'{OUT}/v2_summary_significant.png', dpi=150, bbox_inches='tight')
 plt.close()
+
+# rcParams 초기화 (이후 플롯에 영향 없도록)
+plt.rcParams['font.family'] = 'sans-serif'
 print("✓ v2_summary_significant.png")
 
 # ─────────────────────────────────────────────
