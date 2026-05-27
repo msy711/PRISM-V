@@ -45,12 +45,12 @@ SC_LABELS = {
 }
 
 REF_LABELS = {
-    'HAMD_Depression': 'Maier & Philipp 1985\n(items 1,2,3,7,8)',
-    'HAMD_Anxiety':    'Maier & Philipp 1985\n(items 9,10,11)',
-    'HAMD_Somatic':    'Maier & Philipp 1985\n(items 12–16)',
-    'HAMD_Sleep':      'Maier & Philipp 1985\n(items 4,5,6)',
-    'PHQ_CogAffect':   'Lamers et al. 2018\n(items 1,2,6,9)',
-    'PHQ_Somatic':     'Lamers et al. 2018\n(items 3,4,5,7,8)',
+    'HAMD_Depression': 'Shafer 2006\n(items 1,2,3,7,8)',
+    'HAMD_Anxiety':    'Shafer 2006\n(items 9,10,11,15,17)',
+    'HAMD_Somatic':    'Shafer 2006\n(items 12,13,14,16)',
+    'HAMD_Sleep':      'Shafer 2006\n(items 4,5,6)',
+    'PHQ_CogAffect':   'Boothroyd et al. 2019\n(items 1,2,6,9)',
+    'PHQ_Somatic':     'Boothroyd et al. 2019\n(items 3,4,5,7,8)',
     'BAI_Somatic':     'Hewitt & Norton 1993\n(items 1–3,6–8,12,13,17–21)',
     'BAI_Cognitive':   'Hewitt & Norton 1993\n(items 4,5,9–11,14–16)',
     'BHS_Hopeless':    'Aish & Wasserman 2001\n(items 2,4,7,9,11,12,14,16–18,20)',
@@ -144,12 +144,12 @@ ax.axis('off')
 
 col_labels = ['Subscale', 'Scale', 'Items (n)', 'Item numbers', 'Reference']
 rows = [
-    ['HAMD: Core Depression', 'HAMD-17', '5',  '1,2,3,7,8',              'Maier & Philipp 1985'],
-    ['HAMD: Anxiety',         'HAMD-17', '3',  '9,10,11',                'Maier & Philipp 1985'],
-    ['HAMD: Somatic',         'HAMD-17', '5',  '12,13,14,15,16',         'Maier & Philipp 1985'],
-    ['HAMD: Sleep',           'HAMD-17', '3',  '4,5,6',                  'Maier & Philipp 1985'],
-    ['PHQ: Cognitive/Affective','PHQ-9', '4',  '1,2,6,9',                'Lamers et al. 2018'],
-    ['PHQ: Somatic',          'PHQ-9',   '5',  '3,4,5,7,8',              'Lamers et al. 2018'],
+    ['HAMD: Core Depression', 'HAMD-17', '5',  '1,2,3,7,8',              'Shafer 2006'],
+    ['HAMD: Anxiety',         'HAMD-17', '5',  '9,10,11,15,17',          'Shafer 2006'],
+    ['HAMD: Somatic',         'HAMD-17', '4',  '12,13,14,16',            'Shafer 2006'],
+    ['HAMD: Sleep',           'HAMD-17', '3',  '4,5,6',                  'Shafer 2006'],
+    ['PHQ: Cognitive/Affective','PHQ-9', '4',  '1,2,6,9',                'Boothroyd et al. 2019'],
+    ['PHQ: Somatic',          'PHQ-9',   '5',  '3,4,5,7,8',              'Boothroyd et al. 2019'],
     ['BAI: Somatic Anxiety',  'BAI-21',  '13', '1,2,3,6,7,8,12,13,17,18,19,20,21','Hewitt & Norton 1993'],
     ['BAI: Cognitive Anxiety','BAI-21',  '8',  '4,5,9,10,11,14,15,16',   'Hewitt & Norton 1993'],
     ['BHS: Hopelessness',     'BHS-20',  '11', '2,4,7,9,11,12,14,16,17,18,20','Aish & Wasserman 2001'],

@@ -64,36 +64,38 @@ def bhs_item(n, df):
     return vals
 
 SUBSCALES = {
-    # ── HAMD-17 (Maier & Philipp 1985) ──────────────────────
+    # ── HAMD-17 (Shafer 2006, J Clin Psychol 62:123-146) ─────
+    # https://pubmed.ncbi.nlm.nih.gov/16287149/
     'HAMD_Depression': {
         'items': ['HAMD1','HAMD2','HAMD3','HAMD7','HAMD8'],
-        'ref': 'Maier & Philipp 1985',
+        'ref': 'Shafer 2006',
         'desc': 'Depressed mood, Guilt, Suicidal ideation, Work, Retardation'
     },
     'HAMD_Anxiety': {
-        'items': ['HAMD9','HAMD10','HAMD11'],
-        'ref': 'Maier & Philipp 1985',
-        'desc': 'Agitation, Psychic anxiety, Somatic anxiety'
+        'items': ['HAMD9','HAMD10','HAMD11','HAMD15','HAMD17'],
+        'ref': 'Shafer 2006',
+        'desc': 'Agitation, Psychic anxiety, Somatic anxiety, Hypochondriasis, Insight'
     },
     'HAMD_Somatic': {
-        'items': ['HAMD12','HAMD13','HAMD14','HAMD15','HAMD16'],
-        'ref': 'Maier & Philipp 1985',
-        'desc': 'GI somatic, General somatic, Genital, Hypochondriasis, Weight'
+        'items': ['HAMD12','HAMD13','HAMD14','HAMD16'],
+        'ref': 'Shafer 2006',
+        'desc': 'GI somatic, General somatic, Genital symptoms, Weight loss'
     },
     'HAMD_Sleep': {
         'items': ['HAMD4','HAMD5','HAMD6'],
-        'ref': 'Maier & Philipp 1985',
+        'ref': 'Shafer 2006',
         'desc': 'Early/Middle/Late insomnia'
     },
-    # ── PHQ-9 (Lamers et al. 2018) ───────────────────────────
+    # ── PHQ-9 (Boothroyd et al. 2019, Psychiatry Res 271:532) ─
+    # https://doi.org/10.1016/j.psychres.2018.12.048
     'PHQ_CogAffect': {
         'items': ['PHQ1','PHQ2','PHQ6','PHQ9'],
-        'ref': 'Lamers et al. 2018',
+        'ref': 'Boothroyd et al. 2019',
         'desc': 'Anhedonia, Depressed mood, Worthlessness, Suicidal thoughts'
     },
     'PHQ_Somatic': {
         'items': ['PHQ3','PHQ4','PHQ5','PHQ7','PHQ8'],
-        'ref': 'Lamers et al. 2018',
+        'ref': 'Boothroyd et al. 2019',
         'desc': 'Sleep, Fatigue, Appetite, Concentration, Psychomotor'
     },
     # ── BAI-21 (Hewitt & Norton 1993) ────────────────────────
