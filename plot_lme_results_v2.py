@@ -8,8 +8,13 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+import matplotlib.font_manager as fm
 import warnings
 warnings.filterwarnings('ignore')
+
+fm.fontManager.addfont('/usr/share/fonts/truetype/msttcorefonts/Arial.ttf')
+fm.fontManager.addfont('/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf')
+plt.rcParams['font.family'] = 'Arial'
 
 OUT = '/home/user/PRISM-V/results'
 
@@ -17,9 +22,9 @@ f0_res   = pd.read_csv(f'{OUT}/lme_v2_F0_SSI_results.csv')
 liwc_res = pd.read_csv(f'{OUT}/lme_v2_LIWC_SSI_results.csv')
 
 def sig_marker(row):
-    if row['p_fdr'] < 0.001: return '★★★ FDR', '#C0392B'
-    if row['p_fdr'] < 0.01:  return '★★ FDR',  '#C0392B'
-    if row['p_fdr'] < 0.05:  return '★ FDR',   '#C0392B'
+    if row['p_fdr'] < 0.001: return '[FDR***]', '#C0392B'
+    if row['p_fdr'] < 0.01:  return '[FDR**]',  '#C0392B'
+    if row['p_fdr'] < 0.05:  return '[FDR]',    '#C0392B'
     if row['p_value'] < 0.001: return '***', '#E67E22'
     if row['p_value'] < 0.01:  return '**',  '#E67E22'
     if row['p_value'] < 0.05:  return '*',   '#E67E22'
@@ -59,9 +64,9 @@ for i, (_, row) in enumerate(liwc_top.iterrows()):
                 color=c, fontweight='bold')
 
 legend_patches = [
-    mpatches.Patch(color='#922B21', alpha=0.85, label='FDR significant (q < 0.05)'),
-    mpatches.Patch(color='#E67E22', alpha=0.85, label='p < 0.05 (positive β)'),
-    mpatches.Patch(color='#2980B9', alpha=0.85, label='p < 0.05 (negative β)'),
+    mpatches.Patch(color='#922B21', alpha=0.85, label='[FDR] = q < 0.05'),
+    mpatches.Patch(color='#E67E22', alpha=0.85, label='p < 0.05 (positive beta)'),
+    mpatches.Patch(color='#2980B9', alpha=0.85, label='p < 0.05 (negative beta)'),
     mpatches.Patch(color='#F39C12', alpha=0.85, label='Trend p < 0.10'),
 ]
 ax.legend(handles=legend_patches, fontsize=9, loc='lower right', framealpha=0.85)
@@ -119,11 +124,6 @@ print("✓ v2_forest_F0_SSI.png")
 # ─────────────────────────────────────────────
 # FIGURE 3: Combined Summary (significant only)
 # ─────────────────────────────────────────────
-import matplotlib.font_manager as fm
-
-# Arial 폰트 설정
-plt.rcParams['font.family'] = 'Arial'
-
 fig, axes = plt.subplots(1, 2, figsize=(16, 9))
 
 panels = [
@@ -172,9 +172,6 @@ for ax, (res_sorted, ftype, subtitle) in zip(axes, panels):
 plt.tight_layout()
 plt.savefig(f'{OUT}/v2_summary_significant.png', dpi=150, bbox_inches='tight')
 plt.close()
-
-# rcParams 초기화 (이후 플롯에 영향 없도록)
-plt.rcParams['font.family'] = 'sans-serif'
 print("✓ v2_summary_significant.png")
 
 # ─────────────────────────────────────────────
