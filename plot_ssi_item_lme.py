@@ -19,39 +19,39 @@ res_liwc = pd.read_csv(f'{OUT}/ssi_item_lme_liwc_death.csv')
 res_f0   = pd.read_csv(f'{OUT}/ssi_item_lme_F0_qregc3.csv')
 
 SSI_LABELS = {
-    'SSI1':  'SSI1: Wish to be dead',
-    'SSI2':  'SSI2: Wish to attempt',
-    'SSI3':  'SSI3: Reasons for living (R)',
-    'SSI4':  'SSI4: Deterrents (R)',
-    'SSI5':  'SSI5: Duration of ideation',
-    'SSI6':  'SSI6: Frequency of ideation',
-    'SSI7':  'SSI7: Attitude toward ideation',
-    'SSI8':  'SSI8: Control over action',
-    'SSI9':  'SSI9: Deterrents to attempt (R)',
-    'SSI10': 'SSI10: Reasons for attempt',
-    'SSI11': 'SSI11: Method specificity',
-    'SSI12': 'SSI12: Method availability',
-    'SSI13': 'SSI13: Sense of capability',
-    'SSI14': 'SSI14: Expectancy of attempt',
-    'SSI15': 'SSI15: Imminence of attempt',
+    'SSI1':  'SSI1: Loss of will to live',
+    'SSI2':  'SSI2: Wish to die',
+    'SSI3':  'SSI3: Life/death attitude',
+    'SSI4':  'SSI4: Active suicidal desire',
+    'SSI5':  'SSI5: Passive suicidal desire',
+    'SSI6':  'SSI6: Duration of ideation',
+    'SSI7':  'SSI7: Frequency of ideation',
+    'SSI8':  'SSI8: Acceptance of ideation',
+    'SSI9':  'SSI9: Control over impulse (inv)',
+    'SSI10': 'SSI10: Environmental deterrents (inv)',
+    'SSI11': 'SSI11: Reason for ideation',
+    'SSI12': 'SSI12: Method specificity',
+    'SSI13': 'SSI13: Method availability',
+    'SSI14': 'SSI14: Sense of capability',
+    'SSI15': 'SSI15: Expectancy of attempt',
     'SSI16': 'SSI16: Actual preparation',
     'SSI17': 'SSI17: Suicide note',
     'SSI18': 'SSI18: Final acts',
-    'SSI19': 'SSI19: Deception/concealment',
+    'SSI19': 'SSI19: Concealment of ideation',
 }
 
-# SSI domain groupings for visual banding
+# SSI domain groupings (Beck SSI subscales)
+# Part I: Ideation/Attitude (1–5) — wish to live/die, active/passive desire
+# Part II: Characteristics (6–11) — duration, frequency, acceptance, control, deterrents, reason
+# Part III: Plan (12–15) — method specificity, availability, capability, expectancy
+# Part IV: Behavior (16–19) — preparation, note, final acts, concealment
 DOMAIN_COLORS = {
-    # Ideation intensity (1–5)
     'SSI1': '#2980B9', 'SSI2': '#2980B9', 'SSI3': '#2980B9',
     'SSI4': '#2980B9', 'SSI5': '#2980B9',
-    # Characteristics (6–10)
     'SSI6': '#27AE60', 'SSI7': '#27AE60', 'SSI8': '#27AE60',
-    'SSI9': '#27AE60', 'SSI10': '#27AE60',
-    # Plan/intent (11–15)
-    'SSI11': '#E67E22', 'SSI12': '#E67E22', 'SSI13': '#E67E22',
+    'SSI9': '#27AE60', 'SSI10': '#27AE60', 'SSI11': '#27AE60',
+    'SSI12': '#E67E22', 'SSI13': '#E67E22',
     'SSI14': '#E67E22', 'SSI15': '#E67E22',
-    # Behavior (16–19)
     'SSI16': '#8E44AD', 'SSI17': '#8E44AD',
     'SSI18': '#8E44AD', 'SSI19': '#8E44AD',
 }
@@ -78,9 +78,9 @@ panels = [
 for ax, (res, title, subtitle) in zip(axes, panels):
     res_idx = res.set_index('item')
 
-    # background bands for domains
-    domain_bounds = [(0, 5, '#EBF5FB'), (5, 10, '#EAFAF1'),
-                     (10, 15, '#FEF9E7'), (15, 19, '#F5EEF8')]
+    # background bands for domains (0-indexed y positions)
+    domain_bounds = [(0, 5, '#EBF5FB'), (5, 11, '#EAFAF1'),
+                     (11, 15, '#FEF9E7'), (15, 19, '#F5EEF8')]
     for ylo, yhi, col in domain_bounds:
         ax.axhspan(ylo - 0.5, yhi - 0.5, facecolor=col, alpha=0.35, zorder=0)
 
@@ -127,9 +127,9 @@ axes[0].set_yticklabels(ylabels, fontsize=9.5)
 
 # Domain legend
 domain_patches = [
-    mpatches.Patch(facecolor='#EBF5FB', edgecolor='#aaa', alpha=0.8, label='Ideation intensity (1–5)'),
-    mpatches.Patch(facecolor='#EAFAF1', edgecolor='#aaa', alpha=0.8, label='Ideation characteristics (6–10)'),
-    mpatches.Patch(facecolor='#FEF9E7', edgecolor='#aaa', alpha=0.8, label='Plan & intent (11–15)'),
+    mpatches.Patch(facecolor='#EBF5FB', edgecolor='#aaa', alpha=0.8, label='Ideation/Attitude (1–5)'),
+    mpatches.Patch(facecolor='#EAFAF1', edgecolor='#aaa', alpha=0.8, label='Characteristics (6–11)'),
+    mpatches.Patch(facecolor='#FEF9E7', edgecolor='#aaa', alpha=0.8, label='Plan & capability (12–15)'),
     mpatches.Patch(facecolor='#F5EEF8', edgecolor='#aaa', alpha=0.8, label='Behavioral acts (16–19)'),
     mpatches.Patch(facecolor='gray', alpha=0.90, label='q < 0.05 FDR (opaque)'),
     mpatches.Patch(facecolor='gray', alpha=0.30, label='p ≥ 0.05 (faded)'),
@@ -178,9 +178,9 @@ ax.set_title('Comparing Speech Feature Associations Across SSI Items\n'
              fontsize=11, fontweight='bold')
 
 domain_patches = [
-    mpatches.Patch(color='#2980B9', alpha=0.85, label='Ideation intensity (1–5)'),
-    mpatches.Patch(color='#27AE60', alpha=0.85, label='Ideation characteristics (6–10)'),
-    mpatches.Patch(color='#E67E22', alpha=0.85, label='Plan & intent (11–15)'),
+    mpatches.Patch(color='#2980B9', alpha=0.85, label='Ideation/Attitude (1–5)'),
+    mpatches.Patch(color='#27AE60', alpha=0.85, label='Characteristics (6–11)'),
+    mpatches.Patch(color='#E67E22', alpha=0.85, label='Plan & capability (12–15)'),
     mpatches.Patch(color='#8E44AD', alpha=0.85, label='Behavioral acts (16–19)'),
 ]
 ax.legend(handles=domain_patches, fontsize=9, loc='upper left', framealpha=0.88)
