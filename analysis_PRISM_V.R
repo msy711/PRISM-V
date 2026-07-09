@@ -371,19 +371,19 @@ run_glmm <- function(data, outcome, predictor, cov_str) {
   optimizers <- c("bobyqa", "Nelder_Mead", "nlminbwrap")
   fit <- NULL
   for (opt in optimizers) {
-    fit <- tryCatch(
-      suppressWarnings(
+    suppressWarnings({
+      fit <- tryCatch(
         glmer(as.formula(formula_str), data = tmp, family = binomial,
               control = glmerControl(optimizer = opt,
-                                     optCtrl = list(maxfun = 2e5)))
-      ),
-      error = function(e) NULL
-    )
+                                     optCtrl = list(maxfun = 2e5))),
+        error = function(e) NULL
+      )
+    })
     if (!is.null(fit)) break
   }
   if (is.null(fit)) return(NULL)
 
-  coef_tbl <- as.data.frame(coef(summary(fit)))
+  coef_tbl <- suppressWarnings(as.data.frame(coef(summary(fit))))
   if (!"pred_z" %in% rownames(coef_tbl)) return(NULL)
   row <- coef_tbl["pred_z", ]
 
