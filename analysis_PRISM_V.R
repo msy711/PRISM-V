@@ -480,7 +480,7 @@ p2 <- forest_gg(res_f0_ssi_in,
                 clean_prefix = "F0final_sma_")
 
 if (!is.null(p1) && !is.null(p2)) {
-  combined <- ((p1 + p2) & theme(plot.title = element_text(face = "bold"))) +
+  combined <- (p1 + p2) +
     plot_annotation(title = "Speech/Language Features Associated with SSI")
   ggsave("results_R/forest_ssi_invnorm.pdf", plot = combined, width=14, height=9)
   cat("✓ forest_ssi_invnorm.pdf\n")
