@@ -81,13 +81,22 @@ run_lme_batch <- function(data, features, outcome,
                     "age", "sex", "Dx", "AP_dose", "edu_yrs")] |>
       na.omit()
 
+    if (nrow(tmp) < 10) return(NULL)
+
     # transform feature
     if (use_invnorm) {
       tmp$feat_x <- invnorm(tmp[[feat]])
     } else {
-      tmp$feat_x <- scale(tmp[[feat]])[, 1]
+      tmp$feat_x <- as.numeric(scale(tmp[[feat]]))
     }
-    if (sd(tmp$feat_x, na.rm = TRUE) == 0) return(NULL)
+
+    # skip if constant or all NA after transform
+    s <- sd(tmp$feat_x, na.rm = TRUE)
+    if (is.na(s) || s == 0) return(NULL)
+
+    # drop any NA introduced by transform
+    tmp <- tmp[!is.na(tmp$feat_x), ]
+    if (nrow(tmp) < 10) return(NULL)
 
     formula_str <- paste0("Y ~ feat_x + ", covariates, " + (1 | id)")
 
@@ -99,7 +108,8 @@ run_lme_batch <- function(data, features, outcome,
     if (is.null(fit)) return(NULL)
 
     coef_tbl <- as.data.frame(coef(summary(fit)))
-    row      <- coef_tbl["feat_x", ]
+    if (!"feat_x" %in% rownames(coef_tbl)) return(NULL)
+    row <- coef_tbl["feat_x", ]
 
     data.frame(
       feature   = feat,
@@ -114,6 +124,7 @@ run_lme_batch <- function(data, features, outcome,
   })
 
   res <- bind_rows(results)
+  if (nrow(res) == 0) return(res)
   res$q_fdr <- p.adjust(res$p, method = "BH")
   res[order(res$p), ]
 }
