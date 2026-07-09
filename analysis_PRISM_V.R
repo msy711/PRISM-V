@@ -350,20 +350,40 @@ run_glmm <- function(data, outcome, predictor, cov_str) {
   tmp <- data[, c("id", outcome, predictor, "time_numeric",
                   "age", "sex", "Dx", "AP_dose", "edu_yrs")] |>
     na.omit()
-  tmp$pred_z  <- scale(tmp[[predictor]])[, 1]
-  tmp$outcome <- as.integer(tmp[[outcome]])
 
-  formula_str <- paste0("outcome ~ pred_z + ", cov_str, " + (1 | id)")
+  # z-score continuous predictors to equalize eigenvalue scale
+  tmp$pred_z      <- as.numeric(scale(tmp[[predictor]]))
+  tmp$time_z      <- as.numeric(scale(tmp$time_numeric))
+  tmp$age_z       <- as.numeric(scale(tmp$age))
+  tmp$AP_dose_z   <- as.numeric(scale(tmp$AP_dose))
+  tmp$edu_yrs_z   <- as.numeric(scale(tmp$edu_yrs))
+  tmp$outcome     <- as.integer(tmp[[outcome]])
 
-  fit <- tryCatch(
-    glmer(as.formula(formula_str), data = tmp, family = binomial,
-          control = glmerControl(optimizer = "bobyqa")),
-    error = function(e) NULL
-  )
+  # build formula using scaled versions
+  cov_scaled <- gsub("time_numeric", "time_z",
+                gsub("age",          "age_z",
+                gsub("AP_dose",      "AP_dose_z",
+                gsub("edu_yrs",      "edu_yrs_z", cov_str))))
+  formula_str <- paste0("outcome ~ pred_z + ", cov_scaled, " + (1 | id)")
+
+  optimizers <- c("bobyqa", "Nelder_Mead", "nlminbwrap")
+  fit <- NULL
+  for (opt in optimizers) {
+    fit <- tryCatch(
+      suppressWarnings(
+        glmer(as.formula(formula_str), data = tmp, family = binomial,
+              control = glmerControl(optimizer = opt,
+                                     optCtrl = list(maxfun = 2e5)))
+      ),
+      error = function(e) NULL
+    )
+    if (!is.null(fit)) break
+  }
   if (is.null(fit)) return(NULL)
 
   coef_tbl <- as.data.frame(coef(summary(fit)))
-  row      <- coef_tbl["pred_z", ]
+  if (!"pred_z" %in% rownames(coef_tbl)) return(NULL)
+  row <- coef_tbl["pred_z", ]
 
   data.frame(
     outcome   = outcome,
