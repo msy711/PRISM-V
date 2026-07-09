@@ -32,7 +32,9 @@ invnorm <- function(x) {
 # ─────────────────────────────────────────────────────────────
 # 1. Data
 # ─────────────────────────────────────────────────────────────
-df <- read.csv("data/prism_softImpute4_smile_with_items.csv",
+setwd("/Users/msy/Documents/PRISM-V/suicide")
+
+df <- read.csv("prism_softImpute4_smile_with_items.csv",
                stringsAsFactors = FALSE)
 
 # time encoding
