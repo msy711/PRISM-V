@@ -260,11 +260,13 @@ subscales <- list(
   BHS_Hopeful     = paste0("BHOL", paste0(c(1,3,5,6,8,10,13,15,19), "_rev"))
 )
 
-# compute subscale scores
+# compute subscale scores on df and sub_full
 for (sc in names(subscales)) {
   cols <- subscales[[sc]]
   valid_cols <- intersect(cols, names(df))
-  df[[sc]] <- rowSums(df[, valid_cols, drop = FALSE], na.rm = FALSE)
+  df[[sc]]       <- rowSums(df[,       valid_cols, drop = FALSE], na.rm = FALSE)
+  valid_cols_sub <- intersect(cols, names(sub_full))
+  sub_full[[sc]] <- rowSums(sub_full[, valid_cols_sub, drop = FALSE], na.rm = FALSE)
 }
 
 # run subscale LME
