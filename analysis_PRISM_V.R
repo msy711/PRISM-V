@@ -130,7 +130,7 @@ run_lme_batch <- function(data, features, outcome,
 }
 
 # ─────────────────────────────────────────────────────────────
-# 3. Analysis 1: F0 / LIWC → SSI
+# 3. Analysis 1: F0 / LIWC -> SSI
 #    (a) raw z-scored  (b) invnorm-transformed
 # ─────────────────────────────────────────────────────────────
 cov_f0   <- "time_numeric + age + sex + Dx + AP_dose"
@@ -140,20 +140,20 @@ sub_full <- df[complete.cases(df[, c("SSI", "time_numeric", "age",
                                       "sex", "Dx", "AP_dose", "edu_yrs")]), ]
 
 # --- (a) z-scored ---
-cat("\n=== F0 → SSI (z-scored) ===\n")
+cat("\n=== F0 -> SSI (z-scored) ===\n")
 res_f0_ssi   <- run_lme_batch(sub_full, f0_feats,   "SSI", cov_f0)
 cat("FDR-sig:", sum(res_f0_ssi$q_fdr < 0.05, na.rm=TRUE), "\n")
 
-cat("\n=== LIWC → SSI (z-scored) ===\n")
+cat("\n=== LIWC -> SSI (z-scored) ===\n")
 res_liwc_ssi <- run_lme_batch(sub_full, liwc_feats, "SSI", cov_liwc)
 cat("FDR-sig:", sum(res_liwc_ssi$q_fdr < 0.05, na.rm=TRUE), "\n")
 
 # --- (b) invnorm ---
-cat("\n=== F0 → SSI (invnorm) ===\n")
+cat("\n=== F0 -> SSI (invnorm) ===\n")
 res_f0_ssi_in   <- run_lme_batch(sub_full, f0_feats,   "SSI", cov_f0,   TRUE)
 cat("FDR-sig:", sum(res_f0_ssi_in$q_fdr < 0.05, na.rm=TRUE), "\n")
 
-cat("\n=== LIWC → SSI (invnorm) ===\n")
+cat("\n=== LIWC -> SSI (invnorm) ===\n")
 res_liwc_ssi_in <- run_lme_batch(sub_full, liwc_feats, "SSI", cov_liwc, TRUE)
 cat("FDR-sig:", sum(res_liwc_ssi_in$q_fdr < 0.05, na.rm=TRUE), "\n")
 
@@ -195,7 +195,7 @@ res_scale_all |>
 
 # ─────────────────────────────────────────────────────────────
 # 5. Analysis 3: Item-level LME
-#    HAMD1–17, PHQ1–9, BAI1–21, BHOL1–20 → SSI / liwc_death / F0_qregc3
+#    HAMD1–17, PHQ1–9, BAI1–21, BHOL1–20 -> SSI / liwc_death / F0_qregc3
 # ─────────────────────────────────────────────────────────────
 hamd_items <- paste0("HAMD", 1:17)
 phq_items  <- paste0("PHQ",  1:9)
@@ -211,7 +211,7 @@ item_outcomes <- list(
 
 item_results <- list()
 for (out in names(item_outcomes)) {
-  cat("\n=== Items →", out, "===\n")
+  cat("\n=== Items ->", out, "===\n")
   item_results[[out]] <- run_lme_batch(
     sub_full, all_items, out, item_outcomes[[out]]$cov
   )
@@ -278,7 +278,7 @@ subscale_outcomes <- list(
 
 subscale_results <- list()
 for (out in names(subscale_outcomes)) {
-  cat("\n=== Subscales →", out, "===\n")
+  cat("\n=== Subscales ->", out, "===\n")
   subscale_results[[out]] <- run_lme_batch(
     sub_full, names(subscales), out,
     subscale_outcomes[[out]]$cov
@@ -287,7 +287,7 @@ for (out in names(subscale_outcomes)) {
 }
 
 # ─────────────────────────────────────────────────────────────
-# 7. Analysis 5: liwc_death / F0_qregc3 → each SSI item (SSI1–19)
+# 7. Analysis 5: liwc_death / F0_qregc3 -> each SSI item (SSI1–19)
 # ─────────────────────────────────────────────────────────────
 ssi_items <- paste0("SSI", 1:19)
 
@@ -328,13 +328,13 @@ run_predictor_x_items <- function(data, predictor, cov_str, items,
   res[order(res$p), ]
 }
 
-cat("\n=== liwc_death → SSI items ===\n")
+cat("\n=== liwc_death -> SSI items ===\n")
 res_liwc_ssi_items <- run_predictor_x_items(
   sub_full, "liwc_death", cov_liwc, ssi_items)
 cat("FDR-sig:", sum(res_liwc_ssi_items$q_fdr < 0.05, na.rm=TRUE), "/19\n")
 print(res_liwc_ssi_items[, c("item","coef","SE","p","q_fdr")])
 
-cat("\n=== F0_qregc3 → SSI items ===\n")
+cat("\n=== F0_qregc3 -> SSI items ===\n")
 res_f0_ssi_items <- run_predictor_x_items(
   sub_full, "F0final_sma_qregc3", cov_f0, ssi_items)
 cat("FDR-sig:", sum(res_f0_ssi_items$q_fdr < 0.05, na.rm=TRUE), "/19\n")
@@ -440,7 +440,7 @@ forest_gg <- function(res, title, p_col="p", q_col="q_fdr",
                    xmin = .data[[lo_col]], xmax = .data[[hi_col]],
                    color = sig)) +
     geom_vline(xintercept = 0, linetype = "dashed", alpha = 0.4) +
-    geom_errorbarh(height = 0.25, alpha = 0.75) +
+    geom_errorbar(width = 0.25, alpha = 0.75, orientation = "y") +
     geom_point(size = 2.5) +
     scale_color_manual(values = c("[FDR]" = "#C0392B", "*" = "#E67E22",
                                    "."     = "#F39C12"),
@@ -451,16 +451,15 @@ forest_gg <- function(res, title, p_col="p", q_col="q_fdr",
 }
 
 p1 <- forest_gg(res_liwc_ssi_in,
-                "LIWC → SSI (invnorm)",
+                "LIWC -> SSI (invnorm)",
                 clean_prefix = "liwc_")
 p2 <- forest_gg(res_f0_ssi_in,
-                "F0 → SSI (invnorm)",
+                "F0 -> SSI (invnorm)",
                 clean_prefix = "F0final_sma_")
 
 if (!is.null(p1) && !is.null(p2)) {
-  p1 + p2 +
-    plot_annotation(title = "Speech/Language Features Associated with SSI",
-                    theme = theme(plot.title = element_text(face="bold")))
+  (p1 + p2 + plot_annotation(title = "Speech/Language Features Associated with SSI")) &
+    theme(plot.title = element_text(face = "bold"))
   ggsave("results_R/forest_ssi_invnorm.pdf", width=14, height=9)
   cat("✓ forest_ssi_invnorm.pdf\n")
 }
