@@ -283,8 +283,7 @@ for (out in names(subscale_outcomes)) {
     sub_full, names(subscales), out,
     subscale_outcomes[[out]]$cov
   )
-  cat(format(subscale_results[[out]][, c("feature","coef","SE","p","q_fdr")],
-             digits = 3), "\n")
+  print(subscale_results[[out]][, c("feature","coef","SE","p","q_fdr")])
 }
 
 # ─────────────────────────────────────────────────────────────
