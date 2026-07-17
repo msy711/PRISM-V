@@ -198,28 +198,45 @@ SIG_BREAKS <- c("[FDR]", "*", ".")
 # ── F0 label builder (ASCII only — avoids mbcsToSbcs on macOS pdf device) ──
 label_f0_base <- function(base) {
   dplyr::case_when(
-    base == "iqr1-2"         ~ "IQR Q1-Q2",
-    base == "iqr2-3"         ~ "IQR Q2-Q3",
-    base == "iqr1-3"         ~ "IQR Q1-Q3",
-    base == "quartile1"      ~ "Q1 (25th %ile)",
-    base == "quartile2"      ~ "Q2 (median)",
-    base == "quartile3"      ~ "Q3 (75th %ile)",
-    base == "percentile1.0"  ~ "P1",
-    base == "percentile99.0" ~ "P99",
-    base == "kurtosis"       ~ "Kurtosis",
-    base == "skewness"       ~ "Skewness",
-    base == "qregerrQ"       ~ "Quadratic fit RMSE",
-    base == "linregerrQ"     ~ "Linear fit RMSE",
-    base == "pctlrange0-1"   ~ "Pctlrange 0-1",
-    base == "qregc3"         ~ "Quadratic coeff. c3",
-    base == "qregc2"         ~ "Quadratic coeff. c2",
-    base == "qregc1"         ~ "Quadratic coeff. c1",
-    base == "linregc2"       ~ "Linear slope",
-    base == "linregc1"       ~ "Linear intercept",
-    base == "amean"          ~ "Mean F0",
-    base == "stddev"         ~ "SD",
-    base == "range"          ~ "Range",
-    TRUE                     ~ tools::toTitleCase(gsub("[-_]", " ", base))
+    # IQR — openSMILE uses dots in some versions, hyphens in others
+    base %in% c("iqr1-2", "iqr1.2") ~ "IQR Q1-Q2",
+    base %in% c("iqr2-3", "iqr2.3") ~ "IQR Q2-Q3",
+    base %in% c("iqr1-3", "iqr1.3") ~ "IQR Q1-Q3",
+    # Quartiles / percentiles
+    base == "quartile1"                        ~ "Q1 (25th %ile)",
+    base == "quartile2"                        ~ "Q2 (median)",
+    base == "quartile3"                        ~ "Q3 (75th %ile)",
+    base == "percentile1.0"                    ~ "P1",
+    base == "percentile99.0"                   ~ "P99",
+    base %in% c("pctlrange0-1", "pctlrange0.1") ~ "Pctlrange 0-1",
+    # Shape
+    base == "kurtosis"    ~ "Kurtosis",
+    base == "skewness"    ~ "Skewness",
+    # Regression
+    base == "qregerrQ"    ~ "Quadratic fit RMSE",
+    base == "linregerrQ"  ~ "Linear fit RMSE",
+    base == "qregc3"      ~ "Quadratic coeff. c3",
+    base == "qregc2"      ~ "Quadratic coeff. c2",
+    base == "qregc1"      ~ "Quadratic coeff. c1",
+    base == "linregc2"    ~ "Linear slope",
+    base == "linregc1"    ~ "Linear intercept",
+    # Central tendency / spread
+    base == "amean"       ~ "Mean F0",
+    base == "rqmean"      ~ "RMS (F0)",
+    base == "posamean"    ~ "Mean (voiced frames)",
+    base == "stddev"      ~ "SD",
+    base == "range"       ~ "Range",
+    base == "centroid"    ~ "Spectral centroid",
+    # LPC coefficients
+    base == "lpc1"        ~ "LPC coeff. 1",
+    base == "lpc2"        ~ "LPC coeff. 2",
+    base == "lpc3"        ~ "LPC coeff. 3",
+    base == "lpc4"        ~ "LPC coeff. 4",
+    # Uplevel time (proportion of frames above Nth percentile of range)
+    grepl("^upleveltime", base) ~
+      paste0("% time > P", sub("upleveltime", "", base)),
+    # Fallback
+    TRUE ~ tools::toTitleCase(gsub("[-_.]", " ", base))
   )
 }
 
@@ -228,7 +245,7 @@ label_f0_full <- function(raw) {
   delta    <- grepl("^de_", stripped)
   base     <- sub("^de_", "", stripped)
   readable <- label_f0_base(base)
-  ifelse(delta, paste0("d.", readable), readable)
+  ifelse(delta, paste0("d. ", readable), readable)
 }
 
 # ── LIWC label lookup (ASCII only) ──
