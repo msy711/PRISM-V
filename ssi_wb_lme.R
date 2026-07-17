@@ -245,7 +245,7 @@ label_f0_full <- function(raw) {
   delta    <- grepl("^de_", stripped)
   base     <- sub("^de_", "", stripped)
   readable <- label_f0_base(base)
-  ifelse(delta, paste0("d. ", readable), readable)
+  ifelse(delta, paste0("delta ", readable), readable)
 }
 
 # ── LIWC label lookup (ASCII only) ──
