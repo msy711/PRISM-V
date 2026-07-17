@@ -28,25 +28,25 @@ SIG_BREAKS <- c("[FDR]", "*", ".")
 # 1. Feature label maps
 # ─────────────────────────────────────────────────────────────
 
-# F0: pattern-based labels; Δ prefix for within-session delta features
+# F0: pattern-based labels; "d" prefix for within-session delta (de_) features
 label_f0_base <- function(base) {
   dplyr::case_when(
-    base == "iqr1-2"         ~ "IQR Q₁–Q₂",
-    base == "iqr2-3"         ~ "IQR Q₂–Q₃",
-    base == "iqr1-3"         ~ "IQR Q₁–Q₃",
-    base == "quartile1"      ~ "Q₁ (25th %ile)",
-    base == "quartile2"      ~ "Q₂ (median)",
-    base == "quartile3"      ~ "Q₃ (75th %ile)",
+    base == "iqr1-2"         ~ "IQR Q1-Q2",
+    base == "iqr2-3"         ~ "IQR Q2-Q3",
+    base == "iqr1-3"         ~ "IQR Q1-Q3",
+    base == "quartile1"      ~ "Q1 (25th %ile)",
+    base == "quartile2"      ~ "Q2 (median)",
+    base == "quartile3"      ~ "Q3 (75th %ile)",
     base == "percentile1.0"  ~ "P1",
     base == "percentile99.0" ~ "P99",
     base == "kurtosis"       ~ "Kurtosis",
     base == "skewness"       ~ "Skewness",
     base == "qregerrQ"       ~ "Quadratic fit RMSE",
     base == "linregerrQ"     ~ "Linear fit RMSE",
-    base == "pctlrange0-1"   ~ "Pctlrange 0–1",
-    base == "qregc3"         ~ "Quadratic coeff. c₃",
-    base == "qregc2"         ~ "Quadratic coeff. c₂",
-    base == "qregc1"         ~ "Quadratic coeff. c₁",
+    base == "pctlrange0-1"   ~ "Pctlrange 0-1",
+    base == "qregc3"         ~ "Quadratic coeff. c3",
+    base == "qregc2"         ~ "Quadratic coeff. c2",
+    base == "qregc1"         ~ "Quadratic coeff. c1",
     base == "linregc2"       ~ "Linear slope",
     base == "linregc1"       ~ "Linear intercept",
     base == "amean"          ~ "Mean F0",
@@ -62,7 +62,7 @@ label_f0_full <- function(raw) {
   delta    <- grepl("^de_", stripped)
   base     <- sub("^de_", "", stripped)
   readable <- label_f0_base(base)
-  ifelse(delta, paste0("Δ ", readable), readable)
+  ifelse(delta, paste0("d.", readable), readable)
 }
 
 # LIWC: lookup table with fallback
@@ -75,7 +75,7 @@ LIWC_LABELS <- c(
   "liwc_avoidance"              = "Avoidance",
   "liwc_high_empathy"           = "High empathy",
   "liwc_family"                 = "Family",
-  "liwc_six_plus_words"         = "Long words (≥6 letters)",
+  "liwc_six_plus_words"         = "Long words (6+ letters)",
   "liwc_i"                      = "First-person singular (I)",
   "liwc_we"                     = "First-person plural (we)",
   "liwc_you"                    = "Second-person (you)",
@@ -144,7 +144,7 @@ forest_pub <- function(res,
                        coef_col, lo_col, hi_col,
                        p_col, q_col,
                        label_fn,
-                       x_label         = "Standardized β (95% CI)",
+                       x_label         = "Standardized beta (95% CI)",
                        subtitle        = NULL,
                        legend_position = "none",
                        p_thresh        = 0.10) {
