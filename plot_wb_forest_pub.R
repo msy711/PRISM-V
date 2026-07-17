@@ -260,7 +260,7 @@ fig_liwc <- p_liwc_w + p_liwc_b +
 ggsave("results_R/fig_liwc_ssi_wb.pdf",
        plot = fig_liwc,
        width = 180, height = 180,
-       units = "mm", device = cairo_pdf)
+       units = "mm", device = "pdf")
 cat("Saved: results_R/fig_liwc_ssi_wb.pdf\n")
 
 # ─────────────────────────────────────────────────────────────
@@ -290,5 +290,5 @@ fig_f0 <- p_f0_w + p_f0_b +
 ggsave("results_R/fig_f0_ssi_wb.pdf",
        plot = fig_f0,
        width = 180, height = 140,
-       units = "mm", device = cairo_pdf)
+       units = "mm", device = "pdf")
 cat("Saved: results_R/fig_f0_ssi_wb.pdf\n")
