@@ -45,8 +45,49 @@ for (col in c(f0_feats, liwc_feats)) {
 }
 
 cat("Rows:", nrow(df), "| Patients:", n_distinct(df$id), "\n")
-cat("F0 features:", length(f0_feats),
+cat("F0 features (all):", length(f0_feats),
     "| LIWC features:", length(liwc_feats), "\n")
+
+# ─────────────────────────────────────────────────────────────
+# Selected F0 feature subset (30 features)
+# ΔF0_ -> F0final_sma_de_*   |   F0_ -> F0final_sma_*
+# IQR: try both hyphen and dot variants since openSMILE
+# versions differ in separators.
+# ─────────────────────────────────────────────────────────────
+f0_candidates <- c(
+  "F0final_sma_rqmean",
+  "F0final_sma_range",
+  "F0final_sma_de_iqr1-3", "F0final_sma_de_iqr1.3",
+  "F0final_sma_upleveltime90",
+  "F0final_sma_qregc3",
+  "F0final_sma_de_rqmean",
+  "F0final_sma_de_flatness",
+  "F0final_sma_lpc0",
+  "F0final_sma_de_linregc2",
+  "F0final_sma_iqr2-3", "F0final_sma_iqr2.3",
+  "F0final_sma_ff0_maxSegLen",
+  "F0final_sma_de_amean",
+  "F0final_sma_kurtosis",
+  "F0final_sma_de_risetime",
+  "F0final_sma_de_percentile99.0",
+  "F0final_sma_de_maxPos",
+  "F0final_sma_percentile1.0",
+  "F0final_sma_lpc2",
+  "F0final_sma_de_quartile3",
+  "F0final_sma_de_minPos",
+  "F0final_sma_risetime",
+  "F0final_sma_linregc1",
+  "F0final_sma_de_qregc1",
+  "F0final_sma_de_kurtosis",
+  "F0final_sma_lpc4",
+  "F0final_sma_de_lpc0",
+  "F0final_sma_de_lpc3",
+  "F0final_sma_de_linregc1",
+  "F0final_sma_maxPos",
+  "F0final_sma_minPos"
+)
+f0_selected <- intersect(f0_candidates, names(df))
+cat("F0 features (selected):", length(f0_selected), "\n")
 
 # ─────────────────────────────────────────────────────────────
 # 2. Within-Between LME runner
@@ -132,7 +173,7 @@ cov_f0   <- "time_numeric + age + sex + Dx + AP_dose"
 cov_liwc <- "time_numeric + age + sex + Dx + edu_yrs"
 
 cat("\n=== F0 -> SSI (within-between, invnorm) ===\n")
-res_f0_wb <- run_wb_lme(df, f0_feats, "SSI", cov_f0)
+res_f0_wb <- run_wb_lme(df, f0_selected, "SSI", cov_f0)
 cat("Within  FDR-sig:", sum(res_f0_wb$q_within  < 0.05, na.rm = TRUE),
     " nominal:", sum(res_f0_wb$p_within  < 0.05, na.rm = TRUE), "\n")
 cat("Between FDR-sig:", sum(res_f0_wb$q_between < 0.05, na.rm = TRUE),
@@ -226,12 +267,18 @@ label_f0_base <- function(base) {
     base == "posamean"    ~ "Mean (voiced frames)",
     base == "stddev"      ~ "SD",
     base == "range"       ~ "Range",
-    base == "centroid"    ~ "Spectral centroid",
+    base == "centroid"        ~ "Spectral centroid",
+    base == "flatness"        ~ "Spectral flatness",
+    base == "risetime"        ~ "Rise time",
+    base == "maxPos"          ~ "Position of max",
+    base == "minPos"          ~ "Position of min",
+    base == "ff0_maxSegLen"   ~ "Max voiced segment len.",
     # LPC coefficients
-    base == "lpc1"        ~ "LPC coeff. 1",
-    base == "lpc2"        ~ "LPC coeff. 2",
-    base == "lpc3"        ~ "LPC coeff. 3",
-    base == "lpc4"        ~ "LPC coeff. 4",
+    base == "lpc0"            ~ "LPC coeff. 0",
+    base == "lpc1"            ~ "LPC coeff. 1",
+    base == "lpc2"            ~ "LPC coeff. 2",
+    base == "lpc3"            ~ "LPC coeff. 3",
+    base == "lpc4"            ~ "LPC coeff. 4",
     # Uplevel time (proportion of frames above Nth percentile of range)
     grepl("^upleveltime", base) ~
       paste0("% time > P", sub("upleveltime", "", base)),
