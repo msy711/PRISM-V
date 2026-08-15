@@ -1,0 +1,3 @@
+attempters mean=0.5001 n=801
+non-attempters mean=0.2171 n=2197
+t=8.587 p=2.755e-17

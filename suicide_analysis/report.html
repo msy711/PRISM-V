@@ -1,0 +1,1275 @@
+<title>자살 위험요인 아틀라스</title>
+
+<style>
+:root{
+  --page:#f6f5f1; --surface-1:#ffffff; --surface-2:#f0eee7;
+  --text-primary:#17150f; --text-secondary:#55534a; --text-muted:#8c897c;
+  --gridline:#e4e1d6; --axis:#c7c3b3; --border:rgba(23,21,15,0.11);
+  --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --series-4:#eda100;
+  --status-good:#0ca30c; --status-critical:#d03b3b;
+  --accent:#1c5cab; --accent-soft:#e8eefa;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --page:#121210; --surface-1:#1b1a17; --surface-2:#211f1b;
+    --text-primary:#f5f4ef; --text-secondary:#c3c2b7;
+    --text-muted:#938f83; --gridline:#2c2c28; --axis:#3a3833; --border:rgba(255,255,255,0.11);
+    --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500;
+    --status-good:#0ca30c; --status-critical:#e66767;
+    --accent:#6ba3ea; --accent-soft:#1e2a3d;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --page:#121210; --surface-1:#1b1a17; --surface-2:#211f1b;
+  --text-primary:#f5f4ef; --text-secondary:#c3c2b7; --text-muted:#938f83;
+  --gridline:#2c2c28; --axis:#3a3833; --border:rgba(255,255,255,0.11);
+  --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500;
+  --status-good:#0ca30c; --status-critical:#e66767;
+  --accent:#6ba3ea; --accent-soft:#1e2a3d;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--page); color:var(--text-primary);
+  font-family:-apple-system,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+  line-height:1.72; font-size:16px; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:920px; margin:0 auto; padding:0 24px 96px;}
+header.hero{
+  background:linear-gradient(180deg,var(--surface-1),var(--page));
+  border-bottom:1px solid var(--border); padding:52px 0 30px;
+}
+header.hero .wrap{padding-top:0;}
+.eyebrow{font-size:12.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); font-weight:700;}
+h1.title{font-size:clamp(26px,4vw,38px); line-height:1.28; margin:10px 0 12px; text-wrap:balance; letter-spacing:-0.01em;}
+.subtitle{color:var(--text-secondary); font-size:16.5px; max-width:70ch; margin:0 0 26px;}
+.stat-strip{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-top:10px;}
+.stat{background:var(--surface-1); padding:16px 18px;}
+.stat .n{font-variant-numeric:tabular-nums; font-size:23px; font-weight:750; letter-spacing:-0.02em;}
+.stat .l{font-size:12.5px; color:var(--text-muted); margin-top:3px;}
+nav.toc{display:flex; flex-wrap:wrap; gap:8px; margin:26px 0 8px;}
+nav.toc a{font-size:13px; color:var(--text-secondary); text-decoration:none; background:var(--surface-2); border:1px solid var(--border); padding:6px 12px; border-radius:99px; white-space:nowrap;}
+nav.toc a:hover{color:var(--accent); border-color:var(--accent);}
+section{padding:44px 0; border-bottom:1px solid var(--border);}
+section:last-of-type{border-bottom:none;}
+.sec-num{color:var(--accent); font-weight:700; font-size:13.5px; letter-spacing:.04em;}
+h2{font-size:25px; margin:6px 0 6px; letter-spacing:-0.01em; text-wrap:balance;}
+h3{font-size:18.5px; margin:30px 0 10px; letter-spacing:-0.005em;}
+h4{font-size:15.5px; margin:22px 0 8px; color:var(--text-primary);}
+p{color:var(--text-primary); max-width:74ch;}
+p.lede{color:var(--text-secondary); font-size:16.5px; max-width:72ch;}
+.card{background:var(--surface-1); border:1px solid var(--border); border-radius:14px; padding:22px 24px; margin:18px 0;}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+.grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+@media (max-width:760px){.grid2,.grid3{grid-template-columns:1fr;}}
+figure{margin:18px 0;}
+figcaption{font-size:13px; color:var(--text-muted); margin-top:10px; max-width:70ch; line-height:1.55;}
+figcaption b{color:var(--text-secondary);}
+.tablewrap{overflow-x:auto; border:1px solid var(--border); border-radius:12px; margin:18px 0;}
+table{border-collapse:collapse; width:100%; font-size:13.6px; min-width:520px;}
+th,td{padding:9px 13px; text-align:left; border-bottom:1px solid var(--border); white-space:nowrap;}
+th{background:var(--surface-2); color:var(--text-secondary); font-weight:650; font-size:12px; text-transform:uppercase; letter-spacing:.03em;}
+td{font-variant-numeric:tabular-nums; color:var(--text-primary);}
+tr:last-child td{border-bottom:none;}
+.tag{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:650; padding:3px 10px; border-radius:99px;}
+.tag-mdd{background:color-mix(in srgb, var(--series-2) 16%, transparent); color:var(--series-2);}
+.tag-ctrl{background:color-mix(in srgb, var(--series-1) 16%, transparent); color:var(--series-1);}
+.tag-risk{background:color-mix(in srgb, var(--status-critical) 15%, transparent); color:var(--status-critical);}
+.tag-protect{background:color-mix(in srgb, var(--status-good) 16%, transparent); color:var(--status-good);}
+.callout{border-left:3px solid var(--accent); background:var(--accent-soft); border-radius:0 10px 10px 0; padding:14px 18px; margin:18px 0; font-size:14.6px; color:var(--text-secondary);}
+.callout b{color:var(--text-primary);}
+.finding{border:1px solid var(--border); border-radius:12px; padding:16px 18px; margin:14px 0; background:var(--surface-1);}
+.finding .h{font-weight:700; font-size:14.8px; margin-bottom:4px;}
+.finding .d{font-size:14px; color:var(--text-secondary);}
+.reflist{list-style:none; padding:0; margin:14px 0; display:flex; flex-direction:column; gap:10px;}
+.reflist li{font-size:13.8px; color:var(--text-secondary); padding-left:18px; position:relative;}
+.reflist li::before{content:"—"; position:absolute; left:0; color:var(--text-muted);}
+.reflist a{color:var(--accent); text-decoration:none;}
+.reflist a:hover{text-decoration:underline;}
+code{background:var(--surface-2); padding:1px 6px; border-radius:5px; font-size:.9em;}
+.limits li{margin:6px 0; color:var(--text-secondary); font-size:14.6px;}
+footer{padding:36px 0 10px; color:var(--text-muted); font-size:12.5px;}
+.small{font-size:12.5px; color:var(--text-muted);}
+::selection{background:var(--accent-soft);}
+a{color:var(--accent);}
+</style>
+
+
+<header class="hero"><div class="wrap">
+<div class="eyebrow">KOMOGEN 여성 표본 · 통합 통계분석 보고서</div>
+<h1 class="title">재발성 우울장애 한국인 여성의 자살 위험요인 통합분석</h1>
+<p class="subtitle">건강대조군을 포함한 6,049명(재발성 주요우울장애 3,000명, 건강대조군 3,049명)의 구조화 면담 자료와,
+환자군 2,998명·8,889개 우울 삽화의 생애사 달력(Life History Calendar) 자료를 결합하여, 자살사고·계획·시도의 유병률,
+위험요인, 증상 네트워크 구조, 발병 이후 시간경과에 따른 위험을 검토했습니다.</p>
+<div class="stat-strip">
+  <div class="stat"><div class="n">6,049</div><div class="l">전체 대상자 (여성)</div></div>
+  <div class="stat"><div class="n">3,000</div><div class="l">재발성 우울장애군</div></div>
+  <div class="stat"><div class="n">3,049</div><div class="l">건강대조군</div></div>
+  <div class="stat"><div class="n">26.7%</div><div class="l">평생 자살시도율 (환자군)</div></div>
+  <div class="stat"><div class="n">65.7%</div><div class="l">평생 자살사고율 (환자군)</div></div>
+  <div class="stat"><div class="n">8,889</div><div class="l">분석된 우울 삽화 수</div></div>
+</div>
+<nav class="toc">
+  <a href="#intro">1. 배경</a><a href="#methods">2. 자료·방법</a><a href="#prevalence">3. 유병률</a>
+  <a href="#riskfactors">4. 위험요인</a><a href="#repeat">5. 반복시도</a><a href="#fullsample">6. 전체표본 SI</a>
+  <a href="#factor">7. 요인분석</a><a href="#network">8. 증상 네트워크</a><a href="#rfnetwork">9. 위험요인 네트워크</a>
+  <a href="#survival">10. 발병-시도 시간</a><a href="#lhc">11. 삽화 분석</a><a href="#discussion">12. 종합논의</a>
+  <a href="#limits">13. 제한점</a><a href="#refs">참고문헌</a>
+</nav>
+</div></header>
+
+<div class="wrap">
+
+<section id="intro">
+<div class="sec-num">01</div>
+<h2>배경 및 목적</h2>
+<p class="lede">최근 3년(2023–2026) JAMA Psychiatry, Molecular Psychiatry, Translational Psychiatry, British Journal of
+Psychiatry, Scientific Reports 등에 발표된 자살 관련 연구들을 검토한 결과, 아래 다섯 갈래의 분석 흐름이 반복적으로
+확인되었습니다. 본 보고서는 이를 우리 표본에서 재현 가능한지 검토한 뒤, 가능한 범위에서 모두 수행했습니다.</p>
+<div class="grid2">
+<div class="finding"><div class="h">① 다변량 위험요인 · 예측모형</div><div class="d">임상·인구학적 지표를 결합해 자살시도를
+예측하는 노모그램/위험모형 연구 (Frontiers in Psychiatry 2025 노모그램; Molecular Psychiatry 2026 자해 예측모형, n=102,863).</div></div>
+<div class="finding"><div class="h">② 증상 네트워크 분석</div><div class="d">우울·불안 증상망에서 자살사고 노드의 중심성과
+가교증상(bridge symptom)을 규명하는 연구 (Scientific Reports 2025; General Psychiatry 2024; Frontiers Psychiatry 2025).</div></div>
+<div class="finding"><div class="h">③ 아동기 성적 학대와 자살</div><div class="d">아동기 성적 학대(CSA)가 우울·PTSD를 매개로
+자살사고·시도 위험을 높인다는 반복 확인 (PMC 2025 리뷰; Frontiers Psychiatry 2025 예측인자 연구).</div></div>
+<div class="finding"><div class="h">④ 가족력 · 재발과 자살</div><div class="d">기분장애 가족력과 삽화 재발이 자살위험의
+세대간 전달 및 반복시도와 연관된다는 메타분석 (BJP 가족적 전달 모형; 청소년 대상 12M+ 메타분석 2025).</div></div>
+</div>
+<p>그 외에 자살사고의 잠재구조(수동적/능동적 사고의 요인 분리, <i>Suicide &amp; Life-Threatening Behavior</i> 2023),
+Kendler식 생애 스트레스 사건의 맥락적 위협도와 근접 자살위험의 연관성(<i>Psychiatric Quarterly</i> 2023), 부모
+양육태도(PBI)·신경증 성향·사회적 지지가 자살사고에 미치는 영향(2023–2025 다수) 문헌을 참고하여 분석 항목을 구성했습니다.
+한국인 여성 대상 최신 국내 연구는 경제적 스트레스, 노동시장 차별, 미혼 여성의 심리적 고통 등을 위험요인으로 보고하고
+있어(BMC Women's Health 2026; PMC 2024), 결과 해석 시 문화적 맥락으로 함께 고려했습니다.</p>
+</section>
+
+
+<section id="methods">
+<div class="sec-num">02</div>
+<h2>자료 및 분석 방법</h2>
+<div class="grid2">
+<div class="card">
+<h4 style="margin-top:0">표본 1 · 개인 수준 (n=6,049)</h4>
+<p style="font-size:14.5px">한 행 = 한 명. DSM 진단기준, 평생 자살사고/계획/시도 및 치명도, 현재 증상체크리스트(SCL,
+16문항, <b>양 군 모두 포함</b>), 아동기 성적학대(CSA), 부모 양육태도(PBI, 부/모 각 16문항), 사회적 관계망, 신경증
+성향(EPQ-N 23문항), 생애 스트레스 사건(SLE), 기분장애 가족력, 공존 불안/공황, 임상 아형(멜랑콜리아/비정형/정신병적/
+조증 특징) 등 330개 변수.</p>
+</div>
+<div class="card">
+<h4 style="margin-top:0">표본 2 · 삽화 수준 LHC (17,239행 → 8,889행 연결)</h4>
+<p style="font-size:14.5px">환자군만 포함, 한 행 = 한 우울 삽화. 삽화 발생 연령·기간, 선행 생애 스트레스 사건의 유형·개수,
+Kendler식 독립/의존 사건 구분, 사건 심각도 합성지표(severity_composite) 포함. Study ID로 개인 수준 자료와 연결하여
+2,998명(환자군의 99.9%)의 삽화 이력을 자살시도 이력과 결합 분석했습니다.</p>
+</div>
+</div>
+<p style="font-size:14.5px" class="small">통계분석: 이변량 비교(t-검정·카이제곱), 다변량 로지스틱 회귀(표준화 OR, 95%
+CI, 5-fold 교차검증 AUC), 탐색적 요인분석(minres 추출·oblimin 회전, KMO/Bartlett 적합도, Cronbach α), 그래프 라쏘
+기반 가우스 그래프 모형 네트워크 분석(EBIC 정규화강도 선택, 편상관 기반 강도·매개·근접 중심성), 자체 구현
+Kaplan–Meier 생존분석 및 로그순위검정, 삽화-수준 대응표본 Wilcoxon 검정을 사용했습니다. Python
+(pandas/statsmodels/factor_analyzer/networkx/scikit-learn)으로 수행했으며, 재현 가능한 전체 스크립트는 저장소의
+<code>suicide_analysis/scripts/</code>에 포함되어 있습니다.</p>
+</section>
+
+
+<section id="prevalence">
+<div class="sec-num">03</div>
+<h2>자살 관련 표현형의 유병률</h2>
+<p class="lede">재발성 우울장애군에서는 생애면접을 통해 확인한 <b>평생</b> 자살사고·계획·시도를, 건강대조군을 포함한 전체
+표본에서는 SCL 문항으로 측정한 <b>최근 1주 이내</b> 자살사고를 각각 확인했습니다.</p>
+<div class="grid2">
+<figure><svg viewBox="0 0 640 340" width="100%" role="img" aria-label="lifetime suicidality cascade" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
+<line x1="190.0" y1="30" x2="190.0" y2="280" stroke="var(--gridline)" stroke-width="1"/>
+<text x="190.0" y="298" text-anchor="middle" font-size="11" fill="var(--text-muted)">0.0%</text>
+<line x1="297.5" y1="30" x2="297.5" y2="280" stroke="var(--gridline)" stroke-width="1"/>
+<text x="297.5" y="298" text-anchor="middle" font-size="11" fill="var(--text-muted)">18.9%</text>
+<line x1="405.0" y1="30" x2="405.0" y2="280" stroke="var(--gridline)" stroke-width="1"/>
+<text x="405.0" y="298" text-anchor="middle" font-size="11" fill="var(--text-muted)">37.8%</text>
+<line x1="512.5" y1="30" x2="512.5" y2="280" stroke="var(--gridline)" stroke-width="1"/>
+<text x="512.5" y="298" text-anchor="middle" font-size="11" fill="var(--text-muted)">56.7%</text>
+<line x1="620.0" y1="30" x2="620.0" y2="280" stroke="var(--gridline)" stroke-width="1"/>
+<text x="620.0" y="298" text-anchor="middle" font-size="11" fill="var(--text-muted)">75.6%</text>
+<text x="180" y="75.66666666666667" text-anchor="end" font-size="12.5" fill="var(--text-primary)">평생 자살사고(Suicidal ideation)</text>
+<rect x="190" y="46.7" width="373.9" height="50.0" rx="3" fill="var(--series-2)"/>
+<text x="571.9" y="75.66666666666667" font-size="12.5" font-weight="600" fill="var(--text-primary)">65.7%</text>
+<text x="180" y="159.0" text-anchor="end" font-size="12.5" fill="var(--text-primary)">구체적 자살계획(Plan)</text>
+<rect x="190" y="130.0" width="232.8" height="50.0" rx="3" fill="var(--series-2)"/>
+<text x="430.8" y="159.0" font-size="12.5" font-weight="600" fill="var(--text-primary)">40.9%</text>
+<text x="180" y="242.33333333333331" text-anchor="end" font-size="12.5" fill="var(--text-primary)">자살시도(Attempt)</text>
+<rect x="190" y="213.3" width="152.0" height="50.0" rx="3" fill="var(--series-2)"/>
+<text x="350.0" y="242.33333333333331" font-size="12.5" font-weight="600" fill="var(--text-primary)">26.7%</text>
+<line x1="190" y1="280" x2="620" y2="280" stroke="var(--axis)" stroke-width="1.5"/>
+</svg><figcaption><b>그림 1.</b> 재발성 우울장애군(n=3,000)의 평생 자살사고 단계적 이환율. 사고에서 계획,
+시도로 이어지는 단계마다 감소하지만 시도까지 진행하는 비율(26.7%)이 상당히 높습니다.</figcaption></figure>
+<figure><svg viewBox="0 0 640 260" width="100%" role="img" aria-label="bar chart" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
+<line x1="60" y1="210.0" x2="616" y2="210.0" stroke="var(--gridline)" stroke-width="1"/>
+<text x="52" y="214.0" text-anchor="end" font-size="11" fill="var(--text-muted)">0%</text>
+<line x1="60" y1="163.5" x2="616" y2="163.5" stroke="var(--gridline)" stroke-width="1"/>
+<text x="52" y="167.5" text-anchor="end" font-size="11" fill="var(--text-muted)">17%</text>
+<line x1="60" y1="117.0" x2="616" y2="117.0" stroke="var(--gridline)" stroke-width="1"/>
+<text x="52" y="121.0" text-anchor="end" font-size="11" fill="var(--text-muted)">33%</text>
+<line x1="60" y1="70.5" x2="616" y2="70.5" stroke="var(--gridline)" stroke-width="1"/>
+<text x="52" y="74.5" text-anchor="end" font-size="11" fill="var(--text-muted)">50%</text>
+<line x1="60" y1="24.0" x2="616" y2="24.0" stroke="var(--gridline)" stroke-width="1"/>
+<text x="52" y="28.0" text-anchor="end" font-size="11" fill="var(--text-muted)">67%</text>
+<rect x="152.7" y="179.3" width="152.0" height="30.7" rx="3" fill="var(--series-1)"/>
+<text x="228.7" y="173.3" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">11%</text>
+<rect x="338.0" y="55.0" width="152.0" height="155.0" rx="3" fill="var(--series-2)"/>
+<text x="414.0" y="49.0" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">56%</text>
+<text x="338.0" y="230" text-anchor="middle" font-size="12" fill="var(--text-primary)">최근 1주 자살사고
+(SCL 문항 ≥ 2점)</text>
+<line x1="60" y1="210" x2="616" y2="210" stroke="var(--axis)" stroke-width="1.5"/>
+<rect x="60.0" y="5" width="10" height="10" rx="2" fill="var(--series-1)"/>
+<text x="75.0" y="14.0" font-size="11.5" fill="var(--text-secondary)">건강대조군</text>
+<rect x="131.0" y="5" width="10" height="10" rx="2" fill="var(--series-2)"/>
+<text x="146.0" y="14.0" font-size="11.5" fill="var(--text-secondary)">재발성 우울장애군</text>
+</svg><figcaption><b>그림 2.</b> 최근 1주 이내 자살사고(SCL 문항 2점 이상)를 보고한 비율. 건강대조군에서도
+11.0%가 경도 이상의 자살사고를 보고해, '건강대조군'이라도 자살사고로부터 완전히 자유롭지 않음을 보여줍니다.</figcaption></figure>
+</div>
+<div class="callout"><b>주목할 점 —</b> 평생 자살시도 경험자 802명(전체 환자군의 26.7%) 중 <b>65.1%(522명)가 2회 이상
+반복 시도</b>를 보고했습니다. 또한 평가 시점 기준으로도 환자군의 27.1%(814/3,002)가 여전히 자살사고 또는 구체적 계획을
+가지고 있다고 응답했습니다 (사고만 23.2%, 구체적 계획 동반 3.9%).</div>
+<div class="grid2">
+<figure><svg viewBox="0 0 640 340" width="100%" role="img" aria-label="method" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
+<line x1="190.0" y1="30" x2="190.0" y2="280" stroke="var(--gridline)" stroke-width="1"/>
+<text x="190.0" y="298" text-anchor="middle" font-size="11" fill="var(--text-muted)">0.0%</text>
+<line x1="297.5" y1="30" x2="297.5" y2="280" stroke="var(--gridline)" stroke-width="1"/>
+<text x="297.5" y="298" text-anchor="middle" font-size="11" fill="var(--text-muted)">13.4%</text>
+<line x1="405.0" y1="30" x2="405.0" y2="280" stroke="var(--gridline)" stroke-width="1"/>
+<text x="405.0" y="298" text-anchor="middle" font-size="11" fill="var(--text-muted)">26.8%</text>
+<line x1="512.5" y1="30" x2="512.5" y2="280" stroke="var(--gridline)" stroke-width="1"/>
+<text x="512.5" y="298" text-anchor="middle" font-size="11" fill="var(--text-muted)">40.2%</text>
+<line x1="620.0" y1="30" x2="620.0" y2="280" stroke="var(--gridline)" stroke-width="1"/>
+<text x="620.0" y="298" text-anchor="middle" font-size="11" fill="var(--text-muted)">53.6%</text>
+<text x="180" y="65.25" text-anchor="end" font-size="12.5" fill="var(--text-primary)">과량복용(Overdose)</text>
+<rect x="190" y="42.5" width="373.9" height="37.5" rx="3" fill="var(--series-4)"/>
+<text x="571.9" y="65.25" font-size="12.5" font-weight="600" fill="var(--text-primary)">46.6%</text>
+<text x="180" y="127.75" text-anchor="end" font-size="12.5" fill="var(--text-primary)">기타 방법</text>
+<rect x="190" y="105.0" width="224.7" height="37.5" rx="3" fill="var(--series-4)"/>
+<text x="422.7" y="127.75" font-size="12.5" font-weight="600" fill="var(--text-primary)">28.0%</text>
+<text x="180" y="190.25" text-anchor="end" font-size="12.5" fill="var(--text-primary)">목맴(Hanging)</text>
+<rect x="190" y="167.5" width="122.0" height="37.5" rx="3" fill="var(--series-4)"/>
+<text x="320.0" y="190.25" font-size="12.5" font-weight="600" fill="var(--text-primary)">15.2%</text>
+<text x="180" y="252.75" text-anchor="end" font-size="12.5" fill="var(--text-primary)">투신(Jumping)</text>
+<rect x="190" y="230.0" width="75.4" height="37.5" rx="3" fill="var(--series-4)"/>
+<text x="273.4" y="252.75" font-size="12.5" font-weight="600" fill="var(--text-primary)">9.4%</text>
+<line x1="190" y1="280" x2="620" y2="280" stroke="var(--axis)" stroke-width="1.5"/>
+</svg><figcaption><b>그림 3.</b> 자살시도 방법 (n=801, 무응답 7명 제외). 과량복용이 가장 흔한 방법입니다.</figcaption></figure>
+<figure><svg viewBox="0 0 640 340" width="100%" role="img" aria-label="damage severity" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
+<line x1="190.0" y1="30" x2="190.0" y2="280" stroke="var(--gridline)" stroke-width="1"/>
+<text x="190.0" y="298" text-anchor="middle" font-size="11" fill="var(--text-muted)">0.0%</text>
+<line x1="297.5" y1="30" x2="297.5" y2="280" stroke="var(--gridline)" stroke-width="1"/>
+<text x="297.5" y="298" text-anchor="middle" font-size="11" fill="var(--text-muted)">12.5%</text>
+<line x1="405.0" y1="30" x2="405.0" y2="280" stroke="var(--gridline)" stroke-width="1"/>
+<text x="405.0" y="298" text-anchor="middle" font-size="11" fill="var(--text-muted)">25.0%</text>
+<line x1="512.5" y1="30" x2="512.5" y2="280" stroke="var(--gridline)" stroke-width="1"/>
+<text x="512.5" y="298" text-anchor="middle" font-size="11" fill="var(--text-muted)">37.5%</text>
+<line x1="620.0" y1="30" x2="620.0" y2="280" stroke="var(--gridline)" stroke-width="1"/>
+<text x="620.0" y="298" text-anchor="middle" font-size="11" fill="var(--text-muted)">50.0%</text>
+<text x="180" y="59.0" text-anchor="end" font-size="12.5" fill="var(--text-primary)">경미하거나 없음</text>
+<rect x="190" y="40.0" width="373.9" height="30.0" rx="3" fill="var(--status-critical)"/>
+<text x="571.9" y="59.0" font-size="12.5" font-weight="600" fill="var(--text-primary)">43.5%</text>
+<text x="180" y="109.0" text-anchor="end" font-size="12.5" fill="var(--text-primary)">경도 손상</text>
+<rect x="190" y="90.0" width="158.2" height="30.0" rx="3" fill="var(--status-critical)"/>
+<text x="356.2" y="109.0" font-size="12.5" font-weight="600" fill="var(--text-primary)">18.4%</text>
+<text x="180" y="159.0" text-anchor="end" font-size="12.5" fill="var(--text-primary)">중등도 손상</text>
+<rect x="190" y="140.0" width="155.6" height="30.0" rx="3" fill="var(--status-critical)"/>
+<text x="353.6" y="159.0" font-size="12.5" font-weight="600" fill="var(--text-primary)">18.1%</text>
+<text x="180" y="209.0" text-anchor="end" font-size="12.5" fill="var(--text-primary)">중등도-중증 손상</text>
+<rect x="190" y="190.0" width="117.8" height="30.0" rx="3" fill="var(--status-critical)"/>
+<text x="315.8" y="209.0" font-size="12.5" font-weight="600" fill="var(--text-primary)">13.7%</text>
+<text x="180" y="259.0" text-anchor="end" font-size="12.5" fill="var(--text-primary)">중증 손상</text>
+<rect x="190" y="240.0" width="55.0" height="30.0" rx="3" fill="var(--status-critical)"/>
+<text x="253.0" y="259.0" font-size="12.5" font-weight="600" fill="var(--text-primary)">6.4%</text>
+<line x1="190" y1="280" x2="620" y2="280" stroke="var(--axis)" stroke-width="1.5"/>
+</svg><figcaption><b>그림 4.</b> 자살시도로 인한 신체적 손상 정도 (n=796). 43.5%는 경미하거나 손상이 없었으나,
+20.1%는 중등도-중증 이상의 손상을 입었습니다.</figcaption></figure>
+</div>
+</section>
+
+
+<section id="riskfactors">
+<div class="sec-num">04</div>
+<h2>평생 자살시도의 위험요인</h2>
+<p class="lede">문헌에서 반복적으로 보고된 임상·심리사회적 후보 변수 19개를 재발성 우울장애군(n=3,000) 내에서
+자살시도 유무에 대한 단변량 로지스틱 회귀로 선별한 뒤, 유의한 변수를 포함한 다변량 모형으로 독립적 위험요인을
+확인했습니다 (Frontiers in Psychiatry 2025 노모그램 연구의 접근을 참고).</p>
+<h3>4.1 단변량 선별</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>변수</th><th>n</th><th>OR</th><th>95% CI</th><th>p</th></tr></thead>
+<tbody><tr><td>현재 우울증상 총점(SCL)</td><td>3000</td><td><span class="tag tag-risk">1.03</span></td><td>1.03–1.04</td><td>3.6e-35</td></tr>
+<tr><td>죽고 싶다는 생각(EPQ-N 문항)</td><td>2997</td><td><span class="tag tag-risk">3.63</span></td><td>2.93–4.48</td><td>1.9e-32</td></tr>
+<tr><td>생애 스트레스 사건 총점</td><td>3000</td><td><span class="tag tag-risk">1.21</span></td><td>1.17–1.25</td><td>1.4e-30</td></tr>
+<tr><td>우울 증상 개수(DSM)</td><td>3000</td><td><span class="tag tag-risk">1.70</span></td><td>1.53–1.89</td><td>1.8e-22</td></tr>
+<tr><td>신경증 성향(Neuroticism)</td><td>3000</td><td><span class="tag tag-risk">1.08</span></td><td>1.06–1.09</td><td>4.0e-18</td></tr>
+<tr><td>발병 연령</td><td>3000</td><td><span class="tag tag-protect">0.97</span></td><td>0.96–0.98</td><td>1.6e-14</td></tr>
+<tr><td>공황장애 동반</td><td>3000</td><td><span class="tag tag-risk">1.66</span></td><td>1.39–1.99</td><td>3.2e-08</td></tr>
+<tr><td>기분저하증 동반</td><td>3000</td><td><span class="tag tag-risk">1.64</span></td><td>1.36–1.97</td><td>1.2e-07</td></tr>
+<tr><td>범불안장애 동반</td><td>3000</td><td><span class="tag tag-risk">1.56</span></td><td>1.32–1.85</td><td>1.6e-07</td></tr>
+<tr><td>현재 연령</td><td>3000</td><td><span class="tag tag-protect">0.98</span></td><td>0.98–0.99</td><td>3.5e-06</td></tr>
+<tr><td>멜랑콜리아 아형</td><td>3000</td><td><span class="tag tag-risk">1.86</span></td><td>1.42–2.43</td><td>5.6e-06</td></tr>
+<tr><td>조증 증상 동반</td><td>3000</td><td><span class="tag tag-risk">1.48</span></td><td>1.23–1.77</td><td>2.3e-05</td></tr>
+<tr><td>아동기 성적학대</td><td>3000</td><td><span class="tag tag-risk">1.36</span></td><td>1.15–1.61</td><td>3.9e-04</td></tr>
+<tr><td>조증 가족력 비율</td><td>2903</td><td><span class="tag tag-risk">2.51</span></td><td>1.32–4.79</td><td>0.005</td></tr>
+<tr><td>우울 삽화 횟수</td><td>3000</td><td><span class="tag tag-risk">1.04</span></td><td>1.01–1.07</td><td>0.006</td></tr>
+<tr><td>우울증 가족력 비율</td><td>2877</td><td><span class="tag tag-risk">1.39</span></td><td>1.08–1.79</td><td>0.011</td></tr>
+<tr><td>비정형 증상 동반</td><td>3000</td><td><span class="tag tag-risk">1.23</span></td><td>1.05–1.45</td><td>0.012</td></tr>
+<tr><td>이환 기간</td><td>3000</td><td><span class="tag tag-risk">1.01</span></td><td>1.00–1.02</td><td>0.027</td></tr>
+<tr><td>조증 가족력 유무</td><td>3000</td><td>1.26</td><td>0.94–1.69</td><td>0.118</td></tr>
+<tr><td>우울증 가족력 유무</td><td>3000</td><td>1.11</td><td>0.95–1.31</td><td>0.199</td></tr></tbody>
+</table></div>
+<p class="small">범주형 변수(카이제곱검정)도 모두 유의했습니다: 혼인상태(p=1.3×10⁻¹⁰), 직업 유무(p=1.8×10⁻⁴), 음주
+문제(p=1.2×10⁻³), 교육수준(p=1.3×10⁻³), 직종(p=2.2×10⁻³). 약물 남용은 표본 내 유병률이 낮아(5/3,000) 유의하지
+않았습니다.</p>
+
+<h3>4.2 다변량 모형 — 독립적 위험요인</h3>
+<figure><svg viewBox="0 0 680 636" width="100%" role="img" aria-label="forest plot" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
+<line x1="302.8" y1="30" x2="302.8" y2="576" stroke="var(--gridline)" stroke-width="1" stroke-dasharray="2,2"/>
+<text x="302.8" y="594" text-anchor="middle" font-size="11" fill="var(--text-muted)">0.5</text>
+<line x1="428.7" y1="30" x2="428.7" y2="576" stroke="var(--gridline)" stroke-width="1" stroke-dasharray="0"/>
+<text x="428.7" y="594" text-anchor="middle" font-size="11" fill="var(--text-muted)">1</text>
+<line x1="554.6" y1="30" x2="554.6" y2="576" stroke="var(--gridline)" stroke-width="1" stroke-dasharray="2,2"/>
+<text x="554.6" y="594" text-anchor="middle" font-size="11" fill="var(--text-muted)">2</text>
+<text x="425.0" y="610" text-anchor="middle" font-size="11.5" fill="var(--text-secondary)">Odds ratio (log scale, 95% CI)</text>
+<text x="200" y="47.0" text-anchor="end" font-size="12" fill="var(--text-primary)">우울 증상 개수 (DSM 기준)</text>
+<line x1="484.4" y1="43.0" x2="539.4" y2="43.0" stroke="var(--status-critical)" stroke-width="2"/>
+<circle cx="511.9" cy="43.0" r="5" fill="var(--status-critical)"/>
+<text x="648.0" y="47.0" font-size="11" fill="var(--text-secondary)">1.58 (1.36–1.84)</text>
+<text x="200" y="73.0" text-anchor="end" font-size="12" fill="var(--text-primary)">멜랑콜리아 아형</text>
+<line x1="416.1" y1="69.0" x2="570.0" y2="69.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="493.0" cy="69.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="73.0" font-size="11" fill="var(--text-secondary)">1.42 (0.93–2.18)</text>
+<text x="200" y="99.0" text-anchor="end" font-size="12" fill="var(--text-primary)">공황장애 동반</text>
+<line x1="437.7" y1="95.0" x2="527.9" y2="95.0" stroke="var(--status-critical)" stroke-width="2"/>
+<circle cx="482.8" cy="95.0" r="5" fill="var(--status-critical)"/>
+<text x="648.0" y="99.0" font-size="11" fill="var(--text-secondary)">1.35 (1.05–1.73)</text>
+<text x="200" y="125.0" text-anchor="end" font-size="12" fill="var(--text-primary)">생애 스트레스 생활사건 총점</text>
+<line x1="448.9" y1="121.0" x2="495.0" y2="121.0" stroke="var(--status-critical)" stroke-width="2"/>
+<circle cx="471.9" cy="121.0" r="5" fill="var(--status-critical)"/>
+<text x="648.0" y="125.0" font-size="11" fill="var(--text-secondary)">1.27 (1.12–1.44)</text>
+<text x="200" y="151.0" text-anchor="end" font-size="12" fill="var(--text-primary)">신경증 성향 (Neuroticism)</text>
+<line x1="434.5" y1="147.0" x2="484.3" y2="147.0" stroke="var(--status-critical)" stroke-width="2"/>
+<circle cx="459.4" cy="147.0" r="5" fill="var(--status-critical)"/>
+<text x="648.0" y="151.0" font-size="11" fill="var(--text-secondary)">1.18 (1.03–1.36)</text>
+<text x="200" y="177.0" text-anchor="end" font-size="12" fill="var(--text-primary)">조증 증상 동반</text>
+<line x1="409.4" y1="173.0" x2="501.0" y2="173.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="455.2" cy="173.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="177.0" font-size="11" fill="var(--text-secondary)">1.16 (0.90–1.49)</text>
+<text x="200" y="203.0" text-anchor="end" font-size="12" fill="var(--text-primary)">범불안장애 동반</text>
+<line x1="409.4" y1="199.0" x2="495.7" y2="199.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="452.6" cy="199.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="203.0" font-size="11" fill="var(--text-secondary)">1.14 (0.90–1.45)</text>
+<text x="200" y="229.0" text-anchor="end" font-size="12" fill="var(--text-primary)">조증(양극성) 가족력 비율</text>
+<line x1="428.9" y1="225.0" x2="466.0" y2="225.0" stroke="var(--status-critical)" stroke-width="2"/>
+<circle cx="447.4" cy="225.0" r="5" fill="var(--status-critical)"/>
+<text x="648.0" y="229.0" font-size="11" fill="var(--text-secondary)">1.11 (1.00–1.23)</text>
+<text x="200" y="255.0" text-anchor="end" font-size="12" fill="var(--text-primary)">우울 삽화 횟수</text>
+<line x1="428.8" y1="251.0" x2="463.8" y2="251.0" stroke="var(--status-critical)" stroke-width="2"/>
+<circle cx="446.3" cy="251.0" r="5" fill="var(--status-critical)"/>
+<text x="648.0" y="255.0" font-size="11" fill="var(--text-secondary)">1.10 (1.00–1.21)</text>
+<text x="200" y="281.0" text-anchor="end" font-size="12" fill="var(--text-primary)">모 양육태도 - 돌봄(Care)</text>
+<line x1="421.9" y1="277.0" x2="467.2" y2="277.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="444.6" cy="277.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="281.0" font-size="11" fill="var(--text-secondary)">1.09 (0.96–1.24)</text>
+<text x="200" y="307.0" text-anchor="end" font-size="12" fill="var(--text-primary)">모 양육태도 - 과보호</text>
+<line x1="420.1" y1="303.0" x2="466.0" y2="303.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="443.1" cy="303.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="307.0" font-size="11" fill="var(--text-secondary)">1.08 (0.95–1.23)</text>
+<text x="200" y="333.0" text-anchor="end" font-size="12" fill="var(--text-primary)">비정형 증상 동반</text>
+<line x1="393.7" y1="329.0" x2="477.4" y2="329.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="435.5" cy="329.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="333.0" font-size="11" fill="var(--text-secondary)">1.04 (0.82–1.31)</text>
+<text x="200" y="359.0" text-anchor="end" font-size="12" fill="var(--text-primary)">사회적 갈등/마찰</text>
+<line x1="410.0" y1="355.0" x2="451.8" y2="355.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="430.9" cy="355.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="359.0" font-size="11" fill="var(--text-secondary)">1.01 (0.90–1.14)</text>
+<text x="200" y="385.0" text-anchor="end" font-size="12" fill="var(--text-primary)">부 양육태도 - 돌봄(Care)</text>
+<line x1="405.8" y1="381.0" x2="449.5" y2="381.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="427.7" cy="381.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="385.0" font-size="11" fill="var(--text-secondary)">0.99 (0.88–1.12)</text>
+<text x="200" y="411.0" text-anchor="end" font-size="12" fill="var(--text-primary)">부 양육태도 - 과보호</text>
+<line x1="400.5" y1="407.0" x2="445.5" y2="407.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="423.0" cy="407.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="411.0" font-size="11" fill="var(--text-secondary)">0.97 (0.86–1.10)</text>
+<text x="200" y="437.0" text-anchor="end" font-size="12" fill="var(--text-primary)">사회적 지지</text>
+<line x1="398.0" y1="433.0" x2="437.4" y2="433.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="417.7" cy="433.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="437.0" font-size="11" fill="var(--text-secondary)">0.94 (0.84–1.05)</text>
+<text x="200" y="463.0" text-anchor="end" font-size="12" fill="var(--text-primary)">우울증 가족력 비율</text>
+<line x1="386.8" y1="459.0" x2="429.7" y2="459.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="408.3" cy="459.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="463.0" font-size="11" fill="var(--text-secondary)">0.89 (0.79–1.01)</text>
+<text x="200" y="489.0" text-anchor="end" font-size="12" fill="var(--text-primary)">발병 연령</text>
+<line x1="376.9" y1="485.0" x2="425.4" y2="485.0" stroke="var(--status-good)" stroke-width="2"/>
+<circle cx="401.2" cy="485.0" r="5" fill="var(--status-good)"/>
+<text x="648.0" y="489.0" font-size="11" fill="var(--text-secondary)">0.86 (0.75–0.98)</text>
+<text x="200" y="515.0" text-anchor="end" font-size="12" fill="var(--text-primary)">아동기 성적 학대 경험</text>
+<line x1="342.3" y1="511.0" x2="435.1" y2="511.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="388.7" cy="511.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="515.0" font-size="11" fill="var(--text-secondary)">0.80 (0.62–1.04)</text>
+<text x="200" y="541.0" text-anchor="end" font-size="12" fill="var(--text-primary)">교육 수준</text>
+<line x1="357.1" y1="537.0" x2="407.3" y2="537.0" stroke="var(--status-good)" stroke-width="2"/>
+<circle cx="382.2" cy="537.0" r="5" fill="var(--status-good)"/>
+<text x="648.0" y="541.0" font-size="11" fill="var(--text-secondary)">0.77 (0.67–0.89)</text>
+<text x="200" y="567.0" text-anchor="end" font-size="12" fill="var(--text-primary)">현재 연령</text>
+<line x1="347.9" y1="563.0" x2="409.4" y2="563.0" stroke="var(--status-good)" stroke-width="2"/>
+<circle cx="378.7" cy="563.0" r="5" fill="var(--status-good)"/>
+<text x="648.0" y="567.0" font-size="11" fill="var(--text-secondary)">0.76 (0.64–0.90)</text>
+<line x1="210" y1="30" x2="210" y2="576" stroke="var(--axis)" stroke-width="1"/>
+</svg><figcaption><b>그림 5.</b> 평생 자살시도에 대한 다변량 로지스틱 회귀 (표준화 OR, 95% CI, n=2,079).
+<span style="color:var(--status-critical)">●빨강</span> = 통계적으로 유의한 위험 증가, <span style="color:var(--status-good)">●초록</span> = 유의한 보호 효과,
+회색 = 비유의. 혼인상태 더미변수 3개는 그림에서 생략(본문 참조). 모형의 5-fold 교차검증 AUC = <b>0.694</b>(SD 0.025).</figcaption></figure>
+<div class="callout"><b>핵심 소견 —</b> 다른 모든 변수를 통제한 뒤에도 <b>현재 우울증상의 심각도(개수)</b>가 가장 강력한
+독립 예측인자였고(OR 1.58/SD), <b>생애 누적 스트레스</b>(OR 1.27), <b>신경증 성향</b>(OR 1.18), <b>공황장애 동반</b>
+(OR 1.35), <b>이른 발병 연령</b>(OR 0.86/SD, 즉 발병이 이를수록 위험 증가), <b>삽화 재발 횟수</b>(OR 1.10),
+<b>조증 가족력 비율</b>(OR 1.11)이 독립적으로 유의했습니다. 반면 단변량에서 유의했던 <b>아동기 성적학대와 멜랑콜리아
+아형은 다변량에서 유의성을 상실</b>했는데, 이는 이 효과의 상당 부분이 증상 심각도·신경증·생애 스트레스를 매개로
+작동함을 시사합니다 (아래 9절 위험요인 네트워크 분석에서 재확인).</div>
+</section>
+
+
+<section id="repeat">
+<div class="sec-num">05</div>
+<h2>반복(2회 이상) 자살시도의 위험요인</h2>
+<p class="lede">평생 자살시도 경험자(n=802) 중 1회 시도자와 2회 이상(반복) 시도자를 비교했습니다. 반복시도자가
+64.9%로 다수를 차지해, 첫 시도 이후의 위험관리가 특히 중요함을 시사합니다. 동일한 예측변수 세트로 다변량 로지스틱
+회귀를 적용한 결과(n=456), 유의한 독립 예측인자는 다음과 같았습니다.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>변수</th><th>OR</th><th>95% CI</th><th>p</th></tr></thead>
+<tbody><tr><td>신경증 성향(Neuroticism)</td><td>1.36</td><td>1.08–1.71</td><td>0.008</td></tr>
+<tr><td>혼인상태: 별거</td><td>0.27</td><td>0.09–0.87</td><td>0.029</td></tr></tbody>
+</table></div>
+<p style="font-size:14.5px">신경증 성향이 높을수록 반복시도 위험이 뚜렷이 증가했습니다(OR 1.36/SD, p=.008). 첫 시도의
+위험요인(증상심각도·생애스트레스·발병연령 등)은 반복 여부는 잘 구분하지 못해, <b>'시도 자체'와 '반복'은 부분적으로
+다른 위험기제</b>를 가질 수 있음을 시사합니다 — 이는 최근 문헌에서 자살시도(attempt)와 자살사망(death)의 위험요인이
+"중첩되지만 구별된다"는 JAMA Psychiatry의 보고와 궤를 같이합니다.</p>
+</section>
+
+
+<section id="fullsample">
+<div class="sec-num">06</div>
+<h2>전체 표본(환자+대조군)에서 현재 자살사고의 예측요인</h2>
+<p class="lede">SCL 자살사고 문항은 대조군에도 존재하므로, 진단군 여부를 통제한 상태에서 신경증·부모양육태도·사회적
+지지·CSA가 <b>진단과 무관하게</b> 현재 자살사고를 예측하는지 전체 표본(n=5,039)에서 검증했습니다.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>변수</th><th>OR (per SD)</th><th>95% CI</th><th>p</th></tr></thead>
+<tbody><tr><td>신경증 성향(Neuroticism)</td><td>3.47</td><td>3.10–3.89</td><td>1.7e-103</td></tr>
+<tr><td>재발성 우울장애 진단(vs 대조군)</td><td>1.96</td><td>1.62–2.36</td><td>3.1e-12</td></tr>
+<tr><td>사회적 지지</td><td>0.89</td><td>0.82–0.95</td><td>0.001</td></tr>
+<tr><td>교육수준</td><td>0.88</td><td>0.80–0.95</td><td>0.003</td></tr>
+<tr><td>부 과보호</td><td>0.90</td><td>0.83–0.98</td><td>0.012</td></tr>
+<tr><td>아동기 성적학대</td><td>1.19</td><td>0.99–1.42</td><td>0.057</td></tr>
+<tr><td>현재 연령</td><td>1.08</td><td>0.99–1.17</td><td>0.080</td></tr>
+<tr><td>모 과보호</td><td>0.96</td><td>0.88–1.04</td><td>0.305</td></tr>
+<tr><td>모 돌봄</td><td>1.03</td><td>0.95–1.13</td><td>0.441</td></tr>
+<tr><td>부 돌봄</td><td>1.03</td><td>0.95–1.12</td><td>0.498</td></tr>
+<tr><td>사회적 갈등</td><td>1.02</td><td>0.95–1.10</td><td>0.574</td></tr></tbody>
+</table></div>
+<div class="callout"><b>핵심 소견 —</b> 신경증 성향은 진단 여부와 무관하게 현재 자살사고의 가장 강력한 예측인자였습니다
+(OR 3.47/SD) — 재발성 우울장애 진단 자체의 효과(OR 1.96)보다도 컸습니다. 사회적 지지(OR 0.89)와 교육수준(OR 0.88)은
+보호적으로 작용했습니다. 이는 자살사고가 진단 범주를 넘어서는 <b>차원적(dimensional)</b> 현상이며, 신경증과 같은
+성격 특성이 진단명보다 더 강력한 근접 예측인자일 수 있다는 최근 네트워크·차원 정신병리 연구의 주장과 일치합니다.</div>
+</section>
+
+
+<section id="factor">
+<div class="sec-num">07</div>
+<h2>요인분석 — 부모 양육태도(PBI) &amp; 사회적 지지</h2>
+<p class="lede">부/모 양육태도 각 16문항과 친구·친척 관계망 10문항에 대해 탐색적 요인분석(minres, oblimin 회전)을
+적용했습니다. 표본 적합도는 모두 우수했습니다 (부 PBI: KMO=0.910; 모 PBI: KMO=0.912; 사회적 지지: KMO=0.691; 모든
+Bartlett 구형성 검정 p&lt;.001).</p>
+<div class="grid3">
+<div class="card"><h4 style="margin-top:0">부(父) PBI — 2요인</h4>
+<p style="font-size:13.6px"><b>돌봄(Care)</b> α=0.91 — 자주 미소지었다(0.86), 대화를 즐겼다(0.84), 속상할 때 위로해줬다(0.81), 따뜻했다(0.81), 문제를 이해했다(0.78)<br><br>
+<b>과보호(Overprotection)</b> α=0.70 — 과보호적이었다(0.67), 아기 취급했다(0.67), 모든 것을 통제하려 했다(0.57), 의존적으로 만들려 했다(0.56), pbi.father.grow.up(0.39)</p></div>
+<div class="card"><h4 style="margin-top:0">모(母) PBI — 2요인</h4>
+<p style="font-size:13.6px"><b>돌봄(Care)</b> α=0.90 — 자주 미소지었다(0.86), 대화를 즐겼다(0.82), 속상할 때 위로해줬다(0.81), 따뜻했다(0.79), 문제를 이해했다(0.75)<br><br>
+<b>과보호(Overprotection)</b> α=0.70 — 과보호적이었다(0.67), 아기 취급했다(0.62), 의존적으로 만들려 했다(0.59), 모든 것을 통제하려 했다(0.57), pbi.mother.grow.up(0.33)</p></div>
+<div class="card"><h4 style="margin-top:0">사회적 관계망 — 2요인</h4>
+<p style="font-size:13.6px"><b>갈등(Conflict)</b> α=0.77 — 친척이 비판함(0.72), 친척과 다툼(0.66), 친척의 과도한 요구(0.63), 친구가 비판함(0.55), 친구와 다툼(0.53)<br><br>
+<b>지지(Support)</b> α=0.79 — 친척이 흥미 보여줌(0.80), 친척이 관심 가져줌(0.72), 친구가 관심 가져줌(0.39), 친구가 흥미 보여줌(0.39), 친척이 비판함(-0.04)</p></div>
+</div>
+<p style="font-size:14.5px">고전적 PBI의 돌봄/과보호 2요인 구조가 본 한국인 여성 표본에서도 명확히 재현되었습니다
+(설명분산 부 46.8%, 모 43.4%). 이는 서구에서 개발된 PBI의 요인구조가 한국 문화권에서도 안정적임을 시사합니다.</p>
+<h3>7.1 요인점수와 평생 자살시도의 연관성 (비보정, 표준화 OR)</h3>
+<figure><svg viewBox="0 0 680 246" width="100%" role="img" aria-label="forest plot" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
+<line x1="313.4" y1="30" x2="313.4" y2="186" stroke="var(--gridline)" stroke-width="1" stroke-dasharray="2,2"/>
+<text x="313.4" y="204" text-anchor="middle" font-size="11" fill="var(--text-muted)">0.5</text>
+<line x1="508.0" y1="30" x2="508.0" y2="186" stroke="var(--gridline)" stroke-width="1" stroke-dasharray="0"/>
+<text x="508.0" y="204" text-anchor="middle" font-size="11" fill="var(--text-muted)">1</text>
+<text x="405.0" y="220" text-anchor="middle" font-size="11.5" fill="var(--text-secondary)">Odds ratio (log scale, 95% CI)</text>
+<text x="160" y="47.0" text-anchor="end" font-size="12" fill="var(--text-primary)">부 양육태도 - 돌봄</text>
+<line x1="520.7" y1="43.0" x2="569.5" y2="43.0" stroke="var(--status-critical)" stroke-width="2"/>
+<circle cx="545.1" cy="43.0" r="5" fill="var(--status-critical)"/>
+<text x="648.0" y="47.0" font-size="11" fill="var(--text-secondary)">1.14 (1.05–1.24)</text>
+<text x="160" y="73.0" text-anchor="end" font-size="12" fill="var(--text-primary)">부 양육태도 - 과보호</text>
+<line x1="452.5" y1="69.0" x2="500.0" y2="69.0" stroke="var(--status-good)" stroke-width="2"/>
+<circle cx="476.3" cy="69.0" r="5" fill="var(--status-good)"/>
+<text x="648.0" y="73.0" font-size="11" fill="var(--text-secondary)">0.89 (0.82–0.97)</text>
+<text x="160" y="99.0" text-anchor="end" font-size="12" fill="var(--text-primary)">모 양육태도 - 돌봄</text>
+<line x1="548.6" y1="95.0" x2="595.5" y2="95.0" stroke="var(--status-critical)" stroke-width="2"/>
+<circle cx="572.1" cy="95.0" r="5" fill="var(--status-critical)"/>
+<text x="648.0" y="99.0" font-size="11" fill="var(--text-secondary)">1.26 (1.16–1.37)</text>
+<text x="160" y="125.0" text-anchor="end" font-size="12" fill="var(--text-primary)">모 양육태도 - 과보호</text>
+<line x1="451.5" y1="121.0" x2="497.2" y2="121.0" stroke="var(--status-good)" stroke-width="2"/>
+<circle cx="474.3" cy="121.0" r="5" fill="var(--status-good)"/>
+<text x="648.0" y="125.0" font-size="11" fill="var(--text-secondary)">0.89 (0.82–0.96)</text>
+<text x="160" y="151.0" text-anchor="end" font-size="12" fill="var(--text-primary)">사회적 갈등/마찰</text>
+<line x1="531.9" y1="147.0" x2="584.9" y2="147.0" stroke="var(--status-critical)" stroke-width="2"/>
+<circle cx="558.4" cy="147.0" r="5" fill="var(--status-critical)"/>
+<text x="648.0" y="151.0" font-size="11" fill="var(--text-secondary)">1.20 (1.09–1.31)</text>
+<text x="160" y="177.0" text-anchor="end" font-size="12" fill="var(--text-primary)">사회적 지지</text>
+<line x1="438.3" y1="173.0" x2="489.7" y2="173.0" stroke="var(--status-good)" stroke-width="2"/>
+<circle cx="464.0" cy="173.0" r="5" fill="var(--status-good)"/>
+<text x="648.0" y="177.0" font-size="11" fill="var(--text-secondary)">0.85 (0.78–0.94)</text>
+<line x1="170" y1="30" x2="170" y2="186" stroke="var(--axis)" stroke-width="1"/>
+</svg><figcaption><b>그림 6.</b> 각 요인 1SD 증가당 평생 자살시도 오즈비 (환자군, 비보정).</figcaption></figure>
+<div class="callout"><b>예상과 다른 방향의 소견 —</b> 부/모 <b>돌봄(Care)</b> 점수가 <i>높을수록</i> 오히려 평생 자살시도
+오즈가 소폭 높았습니다(부 OR 1.14, 모 OR 1.26; 둘 다 p&lt;.01). 이는 "낮은 돌봄이 자살위험을 높인다"는 일반적 가설과
+반대 방향입니다. 반면 과보호는 예상대로 보호적 방향(OR&lt;1)이었습니다. 4절의 다변량 모형에서는 돌봄·과보호 효과가
+모두 유의성을 상실했으므로, 이 비보정 연관성은 혼재변수(예: 증상 심각도에 따른 회상 편향, 혼인상태)에 의한
+가능성이 높아 <b>단독으로 인과적 해석을 하지 않도록 주의</b>가 필요합니다.</div>
+</section>
+
+
+<section id="network">
+<div class="sec-num">08</div>
+<h2>증상 네트워크 분석 — 자살사고는 어떤 증상과 직접 연결되는가</h2>
+<p class="lede">현재 증상체크리스트(SCL) 16문항은 환자군·대조군 모두에서 측정되어, 두 집단의 증상 네트워크를
+그래프 라쏘(EBIC 정규화) 기반 가우스 그래프 모형으로 각각 추정하고 비교했습니다. 최근 고영향력 저널의 네트워크
+연구들(Scientific Reports 2025; General Psychiatry 2024)과 동일한 접근입니다.</p>
+<div class="grid2">
+<figure><svg viewBox="0 0 520 440" width="100%" role="img" aria-label="network" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
+<line x1="57.8" y1="55.0" x2="352.6" y2="202.9" stroke="var(--text-secondary)" stroke-width="0.71" opacity="0.27"/>
+<line x1="57.8" y1="55.0" x2="290.3" y2="160.9" stroke="var(--text-secondary)" stroke-width="0.72" opacity="0.27"/>
+<line x1="57.8" y1="55.0" x2="176.8" y2="150.6" stroke="var(--text-secondary)" stroke-width="1.90" opacity="0.47"/>
+<line x1="57.8" y1="55.0" x2="117.0" y2="340.8" stroke="var(--text-secondary)" stroke-width="0.65" opacity="0.26"/>
+<line x1="57.8" y1="55.0" x2="55.0" y2="252.6" stroke="var(--text-secondary)" stroke-width="0.69" opacity="0.26"/>
+<line x1="352.6" y1="202.9" x2="456.5" y2="213.1" stroke="var(--text-secondary)" stroke-width="2.09" opacity="0.51"/>
+<line x1="352.6" y1="202.9" x2="290.3" y2="160.9" stroke="var(--text-secondary)" stroke-width="0.79" opacity="0.28"/>
+<line x1="352.6" y1="202.9" x2="397.9" y2="167.8" stroke="var(--text-secondary)" stroke-width="1.16" opacity="0.35"/>
+<line x1="352.6" y1="202.9" x2="465.0" y2="293.8" stroke="var(--text-secondary)" stroke-width="1.22" opacity="0.36"/>
+<line x1="352.6" y1="202.9" x2="287.5" y2="384.4" stroke="var(--text-secondary)" stroke-width="0.67" opacity="0.26"/>
+<line x1="352.6" y1="202.9" x2="176.8" y2="150.6" stroke="var(--text-secondary)" stroke-width="1.51" opacity="0.41"/>
+<line x1="352.6" y1="202.9" x2="146.3" y2="210.0" stroke="var(--text-secondary)" stroke-width="0.62" opacity="0.25"/>
+<line x1="352.6" y1="202.9" x2="231.0" y2="317.5" stroke="var(--text-secondary)" stroke-width="0.69" opacity="0.26"/>
+<line x1="352.6" y1="202.9" x2="228.6" y2="226.9" stroke="var(--text-secondary)" stroke-width="1.81" opacity="0.46"/>
+<line x1="352.6" y1="202.9" x2="176.2" y2="277.4" stroke="var(--text-secondary)" stroke-width="1.16" opacity="0.35"/>
+<line x1="456.5" y1="213.1" x2="290.3" y2="160.9" stroke="var(--text-secondary)" stroke-width="1.65" opacity="0.43"/>
+<line x1="456.5" y1="213.1" x2="397.9" y2="167.8" stroke="var(--text-secondary)" stroke-width="2.01" opacity="0.49"/>
+<line x1="456.5" y1="213.1" x2="465.0" y2="293.8" stroke="var(--text-secondary)" stroke-width="0.67" opacity="0.26"/>
+<line x1="456.5" y1="213.1" x2="392.4" y2="385.0" stroke="var(--text-secondary)" stroke-width="0.84" opacity="0.29"/>
+<line x1="456.5" y1="213.1" x2="176.8" y2="150.6" stroke="var(--text-secondary)" stroke-width="0.61" opacity="0.25"/>
+<line x1="456.5" y1="213.1" x2="293.6" y2="266.4" stroke="var(--status-critical)" stroke-width="1.25" opacity="0.36"/>
+<line x1="456.5" y1="213.1" x2="146.3" y2="210.0" stroke="var(--text-secondary)" stroke-width="0.83" opacity="0.29"/>
+<line x1="456.5" y1="213.1" x2="231.0" y2="317.5" stroke="var(--text-secondary)" stroke-width="0.64" opacity="0.26"/>
+<line x1="456.5" y1="213.1" x2="228.6" y2="226.9" stroke="var(--text-secondary)" stroke-width="0.93" opacity="0.31"/>
+<line x1="456.5" y1="213.1" x2="176.2" y2="277.4" stroke="var(--text-secondary)" stroke-width="0.89" opacity="0.30"/>
+<line x1="290.3" y1="160.9" x2="397.9" y2="167.8" stroke="var(--text-secondary)" stroke-width="2.16" opacity="0.52"/>
+<line x1="290.3" y1="160.9" x2="465.0" y2="293.8" stroke="var(--text-secondary)" stroke-width="0.70" opacity="0.27"/>
+<line x1="290.3" y1="160.9" x2="287.5" y2="384.4" stroke="var(--text-secondary)" stroke-width="0.72" opacity="0.27"/>
+<line x1="290.3" y1="160.9" x2="176.8" y2="150.6" stroke="var(--text-secondary)" stroke-width="0.68" opacity="0.26"/>
+<line x1="290.3" y1="160.9" x2="293.6" y2="266.4" stroke="var(--status-critical)" stroke-width="0.60" opacity="0.25"/>
+<line x1="290.3" y1="160.9" x2="117.0" y2="340.8" stroke="var(--text-secondary)" stroke-width="0.63" opacity="0.26"/>
+<line x1="290.3" y1="160.9" x2="55.0" y2="252.6" stroke="var(--text-secondary)" stroke-width="1.05" opacity="0.33"/>
+<line x1="290.3" y1="160.9" x2="146.3" y2="210.0" stroke="var(--text-secondary)" stroke-width="0.71" opacity="0.27"/>
+<line x1="290.3" y1="160.9" x2="231.0" y2="317.5" stroke="var(--text-secondary)" stroke-width="0.86" opacity="0.29"/>
+<line x1="290.3" y1="160.9" x2="228.6" y2="226.9" stroke="var(--text-secondary)" stroke-width="0.79" opacity="0.28"/>
+<line x1="290.3" y1="160.9" x2="176.2" y2="277.4" stroke="var(--text-secondary)" stroke-width="1.24" opacity="0.36"/>
+<line x1="397.9" y1="167.8" x2="465.0" y2="293.8" stroke="var(--text-secondary)" stroke-width="1.07" opacity="0.33"/>
+<line x1="397.9" y1="167.8" x2="287.5" y2="384.4" stroke="var(--text-secondary)" stroke-width="0.66" opacity="0.26"/>
+<line x1="397.9" y1="167.8" x2="293.6" y2="266.4" stroke="var(--status-critical)" stroke-width="1.26" opacity="0.36"/>
+<line x1="397.9" y1="167.8" x2="55.0" y2="252.6" stroke="var(--text-secondary)" stroke-width="0.63" opacity="0.26"/>
+<line x1="397.9" y1="167.8" x2="146.3" y2="210.0" stroke="var(--text-secondary)" stroke-width="1.52" opacity="0.41"/>
+<line x1="397.9" y1="167.8" x2="231.0" y2="317.5" stroke="var(--text-secondary)" stroke-width="0.86" opacity="0.29"/>
+<line x1="397.9" y1="167.8" x2="228.6" y2="226.9" stroke="var(--text-secondary)" stroke-width="0.92" opacity="0.31"/>
+<line x1="465.0" y1="293.8" x2="392.4" y2="385.0" stroke="var(--text-secondary)" stroke-width="1.23" opacity="0.36"/>
+<line x1="465.0" y1="293.8" x2="287.5" y2="384.4" stroke="var(--text-secondary)" stroke-width="0.79" opacity="0.28"/>
+<line x1="465.0" y1="293.8" x2="176.8" y2="150.6" stroke="var(--text-secondary)" stroke-width="0.83" opacity="0.29"/>
+<line x1="465.0" y1="293.8" x2="293.6" y2="266.4" stroke="var(--status-critical)" stroke-width="0.88" opacity="0.30"/>
+<line x1="465.0" y1="293.8" x2="117.0" y2="340.8" stroke="var(--text-secondary)" stroke-width="0.80" opacity="0.28"/>
+<line x1="465.0" y1="293.8" x2="55.0" y2="252.6" stroke="var(--text-secondary)" stroke-width="0.69" opacity="0.27"/>
+<line x1="465.0" y1="293.8" x2="231.0" y2="317.5" stroke="var(--text-secondary)" stroke-width="0.63" opacity="0.26"/>
+<line x1="392.4" y1="385.0" x2="287.5" y2="384.4" stroke="var(--text-secondary)" stroke-width="3.80" opacity="0.80"/>
+<line x1="392.4" y1="385.0" x2="176.8" y2="150.6" stroke="var(--text-secondary)" stroke-width="0.78" opacity="0.28"/>
+<line x1="392.4" y1="385.0" x2="293.6" y2="266.4" stroke="var(--status-critical)" stroke-width="0.64" opacity="0.26"/>
+<line x1="392.4" y1="385.0" x2="117.0" y2="340.8" stroke="var(--text-secondary)" stroke-width="0.86" opacity="0.29"/>
+<line x1="392.4" y1="385.0" x2="231.0" y2="317.5" stroke="var(--text-secondary)" stroke-width="0.89" opacity="0.30"/>
+<line x1="392.4" y1="385.0" x2="228.6" y2="226.9" stroke="var(--text-secondary)" stroke-width="0.67" opacity="0.26"/>
+<line x1="392.4" y1="385.0" x2="176.2" y2="277.4" stroke="var(--text-secondary)" stroke-width="0.69" opacity="0.27"/>
+<line x1="287.5" y1="384.4" x2="176.8" y2="150.6" stroke="var(--text-secondary)" stroke-width="0.73" opacity="0.27"/>
+<line x1="287.5" y1="384.4" x2="293.6" y2="266.4" stroke="var(--status-critical)" stroke-width="0.82" opacity="0.29"/>
+<line x1="287.5" y1="384.4" x2="117.0" y2="340.8" stroke="var(--text-secondary)" stroke-width="0.92" opacity="0.30"/>
+<line x1="287.5" y1="384.4" x2="55.0" y2="252.6" stroke="var(--text-secondary)" stroke-width="0.81" opacity="0.29"/>
+<line x1="287.5" y1="384.4" x2="146.3" y2="210.0" stroke="var(--text-secondary)" stroke-width="0.68" opacity="0.26"/>
+<line x1="287.5" y1="384.4" x2="231.0" y2="317.5" stroke="var(--text-secondary)" stroke-width="0.66" opacity="0.26"/>
+<line x1="287.5" y1="384.4" x2="176.2" y2="277.4" stroke="var(--text-secondary)" stroke-width="0.98" opacity="0.32"/>
+<line x1="176.8" y1="150.6" x2="293.6" y2="266.4" stroke="var(--status-critical)" stroke-width="1.18" opacity="0.35"/>
+<line x1="176.8" y1="150.6" x2="117.0" y2="340.8" stroke="var(--text-secondary)" stroke-width="0.67" opacity="0.26"/>
+<line x1="176.8" y1="150.6" x2="55.0" y2="252.6" stroke="var(--text-secondary)" stroke-width="0.86" opacity="0.29"/>
+<line x1="176.8" y1="150.6" x2="146.3" y2="210.0" stroke="var(--text-secondary)" stroke-width="0.81" opacity="0.29"/>
+<line x1="176.8" y1="150.6" x2="228.6" y2="226.9" stroke="var(--text-secondary)" stroke-width="1.41" opacity="0.39"/>
+<line x1="293.6" y1="266.4" x2="117.0" y2="340.8" stroke="var(--status-critical)" stroke-width="1.46" opacity="0.40"/>
+<line x1="293.6" y1="266.4" x2="55.0" y2="252.6" stroke="var(--status-critical)" stroke-width="1.13" opacity="0.34"/>
+<line x1="293.6" y1="266.4" x2="146.3" y2="210.0" stroke="var(--status-critical)" stroke-width="1.33" opacity="0.38"/>
+<line x1="293.6" y1="266.4" x2="228.6" y2="226.9" stroke="var(--status-critical)" stroke-width="0.70" opacity="0.27"/>
+<line x1="117.0" y1="340.8" x2="55.0" y2="252.6" stroke="var(--text-secondary)" stroke-width="1.31" opacity="0.37"/>
+<line x1="117.0" y1="340.8" x2="146.3" y2="210.0" stroke="var(--text-secondary)" stroke-width="0.91" opacity="0.30"/>
+<line x1="117.0" y1="340.8" x2="231.0" y2="317.5" stroke="var(--text-secondary)" stroke-width="1.18" opacity="0.35"/>
+<line x1="117.0" y1="340.8" x2="228.6" y2="226.9" stroke="var(--text-secondary)" stroke-width="0.82" opacity="0.29"/>
+<line x1="117.0" y1="340.8" x2="176.2" y2="277.4" stroke="var(--text-secondary)" stroke-width="1.18" opacity="0.35"/>
+<line x1="55.0" y1="252.6" x2="146.3" y2="210.0" stroke="var(--text-secondary)" stroke-width="1.65" opacity="0.43"/>
+<line x1="55.0" y1="252.6" x2="231.0" y2="317.5" stroke="var(--text-secondary)" stroke-width="0.94" opacity="0.31"/>
+<line x1="55.0" y1="252.6" x2="228.6" y2="226.9" stroke="var(--text-secondary)" stroke-width="1.14" opacity="0.34"/>
+<line x1="146.3" y1="210.0" x2="231.0" y2="317.5" stroke="var(--text-secondary)" stroke-width="0.95" opacity="0.31"/>
+<line x1="146.3" y1="210.0" x2="228.6" y2="226.9" stroke="var(--text-secondary)" stroke-width="1.26" opacity="0.36"/>
+<line x1="146.3" y1="210.0" x2="176.2" y2="277.4" stroke="var(--text-secondary)" stroke-width="1.35" opacity="0.38"/>
+<line x1="231.0" y1="317.5" x2="228.6" y2="226.9" stroke="var(--text-secondary)" stroke-width="1.95" opacity="0.48"/>
+<line x1="231.0" y1="317.5" x2="176.2" y2="277.4" stroke="var(--text-secondary)" stroke-width="1.15" opacity="0.35"/>
+<line x1="228.6" y1="226.9" x2="176.2" y2="277.4" stroke="var(--text-secondary)" stroke-width="1.31" opacity="0.37"/>
+<circle cx="57.8" cy="55.0" r="9" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="57.8" y="39.0" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">즐거움 상실</text>
+<circle cx="352.6" cy="202.9" r="9" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="352.6" y="186.9" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">흥미 상실</text>
+<circle cx="456.5" cy="213.1" r="9" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="456.5" y="197.1" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">절망감</text>
+<circle cx="290.3" cy="160.9" r="9" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="290.3" y="144.9" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">매사 힘겨움</text>
+<circle cx="397.9" cy="167.8" r="9" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="397.9" y="151.8" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">무가치감</text>
+<circle cx="465.0" cy="293.8" r="9" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="465.0" y="313.8" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">식욕부진</text>
+<circle cx="392.4" cy="385.0" r="9" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="392.4" y="405.0" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">입면곤란</text>
+<circle cx="287.5" cy="384.4" r="9" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="287.5" y="404.4" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">수면중 뒤척임</text>
+<circle cx="176.8" cy="150.6" r="9" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="176.8" y="134.6" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">기력저하</text>
+<circle cx="293.6" cy="266.4" r="13" fill="var(--status-critical)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="293.6" y="286.4" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="700">자살사고</text>
+<circle cx="117.0" cy="340.8" r="9" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="117.0" y="360.8" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">울음</text>
+<circle cx="55.0" cy="252.6" r="9" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="55.0" y="272.6" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">덫에 갇힌 느낌</text>
+<circle cx="146.3" cy="210.0" r="9" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="146.3" y="194.0" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">자기비난</text>
+<circle cx="231.0" cy="317.5" r="9" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="231.0" y="337.5" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">외로움</text>
+<circle cx="228.6" cy="226.9" r="9" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="228.6" y="246.9" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">우울/침울</text>
+<circle cx="176.2" cy="277.4" r="9" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="176.2" y="297.4" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">걱정</text>
+</svg><figcaption><b>그림 7.</b> 재발성 우울장애군 증상 네트워크 (n=2,997). 선의 굵기·명도는 편상관
+강도를 나타내며, <span style="color:var(--status-critical)">굵은 빨간 선</span>은 자살사고 노드와 직접 연결된
+관계입니다.</figcaption></figure>
+<figure><svg viewBox="0 0 520 440" width="100%" role="img" aria-label="network" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
+<line x1="86.7" y1="385.0" x2="291.0" y2="317.3" stroke="var(--text-secondary)" stroke-width="1.02" opacity="0.32"/>
+<line x1="86.7" y1="385.0" x2="441.8" y2="259.7" stroke="var(--text-secondary)" stroke-width="0.67" opacity="0.26"/>
+<line x1="86.7" y1="385.0" x2="216.7" y2="143.8" stroke="var(--text-secondary)" stroke-width="0.73" opacity="0.27"/>
+<line x1="86.7" y1="385.0" x2="55.0" y2="157.5" stroke="var(--text-secondary)" stroke-width="0.86" opacity="0.29"/>
+<line x1="86.7" y1="385.0" x2="197.5" y2="357.5" stroke="var(--text-secondary)" stroke-width="2.20" opacity="0.52"/>
+<line x1="86.7" y1="385.0" x2="304.6" y2="55.0" stroke="var(--status-critical)" stroke-width="0.75" opacity="0.28"/>
+<line x1="86.7" y1="385.0" x2="167.5" y2="237.1" stroke="var(--text-secondary)" stroke-width="0.74" opacity="0.27"/>
+<line x1="86.7" y1="385.0" x2="306.8" y2="148.2" stroke="var(--text-secondary)" stroke-width="0.65" opacity="0.26"/>
+<line x1="86.7" y1="385.0" x2="348.3" y2="327.9" stroke="var(--text-secondary)" stroke-width="0.69" opacity="0.27"/>
+<line x1="291.0" y1="317.3" x2="441.8" y2="259.7" stroke="var(--text-secondary)" stroke-width="1.75" opacity="0.45"/>
+<line x1="291.0" y1="317.3" x2="401.2" y2="173.1" stroke="var(--text-secondary)" stroke-width="0.82" opacity="0.29"/>
+<line x1="291.0" y1="317.3" x2="465.0" y2="154.4" stroke="var(--text-secondary)" stroke-width="0.97" opacity="0.31"/>
+<line x1="291.0" y1="317.3" x2="216.7" y2="143.8" stroke="var(--text-secondary)" stroke-width="1.09" opacity="0.33"/>
+<line x1="291.0" y1="317.3" x2="55.0" y2="157.5" stroke="var(--text-secondary)" stroke-width="0.62" opacity="0.25"/>
+<line x1="291.0" y1="317.3" x2="115.1" y2="82.2" stroke="var(--text-secondary)" stroke-width="0.68" opacity="0.26"/>
+<line x1="291.0" y1="317.3" x2="197.5" y2="357.5" stroke="var(--text-secondary)" stroke-width="1.30" opacity="0.37"/>
+<line x1="291.0" y1="317.3" x2="304.6" y2="55.0" stroke="var(--status-critical)" stroke-width="0.76" opacity="0.28"/>
+<line x1="291.0" y1="317.3" x2="167.5" y2="237.1" stroke="var(--text-secondary)" stroke-width="0.84" opacity="0.29"/>
+<line x1="291.0" y1="317.3" x2="401.3" y2="84.2" stroke="var(--text-secondary)" stroke-width="0.68" opacity="0.26"/>
+<line x1="291.0" y1="317.3" x2="306.8" y2="148.2" stroke="var(--text-secondary)" stroke-width="1.05" opacity="0.33"/>
+<line x1="291.0" y1="317.3" x2="348.3" y2="327.9" stroke="var(--text-secondary)" stroke-width="1.14" opacity="0.34"/>
+<line x1="291.0" y1="317.3" x2="339.4" y2="247.6" stroke="var(--text-secondary)" stroke-width="1.51" opacity="0.41"/>
+<line x1="291.0" y1="317.3" x2="244.0" y2="238.8" stroke="var(--text-secondary)" stroke-width="1.24" opacity="0.36"/>
+<line x1="441.8" y1="259.7" x2="401.2" y2="173.1" stroke="var(--text-secondary)" stroke-width="1.79" opacity="0.45"/>
+<line x1="441.8" y1="259.7" x2="465.0" y2="154.4" stroke="var(--text-secondary)" stroke-width="2.23" opacity="0.53"/>
+<line x1="441.8" y1="259.7" x2="216.7" y2="143.8" stroke="var(--text-secondary)" stroke-width="0.69" opacity="0.26"/>
+<line x1="441.8" y1="259.7" x2="55.0" y2="157.5" stroke="var(--text-secondary)" stroke-width="0.70" opacity="0.27"/>
+<line x1="441.8" y1="259.7" x2="115.1" y2="82.2" stroke="var(--text-secondary)" stroke-width="0.66" opacity="0.26"/>
+<line x1="441.8" y1="259.7" x2="197.5" y2="357.5" stroke="var(--text-secondary)" stroke-width="0.80" opacity="0.29"/>
+<line x1="441.8" y1="259.7" x2="304.6" y2="55.0" stroke="var(--status-critical)" stroke-width="1.11" opacity="0.34"/>
+<line x1="441.8" y1="259.7" x2="401.3" y2="84.2" stroke="var(--text-secondary)" stroke-width="0.70" opacity="0.27"/>
+<line x1="441.8" y1="259.7" x2="306.8" y2="148.2" stroke="var(--text-secondary)" stroke-width="0.65" opacity="0.26"/>
+<line x1="441.8" y1="259.7" x2="348.3" y2="327.9" stroke="var(--text-secondary)" stroke-width="0.80" opacity="0.28"/>
+<line x1="441.8" y1="259.7" x2="339.4" y2="247.6" stroke="var(--text-secondary)" stroke-width="0.94" opacity="0.31"/>
+<line x1="441.8" y1="259.7" x2="244.0" y2="238.8" stroke="var(--text-secondary)" stroke-width="0.71" opacity="0.27"/>
+<line x1="401.2" y1="173.1" x2="465.0" y2="154.4" stroke="var(--text-secondary)" stroke-width="1.76" opacity="0.45"/>
+<line x1="401.2" y1="173.1" x2="216.7" y2="143.8" stroke="var(--text-secondary)" stroke-width="0.93" opacity="0.31"/>
+<line x1="401.2" y1="173.1" x2="115.1" y2="82.2" stroke="var(--text-secondary)" stroke-width="0.85" opacity="0.29"/>
+<line x1="401.2" y1="173.1" x2="197.5" y2="357.5" stroke="var(--text-secondary)" stroke-width="0.77" opacity="0.28"/>
+<line x1="401.2" y1="173.1" x2="304.6" y2="55.0" stroke="var(--status-critical)" stroke-width="0.68" opacity="0.26"/>
+<line x1="401.2" y1="173.1" x2="167.5" y2="237.1" stroke="var(--text-secondary)" stroke-width="0.64" opacity="0.26"/>
+<line x1="401.2" y1="173.1" x2="401.3" y2="84.2" stroke="var(--text-secondary)" stroke-width="1.33" opacity="0.38"/>
+<line x1="401.2" y1="173.1" x2="306.8" y2="148.2" stroke="var(--text-secondary)" stroke-width="1.10" opacity="0.34"/>
+<line x1="401.2" y1="173.1" x2="348.3" y2="327.9" stroke="var(--text-secondary)" stroke-width="0.71" opacity="0.27"/>
+<line x1="401.2" y1="173.1" x2="339.4" y2="247.6" stroke="var(--text-secondary)" stroke-width="0.88" opacity="0.30"/>
+<line x1="401.2" y1="173.1" x2="244.0" y2="238.8" stroke="var(--text-secondary)" stroke-width="1.19" opacity="0.35"/>
+<line x1="465.0" y1="154.4" x2="216.7" y2="143.8" stroke="var(--text-secondary)" stroke-width="1.21" opacity="0.36"/>
+<line x1="465.0" y1="154.4" x2="115.1" y2="82.2" stroke="var(--text-secondary)" stroke-width="0.63" opacity="0.25"/>
+<line x1="465.0" y1="154.4" x2="304.6" y2="55.0" stroke="var(--status-critical)" stroke-width="1.41" opacity="0.39"/>
+<line x1="465.0" y1="154.4" x2="167.5" y2="237.1" stroke="var(--text-secondary)" stroke-width="0.64" opacity="0.26"/>
+<line x1="465.0" y1="154.4" x2="401.3" y2="84.2" stroke="var(--text-secondary)" stroke-width="0.97" opacity="0.31"/>
+<line x1="465.0" y1="154.4" x2="306.8" y2="148.2" stroke="var(--text-secondary)" stroke-width="1.27" opacity="0.37"/>
+<line x1="465.0" y1="154.4" x2="348.3" y2="327.9" stroke="var(--text-secondary)" stroke-width="0.96" opacity="0.31"/>
+<line x1="465.0" y1="154.4" x2="339.4" y2="247.6" stroke="var(--text-secondary)" stroke-width="0.96" opacity="0.31"/>
+<line x1="216.7" y1="143.8" x2="55.0" y2="157.5" stroke="var(--text-secondary)" stroke-width="1.28" opacity="0.37"/>
+<line x1="216.7" y1="143.8" x2="115.1" y2="82.2" stroke="var(--text-secondary)" stroke-width="0.62" opacity="0.25"/>
+<line x1="216.7" y1="143.8" x2="197.5" y2="357.5" stroke="var(--text-secondary)" stroke-width="1.06" opacity="0.33"/>
+<line x1="216.7" y1="143.8" x2="304.6" y2="55.0" stroke="var(--status-critical)" stroke-width="0.88" opacity="0.30"/>
+<line x1="216.7" y1="143.8" x2="167.5" y2="237.1" stroke="var(--text-secondary)" stroke-width="0.72" opacity="0.27"/>
+<line x1="216.7" y1="143.8" x2="401.3" y2="84.2" stroke="var(--text-secondary)" stroke-width="0.81" opacity="0.29"/>
+<line x1="216.7" y1="143.8" x2="348.3" y2="327.9" stroke="var(--text-secondary)" stroke-width="0.72" opacity="0.27"/>
+<line x1="216.7" y1="143.8" x2="339.4" y2="247.6" stroke="var(--text-secondary)" stroke-width="0.72" opacity="0.27"/>
+<line x1="216.7" y1="143.8" x2="244.0" y2="238.8" stroke="var(--text-secondary)" stroke-width="0.63" opacity="0.25"/>
+<line x1="55.0" y1="157.5" x2="115.1" y2="82.2" stroke="var(--text-secondary)" stroke-width="3.80" opacity="0.80"/>
+<line x1="55.0" y1="157.5" x2="197.5" y2="357.5" stroke="var(--text-secondary)" stroke-width="0.73" opacity="0.27"/>
+<line x1="55.0" y1="157.5" x2="304.6" y2="55.0" stroke="var(--status-critical)" stroke-width="0.64" opacity="0.26"/>
+<line x1="55.0" y1="157.5" x2="167.5" y2="237.1" stroke="var(--text-secondary)" stroke-width="0.83" opacity="0.29"/>
+<line x1="55.0" y1="157.5" x2="401.3" y2="84.2" stroke="var(--text-secondary)" stroke-width="0.61" opacity="0.25"/>
+<line x1="55.0" y1="157.5" x2="306.8" y2="148.2" stroke="var(--text-secondary)" stroke-width="0.63" opacity="0.25"/>
+<line x1="55.0" y1="157.5" x2="348.3" y2="327.9" stroke="var(--text-secondary)" stroke-width="0.73" opacity="0.27"/>
+<line x1="55.0" y1="157.5" x2="339.4" y2="247.6" stroke="var(--text-secondary)" stroke-width="0.78" opacity="0.28"/>
+<line x1="55.0" y1="157.5" x2="244.0" y2="238.8" stroke="var(--text-secondary)" stroke-width="0.72" opacity="0.27"/>
+<line x1="115.1" y1="82.2" x2="304.6" y2="55.0" stroke="var(--status-critical)" stroke-width="0.91" opacity="0.30"/>
+<line x1="115.1" y1="82.2" x2="167.5" y2="237.1" stroke="var(--text-secondary)" stroke-width="0.69" opacity="0.27"/>
+<line x1="115.1" y1="82.2" x2="306.8" y2="148.2" stroke="var(--text-secondary)" stroke-width="0.90" opacity="0.30"/>
+<line x1="115.1" y1="82.2" x2="348.3" y2="327.9" stroke="var(--text-secondary)" stroke-width="0.81" opacity="0.29"/>
+<line x1="115.1" y1="82.2" x2="339.4" y2="247.6" stroke="var(--text-secondary)" stroke-width="0.64" opacity="0.26"/>
+<line x1="115.1" y1="82.2" x2="244.0" y2="238.8" stroke="var(--text-secondary)" stroke-width="0.91" opacity="0.30"/>
+<line x1="197.5" y1="357.5" x2="304.6" y2="55.0" stroke="var(--status-critical)" stroke-width="0.64" opacity="0.26"/>
+<line x1="197.5" y1="357.5" x2="167.5" y2="237.1" stroke="var(--text-secondary)" stroke-width="0.96" opacity="0.31"/>
+<line x1="197.5" y1="357.5" x2="401.3" y2="84.2" stroke="var(--text-secondary)" stroke-width="0.80" opacity="0.28"/>
+<line x1="197.5" y1="357.5" x2="306.8" y2="148.2" stroke="var(--text-secondary)" stroke-width="0.70" opacity="0.27"/>
+<line x1="197.5" y1="357.5" x2="348.3" y2="327.9" stroke="var(--text-secondary)" stroke-width="0.80" opacity="0.28"/>
+<line x1="197.5" y1="357.5" x2="339.4" y2="247.6" stroke="var(--text-secondary)" stroke-width="1.14" opacity="0.34"/>
+<line x1="197.5" y1="357.5" x2="244.0" y2="238.8" stroke="var(--text-secondary)" stroke-width="0.87" opacity="0.30"/>
+<line x1="304.6" y1="55.0" x2="167.5" y2="237.1" stroke="var(--status-critical)" stroke-width="1.06" opacity="0.33"/>
+<line x1="304.6" y1="55.0" x2="401.3" y2="84.2" stroke="var(--status-critical)" stroke-width="1.18" opacity="0.35"/>
+<line x1="304.6" y1="55.0" x2="306.8" y2="148.2" stroke="var(--status-critical)" stroke-width="0.92" opacity="0.30"/>
+<line x1="304.6" y1="55.0" x2="348.3" y2="327.9" stroke="var(--status-critical)" stroke-width="0.62" opacity="0.25"/>
+<line x1="167.5" y1="237.1" x2="401.3" y2="84.2" stroke="var(--text-secondary)" stroke-width="0.75" opacity="0.28"/>
+<line x1="167.5" y1="237.1" x2="306.8" y2="148.2" stroke="var(--text-secondary)" stroke-width="1.25" opacity="0.36"/>
+<line x1="167.5" y1="237.1" x2="348.3" y2="327.9" stroke="var(--text-secondary)" stroke-width="1.28" opacity="0.37"/>
+<line x1="167.5" y1="237.1" x2="339.4" y2="247.6" stroke="var(--text-secondary)" stroke-width="1.19" opacity="0.35"/>
+<line x1="167.5" y1="237.1" x2="244.0" y2="238.8" stroke="var(--text-secondary)" stroke-width="1.10" opacity="0.34"/>
+<line x1="401.3" y1="84.2" x2="306.8" y2="148.2" stroke="var(--text-secondary)" stroke-width="1.43" opacity="0.39"/>
+<line x1="401.3" y1="84.2" x2="348.3" y2="327.9" stroke="var(--text-secondary)" stroke-width="0.83" opacity="0.29"/>
+<line x1="401.3" y1="84.2" x2="339.4" y2="247.6" stroke="var(--text-secondary)" stroke-width="1.44" opacity="0.39"/>
+<line x1="401.3" y1="84.2" x2="244.0" y2="238.8" stroke="var(--text-secondary)" stroke-width="0.80" opacity="0.28"/>
+<line x1="306.8" y1="148.2" x2="348.3" y2="327.9" stroke="var(--text-secondary)" stroke-width="0.91" opacity="0.30"/>
+<line x1="306.8" y1="148.2" x2="339.4" y2="247.6" stroke="var(--text-secondary)" stroke-width="1.34" opacity="0.38"/>
+<line x1="306.8" y1="148.2" x2="244.0" y2="238.8" stroke="var(--text-secondary)" stroke-width="1.43" opacity="0.39"/>
+<line x1="348.3" y1="327.9" x2="339.4" y2="247.6" stroke="var(--text-secondary)" stroke-width="2.30" opacity="0.54"/>
+<line x1="348.3" y1="327.9" x2="244.0" y2="238.8" stroke="var(--text-secondary)" stroke-width="1.20" opacity="0.35"/>
+<line x1="339.4" y1="247.6" x2="244.0" y2="238.8" stroke="var(--text-secondary)" stroke-width="1.14" opacity="0.34"/>
+<circle cx="86.7" cy="385.0" r="9" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="86.7" y="405.0" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">즐거움 상실</text>
+<circle cx="291.0" cy="317.3" r="9" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="291.0" y="337.3" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">흥미 상실</text>
+<circle cx="441.8" cy="259.7" r="9" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="441.8" y="279.7" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">절망감</text>
+<circle cx="401.2" cy="173.1" r="9" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="401.2" y="157.1" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">매사 힘겨움</text>
+<circle cx="465.0" cy="154.4" r="9" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="465.0" y="138.4" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">무가치감</text>
+<circle cx="216.7" cy="143.8" r="9" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="216.7" y="127.8" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">식욕부진</text>
+<circle cx="55.0" cy="157.5" r="9" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="55.0" y="141.5" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">입면곤란</text>
+<circle cx="115.1" cy="82.2" r="9" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="115.1" y="66.2" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">수면중 뒤척임</text>
+<circle cx="197.5" cy="357.5" r="9" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="197.5" y="377.5" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">기력저하</text>
+<circle cx="304.6" cy="55.0" r="13" fill="var(--status-critical)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="304.6" y="39.0" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="700">자살사고</text>
+<circle cx="167.5" cy="237.1" r="9" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="167.5" y="257.1" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">울음</text>
+<circle cx="401.3" cy="84.2" r="9" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="401.3" y="68.2" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">덫에 갇힌 느낌</text>
+<circle cx="306.8" cy="148.2" r="9" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="306.8" y="132.2" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">자기비난</text>
+<circle cx="348.3" cy="327.9" r="9" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="348.3" y="347.9" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">외로움</text>
+<circle cx="339.4" cy="247.6" r="9" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="339.4" y="267.6" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">우울/침울</text>
+<circle cx="244.0" cy="238.8" r="9" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="244.0" y="258.8" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">걱정</text>
+</svg><figcaption><b>그림 8.</b> 건강대조군 증상 네트워크 (n=3,047). 동일한 척도·동일한 추정법을
+적용했습니다.</figcaption></figure>
+</div>
+<div class="tablewrap"><table>
+<thead><tr><th>네트워크</th><th>n</th><th>자살사고 노드 강도</th><th>매개중심성</th><th>근접중심성</th></tr></thead>
+<tbody>
+<tr><td>전체 표본</td><td>6,044</td><td>0.838</td><td>0.038</td><td>0.074</td></tr>
+<tr><td><span class="tag tag-mdd">재발성 우울장애군</span></td><td>2,997</td><td><b>0.866</b></td><td><b>0.048</b></td><td>0.075</td></tr>
+<tr><td><span class="tag tag-ctrl">건강대조군</span></td><td>3,047</td><td>0.630</td><td><b>0.000</b></td><td>0.058</td></tr>
+</tbody></table></div>
+<div class="callout"><b>핵심 소견 —</b> 자살사고 노드는 두 네트워크 모두에서 <i>무가치감·절망감·자기비난·울음·기력저하</i>와
+직접 연결되었지만, <b>재발성 우울장애군에서 자살사고 노드가 전반적으로 더 중심적</b>이었습니다(강도 0.866 vs
+0.630). 특히 매개중심성이 대조군에서는 0으로, 대조군의 네트워크에서 자살사고는 다른 증상들을 잇는 경로에 놓여있지
+않은 <b>주변적(peripheral)</b> 노드인 반면, 환자군에서는 증상들 사이를 잇는 가교 역할을 하는 <b>더 통합된</b> 노드로
+나타났습니다. 두 집단 모두에서 '덫에 갇힌 느낌(entrapment)' 문항이 자살사고의 근접 이웃 상위권에 있었는데
+(환자군 6위, 대조군 2위), 이는 자살위험의 통합운동모형(Integrated Motivational-Volitional Model)이 강조하는
+심리적 갇힘(entrapment)-자살사고 경로와 부합하는 소견입니다.</div>
+<p style="font-size:14px" class="small"><b>환자군에서 자살사고와 직접 연결된 상위 증상:</b> Crying(0.16) · Self-blame(0.14) · Worthless(0.12) · Hopeless(0.12) · Low energy(0.11) · Feeling trapped(0.10)<br>
+<b>대조군에서 자살사고와 직접 연결된 상위 증상:</b> Worthless(0.14) · Feeling trapped(0.10) · Hopeless(0.09) · Crying(0.08) · Self-blame(0.05) · Restless sleep(0.05)</p>
+</section>
+
+
+<section id="rfnetwork">
+<div class="sec-num">09</div>
+<h2>위험요인 네트워크 — 심리사회적 요인들의 상호연결 구조</h2>
+<p class="lede">4절의 회귀모형이 "각 변수를 다른 변수로 통제했을 때의 효과"를 보여준다면, 네트워크 분석은 변수들이
+서로 어떻게 얽혀 있는지를 시각화합니다. 환자군(n=2,231)에서 자살행동 심각도(0=사고없음···3=시도)를 포함한 17개
+노드로 두 번째 가우스 그래프 모형을 추정했습니다.</p>
+<figure><svg viewBox="0 0 620 520" width="100%" role="img" aria-label="network" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
+<line x1="509.1" y1="249.6" x2="468.7" y2="218.7" stroke="var(--status-critical)" stroke-width="3.45" opacity="0.74"/>
+<line x1="509.1" y1="249.6" x2="544.0" y2="122.9" stroke="var(--status-critical)" stroke-width="0.83" opacity="0.29"/>
+<line x1="509.1" y1="249.6" x2="73.5" y2="465.0" stroke="var(--status-critical)" stroke-width="1.28" opacity="0.37"/>
+<line x1="509.1" y1="249.6" x2="540.7" y2="97.7" stroke="var(--status-critical)" stroke-width="0.98" opacity="0.31"/>
+<line x1="509.1" y1="249.6" x2="524.0" y2="257.8" stroke="var(--status-critical)" stroke-width="1.09" opacity="0.33"/>
+<line x1="509.1" y1="249.6" x2="329.5" y2="354.1" stroke="var(--status-critical)" stroke-width="1.84" opacity="0.46"/>
+<line x1="509.1" y1="249.6" x2="494.6" y2="157.9" stroke="var(--status-critical)" stroke-width="1.62" opacity="0.43"/>
+<line x1="509.1" y1="249.6" x2="510.1" y2="128.3" stroke="var(--status-critical)" stroke-width="0.75" opacity="0.28"/>
+<line x1="509.1" y1="249.6" x2="446.8" y2="64.9" stroke="var(--status-critical)" stroke-width="0.66" opacity="0.26"/>
+<line x1="509.1" y1="249.6" x2="55.0" y2="357.4" stroke="var(--status-critical)" stroke-width="0.91" opacity="0.30"/>
+<line x1="509.1" y1="249.6" x2="565.0" y2="184.2" stroke="var(--status-critical)" stroke-width="1.86" opacity="0.47"/>
+<line x1="468.7" y1="218.7" x2="419.9" y2="238.2" stroke="var(--text-secondary)" stroke-width="3.80" opacity="0.80"/>
+<line x1="468.7" y1="218.7" x2="540.7" y2="97.7" stroke="var(--text-secondary)" stroke-width="1.23" opacity="0.36"/>
+<line x1="468.7" y1="218.7" x2="494.6" y2="157.9" stroke="var(--text-secondary)" stroke-width="1.93" opacity="0.48"/>
+<line x1="544.0" y1="122.9" x2="73.5" y2="465.0" stroke="var(--text-secondary)" stroke-width="0.94" opacity="0.31"/>
+<line x1="544.0" y1="122.9" x2="540.7" y2="97.7" stroke="var(--text-secondary)" stroke-width="1.05" opacity="0.33"/>
+<line x1="544.0" y1="122.9" x2="524.1" y2="194.3" stroke="var(--text-secondary)" stroke-width="0.76" opacity="0.28"/>
+<line x1="73.5" y1="465.0" x2="540.7" y2="97.7" stroke="var(--text-secondary)" stroke-width="1.02" opacity="0.32"/>
+<line x1="73.5" y1="465.0" x2="524.0" y2="257.8" stroke="var(--text-secondary)" stroke-width="0.70" opacity="0.27"/>
+<line x1="73.5" y1="465.0" x2="329.5" y2="354.1" stroke="var(--text-secondary)" stroke-width="1.05" opacity="0.33"/>
+<line x1="73.5" y1="465.0" x2="494.6" y2="157.9" stroke="var(--text-secondary)" stroke-width="1.44" opacity="0.39"/>
+<line x1="73.5" y1="465.0" x2="503.2" y2="55.0" stroke="var(--text-secondary)" stroke-width="1.99" opacity="0.49"/>
+<line x1="73.5" y1="465.0" x2="524.1" y2="194.3" stroke="var(--text-secondary)" stroke-width="1.51" opacity="0.41"/>
+<line x1="73.5" y1="465.0" x2="446.8" y2="64.9" stroke="var(--text-secondary)" stroke-width="0.87" opacity="0.30"/>
+<line x1="73.5" y1="465.0" x2="321.6" y2="453.7" stroke="var(--text-secondary)" stroke-width="1.07" opacity="0.33"/>
+<line x1="73.5" y1="465.0" x2="449.3" y2="135.5" stroke="var(--text-secondary)" stroke-width="0.72" opacity="0.27"/>
+<line x1="73.5" y1="465.0" x2="565.0" y2="184.2" stroke="var(--text-secondary)" stroke-width="1.09" opacity="0.33"/>
+<line x1="419.9" y1="238.2" x2="524.0" y2="257.8" stroke="var(--text-secondary)" stroke-width="0.61" opacity="0.25"/>
+<line x1="419.9" y1="238.2" x2="494.6" y2="157.9" stroke="var(--text-secondary)" stroke-width="0.69" opacity="0.27"/>
+<line x1="419.9" y1="238.2" x2="503.2" y2="55.0" stroke="var(--text-secondary)" stroke-width="0.71" opacity="0.27"/>
+<line x1="419.9" y1="238.2" x2="449.3" y2="135.5" stroke="var(--text-secondary)" stroke-width="0.68" opacity="0.26"/>
+<line x1="540.7" y1="97.7" x2="524.0" y2="257.8" stroke="var(--text-secondary)" stroke-width="0.86" opacity="0.29"/>
+<line x1="540.7" y1="97.7" x2="494.6" y2="157.9" stroke="var(--text-secondary)" stroke-width="2.44" opacity="0.57"/>
+<line x1="540.7" y1="97.7" x2="503.2" y2="55.0" stroke="var(--text-secondary)" stroke-width="0.91" opacity="0.30"/>
+<line x1="540.7" y1="97.7" x2="524.1" y2="194.3" stroke="var(--text-secondary)" stroke-width="0.80" opacity="0.28"/>
+<line x1="540.7" y1="97.7" x2="321.6" y2="453.7" stroke="var(--text-secondary)" stroke-width="0.65" opacity="0.26"/>
+<line x1="540.7" y1="97.7" x2="449.3" y2="135.5" stroke="var(--text-secondary)" stroke-width="0.63" opacity="0.26"/>
+<line x1="540.7" y1="97.7" x2="565.0" y2="184.2" stroke="var(--text-secondary)" stroke-width="0.84" opacity="0.29"/>
+<line x1="524.0" y1="257.8" x2="494.6" y2="157.9" stroke="var(--text-secondary)" stroke-width="1.50" opacity="0.40"/>
+<line x1="524.0" y1="257.8" x2="524.1" y2="194.3" stroke="var(--text-secondary)" stroke-width="1.08" opacity="0.33"/>
+<line x1="524.0" y1="257.8" x2="510.1" y2="128.3" stroke="var(--text-secondary)" stroke-width="0.81" opacity="0.29"/>
+<line x1="524.0" y1="257.8" x2="321.6" y2="453.7" stroke="var(--text-secondary)" stroke-width="0.71" opacity="0.27"/>
+<line x1="524.0" y1="257.8" x2="449.3" y2="135.5" stroke="var(--text-secondary)" stroke-width="0.71" opacity="0.27"/>
+<line x1="524.0" y1="257.8" x2="565.0" y2="184.2" stroke="var(--text-secondary)" stroke-width="1.17" opacity="0.35"/>
+<line x1="329.5" y1="354.1" x2="494.6" y2="157.9" stroke="var(--text-secondary)" stroke-width="0.73" opacity="0.27"/>
+<line x1="329.5" y1="354.1" x2="524.1" y2="194.3" stroke="var(--text-secondary)" stroke-width="0.71" opacity="0.27"/>
+<line x1="494.6" y1="157.9" x2="503.2" y2="55.0" stroke="var(--text-secondary)" stroke-width="1.06" opacity="0.33"/>
+<line x1="494.6" y1="157.9" x2="524.1" y2="194.3" stroke="var(--text-secondary)" stroke-width="1.29" opacity="0.37"/>
+<line x1="494.6" y1="157.9" x2="446.8" y2="64.9" stroke="var(--text-secondary)" stroke-width="1.14" opacity="0.34"/>
+<line x1="494.6" y1="157.9" x2="321.6" y2="453.7" stroke="var(--text-secondary)" stroke-width="1.30" opacity="0.37"/>
+<line x1="494.6" y1="157.9" x2="55.0" y2="357.4" stroke="var(--text-secondary)" stroke-width="1.16" opacity="0.35"/>
+<line x1="494.6" y1="157.9" x2="449.3" y2="135.5" stroke="var(--text-secondary)" stroke-width="2.32" opacity="0.54"/>
+<line x1="494.6" y1="157.9" x2="565.0" y2="184.2" stroke="var(--text-secondary)" stroke-width="1.46" opacity="0.40"/>
+<line x1="503.2" y1="55.0" x2="524.1" y2="194.3" stroke="var(--text-secondary)" stroke-width="1.17" opacity="0.35"/>
+<line x1="503.2" y1="55.0" x2="446.8" y2="64.9" stroke="var(--text-secondary)" stroke-width="1.39" opacity="0.39"/>
+<line x1="503.2" y1="55.0" x2="449.3" y2="135.5" stroke="var(--text-secondary)" stroke-width="1.08" opacity="0.33"/>
+<line x1="503.2" y1="55.0" x2="565.0" y2="184.2" stroke="var(--text-secondary)" stroke-width="2.04" opacity="0.50"/>
+<line x1="524.1" y1="194.3" x2="510.1" y2="128.3" stroke="var(--text-secondary)" stroke-width="2.04" opacity="0.50"/>
+<line x1="524.1" y1="194.3" x2="446.8" y2="64.9" stroke="var(--text-secondary)" stroke-width="1.06" opacity="0.33"/>
+<line x1="524.1" y1="194.3" x2="321.6" y2="453.7" stroke="var(--text-secondary)" stroke-width="1.07" opacity="0.33"/>
+<line x1="524.1" y1="194.3" x2="55.0" y2="357.4" stroke="var(--text-secondary)" stroke-width="0.76" opacity="0.28"/>
+<line x1="524.1" y1="194.3" x2="449.3" y2="135.5" stroke="var(--text-secondary)" stroke-width="1.16" opacity="0.35"/>
+<line x1="524.1" y1="194.3" x2="565.0" y2="184.2" stroke="var(--text-secondary)" stroke-width="1.64" opacity="0.43"/>
+<line x1="510.1" y1="128.3" x2="321.6" y2="453.7" stroke="var(--text-secondary)" stroke-width="0.85" opacity="0.29"/>
+<line x1="510.1" y1="128.3" x2="449.3" y2="135.5" stroke="var(--text-secondary)" stroke-width="1.05" opacity="0.33"/>
+<line x1="510.1" y1="128.3" x2="565.0" y2="184.2" stroke="var(--text-secondary)" stroke-width="1.27" opacity="0.36"/>
+<line x1="446.8" y1="64.9" x2="321.6" y2="453.7" stroke="var(--text-secondary)" stroke-width="1.11" opacity="0.34"/>
+<line x1="446.8" y1="64.9" x2="55.0" y2="357.4" stroke="var(--text-secondary)" stroke-width="1.99" opacity="0.49"/>
+<line x1="446.8" y1="64.9" x2="449.3" y2="135.5" stroke="var(--text-secondary)" stroke-width="2.03" opacity="0.50"/>
+<line x1="446.8" y1="64.9" x2="565.0" y2="184.2" stroke="var(--text-secondary)" stroke-width="1.06" opacity="0.33"/>
+<line x1="321.6" y1="453.7" x2="449.3" y2="135.5" stroke="var(--text-secondary)" stroke-width="0.83" opacity="0.29"/>
+<line x1="321.6" y1="453.7" x2="565.0" y2="184.2" stroke="var(--text-secondary)" stroke-width="0.61" opacity="0.25"/>
+<line x1="55.0" y1="357.4" x2="449.3" y2="135.5" stroke="var(--text-secondary)" stroke-width="0.61" opacity="0.25"/>
+<line x1="55.0" y1="357.4" x2="565.0" y2="184.2" stroke="var(--text-secondary)" stroke-width="1.28" opacity="0.37"/>
+<line x1="449.3" y1="135.5" x2="565.0" y2="184.2" stroke="var(--text-secondary)" stroke-width="1.16" opacity="0.35"/>
+<circle cx="509.1" cy="249.6" r="13" fill="var(--status-critical)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="509.1" y="233.6" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="700">자살행동 심각도</text>
+<circle cx="468.7" cy="218.7" r="9" fill="var(--series-3)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="468.7" y="202.7" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">우울증상 개수</text>
+<circle cx="544.0" cy="122.9" r="9" fill="var(--series-3)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="544.0" y="106.9" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">삽화 횟수</text>
+<circle cx="73.5" cy="465.0" r="9" fill="var(--series-3)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="73.5" y="485.0" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">발병 연령</text>
+<circle cx="419.9" cy="238.2" r="9" fill="var(--series-3)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="419.9" y="222.2" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">멜랑콜리아</text>
+<circle cx="540.7" cy="97.7" r="9" fill="var(--series-3)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="540.7" y="81.7" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">범불안장애</text>
+<circle cx="524.0" cy="257.8" r="9" fill="var(--series-3)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="524.0" y="241.8" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">공황장애</text>
+<circle cx="329.5" cy="354.1" r="9" fill="var(--series-3)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="329.5" y="374.1" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">입원력</text>
+<circle cx="494.6" cy="157.9" r="9" fill="var(--series-3)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="494.6" y="141.9" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">신경증 성향</text>
+<circle cx="503.2" cy="55.0" r="9" fill="var(--series-3)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="503.2" y="39.0" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">아동기 성적학대</text>
+<circle cx="524.1" cy="194.3" r="9" fill="var(--series-3)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="524.1" y="178.3" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">우울 가족력</text>
+<circle cx="510.1" cy="128.3" r="9" fill="var(--series-3)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="510.1" y="112.3" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">조증 가족력</text>
+<circle cx="446.8" cy="64.9" r="9" fill="var(--series-3)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="446.8" y="48.9" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">모 돌봄</text>
+<circle cx="321.6" cy="453.7" r="9" fill="var(--series-3)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="321.6" y="473.7" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">모 과보호</text>
+<circle cx="55.0" cy="357.4" r="9" fill="var(--series-3)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="55.0" y="377.4" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">사회적 지지</text>
+<circle cx="449.3" cy="135.5" r="9" fill="var(--series-3)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="449.3" y="119.5" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">사회적 갈등</text>
+<circle cx="565.0" cy="184.2" r="9" fill="var(--series-3)" stroke="var(--surface-1)" stroke-width="2"/>
+<text x="565.0" y="168.2" text-anchor="middle" font-size="10.3" fill="var(--text-primary)" font-weight="400">생애 스트레스 사건</text>
+</svg><figcaption><b>그림 9.</b> 환자군 위험요인 네트워크. <span style="color:var(--status-critical)">빨간 노드/선</span> =
+자살행동 심각도 노드 및 그와 직접 연결된 관계.</figcaption></figure>
+<div class="tablewrap"><table>
+<thead><tr><th>자살행동 심각도의 직접 이웃</th><th>편상관계수</th></tr></thead>
+<tbody>
+<tr><td>우울증상 개수</td><td class="tag tag-risk">0.271</td></tr>
+<tr><td>생애 스트레스 사건 총점</td><td class="tag tag-risk">0.120</td></tr>
+<tr><td>정신과 입원력</td><td class="tag tag-risk">0.118</td></tr>
+<tr><td>신경증 성향</td><td class="tag tag-risk">0.097</td></tr>
+<tr><td>발병 연령</td><td class="tag tag-protect">-0.064</td></tr>
+<tr><td>공황장애 동반</td><td>0.046</td></tr>
+<tr><td>범불안장애 동반</td><td>0.036</td></tr>
+<tr><td>사회적 지지</td><td class="tag tag-protect">-0.029</td></tr>
+</tbody></table></div>
+<div class="callout"><b>핵심 소견 —</b> <b>아동기 성적학대와 우울증 가족력은 자살행동 심각도 노드와 직접 연결되지
+않았습니다</b> — 즉 이 요인들의 영향은 증상 심각도·생애 스트레스·신경증 등을 <b>매개로 간접적으로</b> 전달되는
+것으로 보이며, 이는 4절 다변량 회귀에서 이 두 변수가 유의성을 상실한 것과 정확히 일치하는 패턴입니다. 두 가지
+서로 다른 통계기법(회귀분석과 네트워크분석)이 동일한 결론에 수렴한다는 점에서 이 매개 구조의 신뢰도를 높여줍니다.
+반대로 신경증 성향은 네트워크 전체에서 가장 강도가 높은 노드(0.83, 전체 17개 노드 중 1위)로, 자살행동뿐 아니라
+다른 위험요인들과도 광범위하게 연결된 '허브'로 기능했습니다.</div>
+</section>
+
+
+<section id="survival">
+<div class="sec-num">10</div>
+<h2>발병에서 첫 자살시도까지의 시간</h2>
+<p class="lede">우울증 발병 연령을 기준시점으로, 첫 자살시도까지의 시간을 Kaplan–Meier 방법으로 추정했습니다
+(n=2,923, 사건 725건). 시도가 없는 대상자는 평가 시점 연령에서 중도절단 처리했습니다.</p>
+<div class="callout"><b>발병 초기가 가장 위험한 시기입니다 —</b> 첫 자살시도의 <b>46.1%는 발병 후 1년 이내</b>,
+<b>63.3%는 5년 이내</b>에 발생했습니다 (시도까지의 중앙값 2년). 이는 "질환 초기가 자살위험이 가장 높은 시기"라는
+최근 고위험군 코호트 연구들의 반복된 결론과 일치하며, 초발 우울증 환자에 대한 조기·집중적 자살위험 평가의
+필요성을 강력히 뒷받침합니다.</div>
+<div class="grid3">
+<figure><svg viewBox="0 0 560 340" width="100%" role="img" aria-label="CSA" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
+<line x1="50" y1="294.0" x2="536" y2="294.0" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="298.0" text-anchor="end" font-size="10.5" fill="var(--text-muted)">0.0</text>
+<line x1="50" y1="239.2" x2="536" y2="239.2" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="243.2" text-anchor="end" font-size="10.5" fill="var(--text-muted)">0.2</text>
+<line x1="50" y1="184.4" x2="536" y2="184.4" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="188.4" text-anchor="end" font-size="10.5" fill="var(--text-muted)">0.4</text>
+<line x1="50" y1="129.6" x2="536" y2="129.6" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="133.6" text-anchor="end" font-size="10.5" fill="var(--text-muted)">0.6</text>
+<line x1="50" y1="74.8" x2="536" y2="74.8" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="78.8" text-anchor="end" font-size="10.5" fill="var(--text-muted)">0.8</text>
+<line x1="50" y1="20.0" x2="536" y2="20.0" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="24.0" text-anchor="end" font-size="10.5" fill="var(--text-muted)">1.0</text>
+<text x="50.0" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">0</text>
+<text x="147.2" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">8</text>
+<text x="244.4" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">16</text>
+<text x="341.6" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">25</text>
+<text x="438.8" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">33</text>
+<text x="536.0" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">41</text>
+<path d="M 50.0 20.0 L 50.0 20.0 L 50.0 45.3 L 61.9 45.3 L 61.9 48.9 L 73.7 48.9 L 73.7 51.1 L 85.6 51.1 L 85.6 55.8 L 97.4 55.8 L 97.4 58.3 L 109.3 58.3 L 109.3 60.1 L 121.1 60.1 L 121.1 61.6 L 133.0 61.6 L 133.0 64.4 L 144.8 64.4 L 144.8 65.6 L 156.7 65.6 L 156.7 67.5 L 168.5 67.5 L 168.5 68.7 L 180.4 68.7 L 180.4 69.9 L 192.2 69.9 L 192.2 71.7 L 204.1 71.7 L 204.1 73.1 L 216.0 73.1 L 216.0 75.3 L 227.8 75.3 L 227.8 76.5 L 239.7 76.5 L 239.7 79.1 L 251.5 79.1 L 251.5 80.7 L 263.4 80.7 L 263.4 81.7 L 275.2 81.7 L 275.2 83.2 L 287.1 83.2 L 287.1 85.7 L 298.9 85.7 L 298.9 87.8 L 310.8 87.8 L 310.8 88.1 L 322.6 88.1 L 322.6 91.5 L 334.5 91.5 L 334.5 92.6 L 358.2 92.6 L 358.2 93.9 L 370.0 93.9 L 370.0 95.7 L 381.9 95.7 L 381.9 96.2 L 393.8 96.2 L 393.8 96.8 L 405.6 96.8 L 405.6 98.6 L 417.5 98.6 L 417.5 99.8 L 441.2 99.8 L 441.2 100.6 L 488.6 100.6 L 488.6 101.7 L 536.0 101.7 L 536.0 103.9 " fill="none" stroke="var(--series-2)" stroke-width="2.2"/>
+<circle cx="536.0" cy="103.9" r="3" fill="var(--series-2)"/>
+<path d="M 50.0 20.0 L 50.0 20.0 L 50.0 51.5 L 61.9 51.5 L 61.9 56.6 L 73.7 56.6 L 73.7 61.3 L 85.6 61.3 L 85.6 64.7 L 97.4 64.7 L 97.4 69.1 L 109.3 69.1 L 109.3 70.4 L 121.1 70.4 L 121.1 72.4 L 133.0 72.4 L 133.0 74.8 L 144.8 74.8 L 144.8 78.4 L 156.7 78.4 L 156.7 82.0 L 168.5 82.0 L 168.5 83.9 L 180.4 83.9 L 180.4 86.6 L 192.2 86.6 L 192.2 87.4 L 204.1 87.4 L 204.1 89.1 L 216.0 89.1 L 216.0 91.3 L 227.8 91.3 L 227.8 93.2 L 239.7 93.2 L 239.7 94.8 L 251.5 94.8 L 251.5 98.8 L 263.4 98.8 L 263.4 99.4 L 275.2 99.4 L 275.2 101.4 L 287.1 101.4 L 287.1 104.3 L 298.9 104.3 L 298.9 106.6 L 310.8 106.6 L 310.8 107.4 L 322.6 107.4 L 322.6 108.3 L 334.5 108.3 L 334.5 109.3 L 346.3 109.3 L 346.3 111.5 L 370.0 111.5 L 370.0 116.6 L 405.6 116.6 L 405.6 118.4 L 464.9 118.4 L 464.9 121.7 L 512.3 121.7 L 512.3 127.3 " fill="none" stroke="var(--series-1)" stroke-width="2.2"/>
+<circle cx="512.3" cy="127.3" r="3" fill="var(--series-1)"/>
+<rect x="56.0" y="22" width="10" height="10" rx="2" fill="var(--series-2)"/>
+<text x="71.0" y="31" font-size="11" fill="var(--text-secondary)">No CSA</text>
+<rect x="127.8" y="22" width="10" height="10" rx="2" fill="var(--series-1)"/>
+<text x="142.8" y="31" font-size="11" fill="var(--text-secondary)">CSA</text>
+<line x1="50" y1="294" x2="536" y2="294" stroke="var(--axis)" stroke-width="1.3"/>
+<text x="293.0" y="336" text-anchor="middle" font-size="11" fill="var(--text-secondary)">Years since illness onset</text>
+</svg><figcaption><b>그림 10.</b> 아동기 성적학대 유무에 따른 시도-자유(attempt-free) 생존곡선
+(로그순위 p&lt;.001).</figcaption></figure>
+<figure><svg viewBox="0 0 560 340" width="100%" role="img" aria-label="melancholia" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
+<line x1="50" y1="294.0" x2="536" y2="294.0" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="298.0" text-anchor="end" font-size="10.5" fill="var(--text-muted)">0.0</text>
+<line x1="50" y1="239.2" x2="536" y2="239.2" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="243.2" text-anchor="end" font-size="10.5" fill="var(--text-muted)">0.2</text>
+<line x1="50" y1="184.4" x2="536" y2="184.4" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="188.4" text-anchor="end" font-size="10.5" fill="var(--text-muted)">0.4</text>
+<line x1="50" y1="129.6" x2="536" y2="129.6" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="133.6" text-anchor="end" font-size="10.5" fill="var(--text-muted)">0.6</text>
+<line x1="50" y1="74.8" x2="536" y2="74.8" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="78.8" text-anchor="end" font-size="10.5" fill="var(--text-muted)">0.8</text>
+<line x1="50" y1="20.0" x2="536" y2="20.0" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="24.0" text-anchor="end" font-size="10.5" fill="var(--text-muted)">1.0</text>
+<text x="50.0" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">0</text>
+<text x="147.2" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">8</text>
+<text x="244.4" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">16</text>
+<text x="341.6" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">25</text>
+<text x="438.8" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">33</text>
+<text x="536.0" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">41</text>
+<path d="M 50.0 20.0 L 50.0 20.0 L 50.0 35.4 L 61.9 35.4 L 61.9 38.8 L 73.7 38.8 L 73.7 42.2 L 85.6 42.2 L 85.6 46.3 L 97.4 46.3 L 97.4 46.9 L 109.3 46.9 L 109.3 49.1 L 133.0 49.1 L 133.0 51.3 L 156.7 51.3 L 156.7 53.7 L 168.5 53.7 L 168.5 54.5 L 204.1 54.5 L 204.1 55.4 L 216.0 55.4 L 216.0 57.3 L 227.8 57.3 L 227.8 58.2 L 239.7 58.2 L 239.7 60.3 L 251.5 60.3 L 251.5 62.4 L 287.1 62.4 L 287.1 67.6 L 298.9 67.6 L 298.9 69.0 L 322.6 69.0 L 322.6 72.1 L 370.0 72.1 L 370.0 74.2 L 381.9 74.2 L 381.9 76.5 " fill="none" stroke="var(--series-2)" stroke-width="2.2"/>
+<circle cx="381.9" cy="76.5" r="3" fill="var(--series-2)"/>
+<path d="M 50.0 20.0 L 50.0 20.0 L 50.0 49.2 L 61.9 49.2 L 61.9 53.3 L 73.7 53.3 L 73.7 56.3 L 85.6 56.3 L 85.6 60.6 L 97.4 60.6 L 97.4 64.1 L 109.3 64.1 L 109.3 65.7 L 121.1 65.7 L 121.1 67.6 L 133.0 67.6 L 133.0 70.3 L 144.8 70.3 L 144.8 72.6 L 156.7 72.6 L 156.7 75.0 L 168.5 75.0 L 168.5 76.5 L 180.4 76.5 L 180.4 78.4 L 192.2 78.4 L 192.2 80.2 L 204.1 80.2 L 204.1 81.8 L 216.0 81.8 L 216.0 84.1 L 227.8 84.1 L 227.8 85.6 L 239.7 85.6 L 239.7 87.9 L 251.5 87.9 L 251.5 90.2 L 263.4 90.2 L 263.4 91.2 L 275.2 91.2 L 275.2 93.2 L 287.1 93.2 L 287.1 95.3 L 298.9 95.3 L 298.9 97.6 L 310.8 97.6 L 310.8 98.1 L 322.6 98.1 L 322.6 100.8 L 334.5 100.8 L 334.5 102.1 L 346.3 102.1 L 346.3 102.8 L 358.2 102.8 L 358.2 103.9 L 370.0 103.9 L 370.0 106.7 L 393.8 106.7 L 393.8 107.2 L 405.6 107.2 L 405.6 109.4 L 417.5 109.4 L 417.5 110.5 L 441.2 110.5 L 441.2 111.2 L 464.9 111.2 L 464.9 112.1 L 488.6 112.1 L 488.6 113.2 L 512.3 113.2 L 512.3 114.7 L 536.0 114.7 L 536.0 116.7 " fill="none" stroke="var(--series-1)" stroke-width="2.2"/>
+<circle cx="536.0" cy="116.7" r="3" fill="var(--series-1)"/>
+<rect x="56.0" y="22" width="10" height="10" rx="2" fill="var(--series-2)"/>
+<text x="71.0" y="31" font-size="11" fill="var(--text-secondary)">No</text>
+<rect x="102.6" y="22" width="10" height="10" rx="2" fill="var(--series-1)"/>
+<text x="117.6" y="31" font-size="11" fill="var(--text-secondary)">Yes</text>
+<line x1="50" y1="294" x2="536" y2="294" stroke="var(--axis)" stroke-width="1.3"/>
+<text x="293.0" y="336" text-anchor="middle" font-size="11" fill="var(--text-secondary)">Years since illness onset</text>
+</svg><figcaption><b>그림 11.</b> 멜랑콜리아 아형 유무 (로그순위 p&lt;.001).</figcaption></figure>
+<figure><svg viewBox="0 0 560 340" width="100%" role="img" aria-label="onset" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
+<line x1="50" y1="294.0" x2="536" y2="294.0" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="298.0" text-anchor="end" font-size="10.5" fill="var(--text-muted)">0.0</text>
+<line x1="50" y1="239.2" x2="536" y2="239.2" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="243.2" text-anchor="end" font-size="10.5" fill="var(--text-muted)">0.2</text>
+<line x1="50" y1="184.4" x2="536" y2="184.4" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="188.4" text-anchor="end" font-size="10.5" fill="var(--text-muted)">0.4</text>
+<line x1="50" y1="129.6" x2="536" y2="129.6" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="133.6" text-anchor="end" font-size="10.5" fill="var(--text-muted)">0.6</text>
+<line x1="50" y1="74.8" x2="536" y2="74.8" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="78.8" text-anchor="end" font-size="10.5" fill="var(--text-muted)">0.8</text>
+<line x1="50" y1="20.0" x2="536" y2="20.0" stroke="var(--gridline)" stroke-width="1"/>
+<text x="42" y="24.0" text-anchor="end" font-size="10.5" fill="var(--text-muted)">1.0</text>
+<text x="50.0" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">0</text>
+<text x="147.2" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">8</text>
+<text x="244.4" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">16</text>
+<text x="341.6" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">25</text>
+<text x="438.8" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">33</text>
+<text x="536.0" y="310" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">41</text>
+<path d="M 50.0 20.0 L 50.0 20.0 L 50.0 41.6 L 61.9 41.6 L 61.9 45.1 L 73.7 45.1 L 73.7 48.4 L 85.6 48.4 L 85.6 52.1 L 97.4 52.1 L 97.4 55.3 L 109.3 55.3 L 109.3 57.3 L 121.1 57.3 L 121.1 59.2 L 133.0 59.2 L 133.0 62.3 L 144.8 62.3 L 144.8 64.0 L 156.7 64.0 L 156.7 66.4 L 168.5 66.4 L 168.5 67.5 L 180.4 67.5 L 180.4 69.2 L 192.2 69.2 L 192.2 70.6 L 204.1 70.6 L 204.1 72.0 L 216.0 72.0 L 216.0 74.3 L 227.8 74.3 L 227.8 76.0 L 239.7 76.0 L 239.7 77.8 L 251.5 77.8 L 251.5 79.7 L 263.4 79.7 L 263.4 81.1 L 275.2 81.1 L 275.2 82.7 L 287.1 82.7 L 287.1 84.1 L 298.9 84.1 L 298.9 84.9 L 310.8 84.9 L 310.8 85.3 L 322.6 85.3 L 322.6 88.1 L 334.5 88.1 L 334.5 88.6 L 358.2 88.6 L 358.2 90.5 L 370.0 90.5 L 370.0 91.2 L 381.9 91.2 L 381.9 92.0 L 405.6 92.0 L 405.6 93.1 L 536.0 93.1 L 536.0 102.6 " fill="none" stroke="var(--series-2)" stroke-width="2.2"/>
+<circle cx="536.0" cy="102.6" r="3" fill="var(--series-2)"/>
+<path d="M 50.0 20.0 L 50.0 20.0 L 50.0 59.4 L 61.9 59.4 L 61.9 64.3 L 73.7 64.3 L 73.7 66.9 L 85.6 66.9 L 85.6 72.5 L 97.4 72.5 L 97.4 75.1 L 109.3 75.1 L 109.3 76.3 L 121.1 76.3 L 121.1 77.4 L 133.0 77.4 L 133.0 79.2 L 144.8 79.2 L 144.8 81.6 L 156.7 81.6 L 156.7 84.0 L 168.5 84.0 L 168.5 85.9 L 180.4 85.9 L 180.4 87.4 L 192.2 87.4 L 192.2 89.0 L 204.1 89.0 L 204.1 90.7 L 216.0 90.7 L 216.0 92.7 L 227.8 92.7 L 227.8 93.8 L 239.7 93.8 L 239.7 96.8 L 251.5 96.8 L 251.5 99.5 L 275.2 99.5 L 275.2 101.2 L 287.1 101.2 L 287.1 105.3 L 298.9 105.3 L 298.9 109.1 L 310.8 109.1 L 310.8 109.6 L 322.6 109.6 L 322.6 112.2 L 334.5 112.2 L 334.5 113.8 L 346.3 113.8 L 346.3 114.9 L 370.0 114.9 L 370.0 119.3 L 393.8 119.3 L 393.8 120.0 L 405.6 120.0 L 405.6 122.1 L 417.5 122.1 L 417.5 123.6 L 441.2 123.6 L 441.2 124.5 L 464.9 124.5 L 464.9 125.5 L 488.6 125.5 L 488.6 126.6 L 512.3 126.6 L 512.3 128.0 " fill="none" stroke="var(--series-1)" stroke-width="2.2"/>
+<circle cx="512.3" cy="128.0" r="3" fill="var(--series-1)"/>
+<rect x="56.0" y="22" width="10" height="10" rx="2" fill="var(--series-2)"/>
+<text x="71.0" y="31" font-size="11" fill="var(--text-secondary)">Onset >25</text>
+<rect x="146.7" y="22" width="10" height="10" rx="2" fill="var(--series-1)"/>
+<text x="161.7" y="31" font-size="11" fill="var(--text-secondary)">Onset <=25</text>
+<line x1="50" y1="294" x2="536" y2="294" stroke="var(--axis)" stroke-width="1.3"/>
+<text x="293.0" y="336" text-anchor="middle" font-size="11" fill="var(--text-secondary)">Years since illness onset</text>
+</svg><figcaption><b>그림 12.</b> 이른 발병(≤25세) 여부 (로그순위 p&lt;.001).</figcaption></figure>
+</div>
+<div class="tablewrap"><table>
+<thead><tr><th>층화 변수</th><th>집단</th><th>n</th><th>평생 시도율</th><th>로그순위 χ²</th><th>p</th></tr></thead>
+<tbody>
+<tr><td rowspan="2">아동기 성적학대</td><td>없음</td><td>2,001</td><td>23.2%</td><td rowspan="2">13.35</td><td rowspan="2">&lt;.001</td></tr>
+<tr><td>있음</td><td>922</td><td>28.3%</td></tr>
+<tr><td rowspan="2">멜랑콜리아 아형</td><td>없음</td><td>408</td><td>16.4%</td><td rowspan="2">19.86</td><td rowspan="2">&lt;.001</td></tr>
+<tr><td>있음</td><td>2,515</td><td>26.2%</td></tr>
+<tr><td rowspan="2">우울증 가족력</td><td>없음</td><td>1,344</td><td>24.1%</td><td rowspan="2">0.81</td><td rowspan="2">.369</td></tr>
+<tr><td>있음</td><td>1,579</td><td>25.4%</td></tr>
+<tr><td rowspan="2">발병 연령</td><td>&gt;25세</td><td>1,983</td><td>20.8%</td><td rowspan="2">26.14</td><td rowspan="2">&lt;.001</td></tr>
+<tr><td>≤25세</td><td>940</td><td>33.3%</td></tr>
+</tbody></table></div>
+<p style="font-size:14.5px">아동기 성적학대, 멜랑콜리아 아형, 이른 발병은 모두 <b>첫 시도까지의 시간을 유의하게
+단축</b>시켰습니다. 반면 우울증 가족력 자체는 시도 시점을 앞당기지는 않았는데, 이는 가족력이 발병 시점을
+앞당기는 경로로 간접 작용할 가능성(조기발병 경로)과 구분됩니다.</p>
+</section>
+
+
+<section id="lhc">
+<div class="sec-num">11</div>
+<h2>삽화 수준(Life History Calendar) 분석</h2>
+<p class="lede">2,998명의 환자에서 확보된 8,889개 우울 삽화를 개인 수준의 자살시도 이력과 연결하여, (1) 자살시도가
+발생한 삽화가 그 사람의 다른 삽화보다 더 심한 스트레스로 촉발되었는지, (2) 재발이 거듭될수록 '별다른 계기 없이'
+발생하는 삽화(kindling 가설)가 느는지, (3) 평생 시도 여부가 개인의 전반적 삽화 스트레스 부담과 관련되는지를
+검토했습니다.</p>
+
+<h3>11.1 자살시도와 연관된 삽화는 더 심각했는가 (개인 내 대응비교)</h3>
+<div class="grid2">
+<div class="tablewrap"><table>
+<thead><tr><th>지표</th><th>대응 수</th><th>평균 차이</th><th>Wilcoxon p</th></tr></thead>
+<tbody>
+<tr><td>사건 심각도 합성지표</td><td>785</td><td>+0.087</td><td>.065</td></tr>
+<tr><td>생애 사건 개수</td><td>785</td><td>+0.078</td><td>.091</td></tr>
+<tr><td>사건 위협도(OR 기반)</td><td>785</td><td>+0.201</td><td class="tag tag-risk">.012</td></tr>
+<tr><td>의존적 사건 수</td><td>785</td><td>&minus;0.000</td><td>.943</td></tr>
+<tr><td>독립적 사건 수</td><td>785</td><td>&minus;0.015</td><td>.976</td></tr>
+</tbody></table></div>
+<div class="card" style="font-size:14.3px">
+<p style="margin-top:0"><b>해석 —</b> 자살시도가 발생한 삽화는 같은 사람의 다른 삽화들에 비해 사건 위협도가
+유의하게 더 높았고(p=.012), 사건 심각도·개수도 같은 방향의 경향성(p≈.07–.09)을 보였습니다. 다만 효과 크기는
+크지 않아, <b>특정 삽화의 스트레스 수준만으로 시도 시점을 예측하기는 어렵다</b>는 것이 정직한 결론입니다.
+이는 Kendler식 맥락적 위협 평가와 근접 자살위험을 연결한 최근 연구(Psychiatric Quarterly 2023)와 부분적으로만
+일치하는, 다소 절제된 소견입니다.</p></div>
+</div>
+
+<h3>11.2 Kindling(반응 역치 저하) 패턴</h3>
+<figure><svg viewBox="0 0 640 300" width="100%" role="img" aria-label="bar chart" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
+<line x1="190.0" y1="30" x2="190.0" y2="240" stroke="var(--gridline)" stroke-width="1"/>
+<text x="190.0" y="258" text-anchor="middle" font-size="11" fill="var(--text-muted)">0.0%</text>
+<line x1="297.5" y1="30" x2="297.5" y2="240" stroke="var(--gridline)" stroke-width="1"/>
+<text x="297.5" y="258" text-anchor="middle" font-size="11" fill="var(--text-muted)">6.6%</text>
+<line x1="405.0" y1="30" x2="405.0" y2="240" stroke="var(--gridline)" stroke-width="1"/>
+<text x="405.0" y="258" text-anchor="middle" font-size="11" fill="var(--text-muted)">13.1%</text>
+<line x1="512.5" y1="30" x2="512.5" y2="240" stroke="var(--gridline)" stroke-width="1"/>
+<text x="512.5" y="258" text-anchor="middle" font-size="11" fill="var(--text-muted)">19.7%</text>
+<line x1="620.0" y1="30" x2="620.0" y2="240" stroke="var(--gridline)" stroke-width="1"/>
+<text x="620.0" y="258" text-anchor="middle" font-size="11" fill="var(--text-muted)">26.2%</text>
+<text x="180" y="51.5" text-anchor="end" font-size="12.5" fill="var(--text-primary)">1번째 삽화</text>
+<rect x="190" y="37.0" width="166.6" height="21.0" rx="3" fill="var(--series-3)"/>
+<text x="364.6" y="51.5" font-size="12.5" font-weight="600" fill="var(--text-primary)">10.2%</text>
+<text x="180" y="86.5" text-anchor="end" font-size="12.5" fill="var(--text-primary)">2번째 삽화</text>
+<rect x="190" y="72.0" width="235.7" height="21.0" rx="3" fill="var(--series-3)"/>
+<text x="433.7" y="86.5" font-size="12.5" font-weight="600" fill="var(--text-primary)">14.4%</text>
+<text x="180" y="121.5" text-anchor="end" font-size="12.5" fill="var(--text-primary)">3번째 삽화</text>
+<rect x="190" y="107.0" width="246.8" height="21.0" rx="3" fill="var(--series-3)"/>
+<text x="444.8" y="121.5" font-size="12.5" font-weight="600" fill="var(--text-primary)">15.1%</text>
+<text x="180" y="156.5" text-anchor="end" font-size="12.5" fill="var(--text-primary)">4번째 삽화</text>
+<rect x="190" y="142.0" width="325.3" height="21.0" rx="3" fill="var(--series-3)"/>
+<text x="523.3" y="156.5" font-size="12.5" font-weight="600" fill="var(--text-primary)">19.9%</text>
+<text x="180" y="191.5" text-anchor="end" font-size="12.5" fill="var(--text-primary)">5번째 삽화</text>
+<rect x="190" y="177.0" width="373.9" height="21.0" rx="3" fill="var(--series-3)"/>
+<text x="571.9" y="191.5" font-size="12.5" font-weight="600" fill="var(--text-primary)">22.8%</text>
+<text x="180" y="226.5" text-anchor="end" font-size="12.5" fill="var(--text-primary)">6번째 삽화</text>
+<rect x="190" y="212.0" width="366.4" height="21.0" rx="3" fill="var(--series-3)"/>
+<text x="564.4" y="226.5" font-size="12.5" font-weight="600" fill="var(--text-primary)">22.4%</text>
+<line x1="190" y1="240" x2="620" y2="240" stroke="var(--axis)" stroke-width="1.5"/>
+</svg><figcaption><b>그림 13.</b> 삽화 순번이 증가할수록 '뚜렷한 계기 없이(out of the blue)' 발생하는
+삽화의 비율이 증가합니다 (로지스틱 회귀, 삽화 순번당 OR=1.24, 개인 단위 클러스터 표준오차, p&lt;.001).</figcaption></figure>
+<p style="font-size:14.5px">1번째 삽화에서는 10.2%만이 뚜렷한 계기 없이 발생했지만, 7번째 삽화에서는 29.3%로
+증가했습니다 — 재발이 거듭될수록 더 적은 스트레스로도(혹은 스트레스 없이도) 삽화가 발생한다는 <b>kindling
+가설</b>과 부합하는 뚜렷한 패턴입니다. 다만 개인별 kindling 비율(out-of-blue 삽화 비율) 자체는 평생 자살시도
+여부와 유의한 관련이 없었습니다(시도군 14.0% vs 비시도군 13.3%, p=.50) — 즉 <b>'역치가 낮아지는 재발 양상' 자체가
+자살위험을 직접 높이지는 않는다</b>는 것입니다.</p>
+
+<h3>11.3 삽화당 평균 스트레스 부담과 평생 자살시도</h3>
+<figure><svg viewBox="0 0 640 260" width="100%" role="img" aria-label="bar chart" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
+<line x1="60" y1="210.0" x2="616" y2="210.0" stroke="var(--gridline)" stroke-width="1"/>
+<text x="52" y="214.0" text-anchor="end" font-size="11" fill="var(--text-muted)">0.00</text>
+<line x1="60" y1="163.5" x2="616" y2="163.5" stroke="var(--gridline)" stroke-width="1"/>
+<text x="52" y="167.5" text-anchor="end" font-size="11" fill="var(--text-muted)">0.15</text>
+<line x1="60" y1="117.0" x2="616" y2="117.0" stroke="var(--gridline)" stroke-width="1"/>
+<text x="52" y="121.0" text-anchor="end" font-size="11" fill="var(--text-muted)">0.30</text>
+<line x1="60" y1="70.5" x2="616" y2="70.5" stroke="var(--gridline)" stroke-width="1"/>
+<text x="52" y="74.5" text-anchor="end" font-size="11" fill="var(--text-muted)">0.45</text>
+<line x1="60" y1="24.0" x2="616" y2="24.0" stroke="var(--gridline)" stroke-width="1"/>
+<text x="52" y="28.0" text-anchor="end" font-size="11" fill="var(--text-muted)">0.60</text>
+<rect x="152.7" y="142.7" width="152.0" height="67.3" rx="3" fill="var(--series-1)"/>
+<text x="228.7" y="136.7" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">0.22</text>
+<rect x="338.0" y="55.0" width="152.0" height="155.0" rx="3" fill="var(--series-2)"/>
+<text x="414.0" y="49.0" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">0.50</text>
+<text x="338.0" y="230" text-anchor="middle" font-size="12" fill="var(--text-primary)">삽화당 평균 생활사건
+심각도 지수</text>
+<line x1="60" y1="210" x2="616" y2="210" stroke="var(--axis)" stroke-width="1.5"/>
+<rect x="60.0" y="5" width="10" height="10" rx="2" fill="var(--series-1)"/>
+<text x="75.0" y="14.0" font-size="11.5" fill="var(--text-secondary)">평생 자살시도 없음</text>
+<rect x="166.0" y="5" width="10" height="10" rx="2" fill="var(--series-2)"/>
+<text x="181.0" y="14.0" font-size="11.5" fill="var(--text-secondary)">평생 자살시도 있음</text>
+</svg><figcaption><b>그림 14.</b> 개인별 삽화당 평균 생활사건 심각도 지수 비교. 평생 자살시도
+경험자는 비경험자보다 삽화당 평균 스트레스 부담이 <b>2배 이상</b> 높았습니다 (t=8.59, p=2.8×10⁻¹⁷).</figcaption></figure>
+<div class="callout"><b>종합 —</b> 개별 삽화 하나하나의 심각도로 "어느 삽화에서 시도가 나올지"를 예측하기는
+어렵지만(11.1), <b>질병 경과 전체에 걸친 누적 스트레스 부담</b>은 평생 자살시도 여부를 강하게 구분했습니다(11.3).
+즉 자살위험은 단일 급성 스트레스 사건보다 <b>만성적으로 더 가혹한 삽화 궤적을 겪는 하위집단</b>과 관련되어
+보이며, 이는 4절의 "생애 스트레스 누적 총점"이 다변량 모형에서 독립적 위험요인으로 남은 것과 개인-집계
+수준에서 일관됩니다.</div>
+</section>
+
+
+<section id="discussion">
+<div class="sec-num">12</div>
+<h2>종합 논의</h2>
+<p class="lede">세 가지 서로 다른 분석 층위 — <b>회귀분석(4·5·6절)</b>, <b>네트워크 분석(8·9절)</b>,
+<b>종단·삽화 분석(10·11절)</b> — 은 하나의 일관된 그림으로 수렴합니다.</p>
+<div class="finding"><div class="h">1. 자살위험은 '증상 심각도 + 만성적 스트레스 + 신경증'의 조합에서 나온다</div>
+<div class="d">현재 우울증상 개수, 생애 누적 스트레스, 신경증 성향은 회귀모형(4절)에서 독립적 위험요인이었고,
+네트워크 분석(9절)에서도 자살행동 심각도 노드와 직접 연결된 소수의 요인이었으며, 삽화 분석(11.3절)에서는
+누적 스트레스 부담이 시도 여부를 가장 크게 구분했습니다. 세 방법이 같은 결론에 도달했다는 것은 이 소견의
+강건성(robustness)을 뒷받침합니다.</div></div>
+<div class="finding"><div class="h">2. 아동기 성적학대·양육태도·가족력은 '직접'이 아니라 '경로를 통해' 작용한다</div>
+<div class="d">CSA와 가족력은 단변량에서는 유의했지만(4.1절) 다변량 모형과 네트워크 분석 모두에서 자살행동과의
+직접 연결이 사라졌습니다(4.2·9절). 이는 이 요인들이 증상 심각도·신경증·만성 스트레스라는 경로를 통해 간접적으로
+위험을 높인다는 매개 가설을 지지하며, "CSA가 우울/PTSD를 매개로 자살위험을 높인다"는 최근 문헌(리뷰, 2025)과
+같은 방향입니다. 다만 본 분석은 횡단 자료 기반의 통계적 매개 패턴이며, 공식적인 매개분석(SEM)으로 확증되지는
+않았습니다.</div></div>
+<div class="finding"><div class="h">3. 첫 시도와 '반복' 시도는 부분적으로 다른 현상이다</div>
+<div class="d">첫 시도의 예측인자(증상심각도·생애스트레스·발병연령 등)는 반복시도 여부는 잘 구분하지 못했고,
+반복시도는 신경증 성향만이 뚜렷하게 예측했습니다(5절). 위험 평가와 재발방지 개입은 '누가 처음 시도할
+위험이 큰가'와 '이미 시도한 사람 중 누가 반복할 위험이 큰가'를 구분해서 설계할 필요를 시사합니다.</div></div>
+<div class="finding"><div class="h">4. 발병 초기가 결정적 개입 시점이다</div>
+<div class="d">첫 시도의 거의 절반이 발병 1년 이내에 발생했습니다(10절). 첫 우울 삽화 진단 직후의 집중적
+자살위험 평가가 특히 아동기 성적학대·멜랑콜리아 아형·이른 발병 연령을 가진 환자에서 우선순위가 되어야
+함을 시사합니다.</div></div>
+<div class="finding"><div class="h">5. 자살사고는 진단명보다 신경증과 같은 차원적 성격 특성에 더 강하게 매인다</div>
+<div class="d">건강대조군을 포함한 전체 표본 분석(6절)과 두 집단의 증상 네트워크 비교(8절) 모두, 자살사고가
+진단 범주를 넘어서는 차원적 현상이며 신경증 성향이 진단 자체보다 더 강력한 근접 상관물임을 보여주었습니다.
+동시에 자살사고는 대조군 네트워크에서는 주변적(매개중심성 0)이었지만 환자군 네트워크에서는 다른 증상들을
+잇는 통합된 노드로 나타나, "동일한 증상이라도 임상적 맥락에 따라 증상망 내 위상이 달라진다"는 최근 네트워크
+정신병리학의 주장을 뒷받침합니다.</div></div>
+</section>
+
+
+<section id="limits">
+<div class="sec-num">13</div>
+<h2>제한점</h2>
+<ul class="limits">
+<li><b>횡단적·회고적 설계</b> — 자살사고/시도, 아동기 학대, 양육태도 등 대부분의 변수가 단면 면접에서 회고적으로
+수집되어, 인과관계가 아닌 연관성만을 시사합니다. 특히 PBI 돌봄 점수와 자살시도의 예상과 다른 방향의 연관성(7.1절)은
+현재 증상이 과거 회상에 영향을 미치는 상태-의존적 회상 편향의 가능성을 배제할 수 없습니다.</li>
+<li><b>완결 자살(completed suicide)에 대한 정보 없음</b> — 본 표본은 생존자 대상 면접 자료이므로, 자살로 사망한
+사례의 위험요인은 다룰 수 없습니다. "시도"와 "사망"의 위험요인이 중첩되지만 구별된다는 최근 문헌(JAMA
+Psychiatry)에 비추어, 본 결과를 완결 자살 위험 예측에 직접 확장하는 데는 주의가 필요합니다.</li>
+<li><b>네트워크 분석의 근사적 성격</b> — SCL 문항(5점 리커트)에 대해 Pearson 상관 기반 그래프 라쏘를 적용했습니다.
+다분상관(polychoric correlation) 기반 추정이 이상적이나, 순서형 범주가 5개로 비교적 조밀하여 근사 오차는 제한적일
+것으로 판단됩니다. 네트워크 안정성에 대한 부트스트랩 재표집 검증은 수행하지 못했습니다.</li>
+<li><b>다중비교 미보정</b> — 4.1절의 단변량 스크리닝 등 다수의 검정을 수행했으며 별도의 다중비교 보정(FDR 등)은
+적용하지 않았습니다. 대부분의 핵심 소견은 p&lt;.001 수준으로 매우 강건하지만, 경계선상 결과(예: p≈.03–.05)는
+보수적으로 해석해야 합니다.</li>
+<li><b>다변량 모형의 설명력</b> — 예측모형의 교차검증 AUC는 0.69로, 임상적 의사결정에 단독으로 사용하기에는
+충분하지 않은 판별력입니다. 이는 최근 대규모 코호트 기반 자해 예측모형 연구들(Molecular Psychiatry 2026)에서도
+공통적으로 지적되는 한계입니다.</li>
+<li><b>LHC-자살시도 연결의 근사성</b> — 자살시도가 발생한 정확한 삽화를 식별할 때 삽화 기간 정보가 없는 경우
+연령 차이가 가장 작은 삽화로 근사 배정했습니다. 삽화 경계가 부정확한 사례가 일부 포함되었을 수 있습니다.</li>
+<li><b>단일 성별·단일 문화권 표본</b> — 모든 대상자가 한국인 여성으로, 남성 및 다른 문화권으로의 일반화는
+제한적입니다.</li>
+</ul>
+</section>
+
+
+<section id="refs">
+<div class="sec-num">참고</div>
+<h2>검토한 최근 문헌 (2023–2026)</h2>
+<ul class="reflist">
+<li>Overlapping risk factors for suicide attempt and suicide death — <i>JAMA Psychiatry</i> case-control study.</li>
+<li>Prediction of self-harm in people with newly-diagnosed depression: development and validation of risk prediction models — <a href="https://www.nature.com/articles/s41380-026-03555-x" target="_blank">Molecular Psychiatry (2026)</a>.</li>
+<li>Nomogram for estimating the risk of suicide attempts in major depressive disorder — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12492985/" target="_blank">Frontiers in Psychiatry (2025)</a>.</li>
+<li>Prevalence and related factors of comorbid suicide attempts and psychotic symptoms in first-episode MDD — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12309062/" target="_blank">PMC (2025)</a>.</li>
+<li>Gender differences in the network of suicidal ideation, interpersonal needs and depressive symptoms — <a href="https://www.nature.com/articles/s41598-025-95746-9" target="_blank">Scientific Reports (2025)</a>.</li>
+<li>Network analysis of correlations between suicide exposure, depression, and anxiety symptoms in adolescents — <a href="https://pubmed.ncbi.nlm.nih.gov/39422712/" target="_blank">PubMed (2025)</a>.</li>
+<li>Post-pandemic changes in anxiety and depression symptom networks — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12398219/" target="_blank">PMC (2025)</a>.</li>
+<li>Risk for suicidal thoughts and behavior after childhood sexual abuse in women and men — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3518050/" target="_blank">PMC</a>; Unveiling suicidal risk in young CSA victims — <a href="https://www.tandfonline.com/doi/full/10.1080/15299732.2025.2542129" target="_blank">(2025)</a>.</li>
+<li>Offspring's risk for suicidal behaviour in relation to parental death by suicide: systematic review &amp; meta-analysis — <a href="https://www.cambridge.org/core/journals/the-british-journal-of-psychiatry/article/offsprings-risk-for-suicidal-behaviour-in-relation-to-parental-death-by-suicide-systematic-review-and-metaanalysis-and-a-model-for-familial-transmission-of-suicide/C450526CAF5F329AF48E656660DEB6A7" target="_blank">British Journal of Psychiatry</a>.</li>
+<li>Parental mental health and suicidal behavior as predictors of adolescent suicidal ideation and attempts: systematic review &amp; meta-analysis (31 studies, 12M+ adolescents, 2025).</li>
+<li>An empirical investigation of the distinction between passive and active ideation — <a href="https://onlinelibrary.wiley.com/doi/10.1111/sltb.12935" target="_blank">Suicide and Life-Threatening Behavior (2023)</a>.</li>
+<li>Stressful Life Events and Near-term Suicidal Risk in a Clinical Population — <a href="https://link.springer.com/article/10.1007/s11126-023-10038-7" target="_blank">Psychiatric Quarterly (2023)</a>.</li>
+<li>Interpersonal and targeted rejection life stressors as proximal risk factors for suicidal ideation and behavior (2024–2025 preprint).</li>
+<li>Understanding and comparing risk factors and subtypes in South Korean women's suicidal ideation/attempt — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11138197/" target="_blank">PMC (2024)</a>.</li>
+<li>Factors associated with suicidal ideation among unmarried Korean women in their twenties — <a href="https://link.springer.com/article/10.1186/s12905-026-04472-5" target="_blank">BMC Women's Health (2026)</a>.</li>
+<li>Labor market discrimination and suicidal ideation: a longitudinal study of Korean women — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11423394/" target="_blank">PMC (2024)</a>.</li>
+</ul>
+<p class="small">문헌 검색은 2026년 8월 기준 웹 검색으로 수행되었으며, 학술지 자체 검증(peer-review 확인)은
+수행하지 못했습니다. 본 목록은 분석 설계의 출발점으로 활용한 참고자료이며, 완전한 체계적 문헌고찰이 아닙니다.</p>
+</section>
+
+
+<footer><div class="wrap" style="padding:0">
+분석 스크립트: <code>suicide_analysis/scripts/01–15_*.py</code> · 산출물: <code>suicide_analysis/outputs/*.csv</code> ·
+재현 가능한 전체 파이프라인은 저장소에 포함되어 있습니다. 본 보고서는 탐색적(exploratory) 분석 결과이며 임상적
+의사결정에 단독으로 사용되어서는 안 됩니다.
+</div></footer>
+
+</div>

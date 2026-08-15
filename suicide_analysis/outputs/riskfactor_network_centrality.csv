@@ -1,0 +1,18 @@
+item,label,strength
+Nscore_,Neuroticism,1.1087202706742254
+suicidality_severity,Suicidality severity (0-3),0.8224636505750825
+SLEscore_,Lifetime stressful events,0.7882718723868437
+dsm_symptom_count,Depressive symptom count,0.7606024843905477
+fh_dep_ratio,Family history: depression,0.6898070952740571
+age_onset,Age of onset,0.6149347289987418
+pbi_mother_care,Maternal care,0.5615907842680762
+social_conflict,Social conflict,0.5476454742218841
+csa_any,Childhood sexual abuse,0.5280278775734214
+gad_bin,Comorbid GAD,0.45577288998032994
+melancholia_bin,Melancholic subtype,0.3311187070417129
+panic_bin,Comorbid panic,0.30691000763545917
+fh_man_ratio,Family history: mania,0.30076655899354143
+social_support,Social support,0.2963802694270517
+pbi_mother_overprotect,Maternal overprotection,0.265511693066359
+psy_inpatient,Ever hospitalised,0.18351726753823044
+n_episodes,Number of episodes,0.11171149974226172

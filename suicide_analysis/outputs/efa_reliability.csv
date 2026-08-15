@@ -1,0 +1,7 @@
+factor,n_items,alpha,ci
+pbi_father_care,11,0.9085287689277122,[0.905 0.912]
+pbi_father_overprotect,4,0.702812285788543,[0.69  0.715]
+pbi_mother_care,10,0.8995547669373927,[0.896 0.903]
+pbi_mother_overprotect,4,0.6989619491804224,[0.686 0.711]
+social_conflict,6,0.7654726006520152,[0.756 0.775]
+social_support,2,0.7902704587041367,[0.779 0.801]

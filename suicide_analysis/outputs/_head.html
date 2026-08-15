@@ -1,0 +1,97 @@
+<title>자살 위험요인 아틀라스</title>
+
+<style>
+:root{
+  --page:#f6f5f1; --surface-1:#ffffff; --surface-2:#f0eee7;
+  --text-primary:#17150f; --text-secondary:#55534a; --text-muted:#8c897c;
+  --gridline:#e4e1d6; --axis:#c7c3b3; --border:rgba(23,21,15,0.11);
+  --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --series-4:#eda100;
+  --status-good:#0ca30c; --status-critical:#d03b3b;
+  --accent:#1c5cab; --accent-soft:#e8eefa;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --page:#121210; --surface-1:#1b1a17; --surface-2:#211f1b;
+    --text-primary:#f5f4ef; --text-secondary:#c3c2b7;
+    --text-muted:#938f83; --gridline:#2c2c28; --axis:#3a3833; --border:rgba(255,255,255,0.11);
+    --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500;
+    --status-good:#0ca30c; --status-critical:#e66767;
+    --accent:#6ba3ea; --accent-soft:#1e2a3d;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --page:#121210; --surface-1:#1b1a17; --surface-2:#211f1b;
+  --text-primary:#f5f4ef; --text-secondary:#c3c2b7; --text-muted:#938f83;
+  --gridline:#2c2c28; --axis:#3a3833; --border:rgba(255,255,255,0.11);
+  --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500;
+  --status-good:#0ca30c; --status-critical:#e66767;
+  --accent:#6ba3ea; --accent-soft:#1e2a3d;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--page); color:var(--text-primary);
+  font-family:-apple-system,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+  line-height:1.72; font-size:16px; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:920px; margin:0 auto; padding:0 24px 96px;}
+header.hero{
+  background:linear-gradient(180deg,var(--surface-1),var(--page));
+  border-bottom:1px solid var(--border); padding:52px 0 30px;
+}
+header.hero .wrap{padding-top:0;}
+.eyebrow{font-size:12.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); font-weight:700;}
+h1.title{font-size:clamp(26px,4vw,38px); line-height:1.28; margin:10px 0 12px; text-wrap:balance; letter-spacing:-0.01em;}
+.subtitle{color:var(--text-secondary); font-size:16.5px; max-width:70ch; margin:0 0 26px;}
+.stat-strip{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-top:10px;}
+.stat{background:var(--surface-1); padding:16px 18px;}
+.stat .n{font-variant-numeric:tabular-nums; font-size:23px; font-weight:750; letter-spacing:-0.02em;}
+.stat .l{font-size:12.5px; color:var(--text-muted); margin-top:3px;}
+nav.toc{display:flex; flex-wrap:wrap; gap:8px; margin:26px 0 8px;}
+nav.toc a{font-size:13px; color:var(--text-secondary); text-decoration:none; background:var(--surface-2); border:1px solid var(--border); padding:6px 12px; border-radius:99px; white-space:nowrap;}
+nav.toc a:hover{color:var(--accent); border-color:var(--accent);}
+section{padding:44px 0; border-bottom:1px solid var(--border);}
+section:last-of-type{border-bottom:none;}
+.sec-num{color:var(--accent); font-weight:700; font-size:13.5px; letter-spacing:.04em;}
+h2{font-size:25px; margin:6px 0 6px; letter-spacing:-0.01em; text-wrap:balance;}
+h3{font-size:18.5px; margin:30px 0 10px; letter-spacing:-0.005em;}
+h4{font-size:15.5px; margin:22px 0 8px; color:var(--text-primary);}
+p{color:var(--text-primary); max-width:74ch;}
+p.lede{color:var(--text-secondary); font-size:16.5px; max-width:72ch;}
+.card{background:var(--surface-1); border:1px solid var(--border); border-radius:14px; padding:22px 24px; margin:18px 0;}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+.grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+@media (max-width:760px){.grid2,.grid3{grid-template-columns:1fr;}}
+figure{margin:18px 0;}
+figcaption{font-size:13px; color:var(--text-muted); margin-top:10px; max-width:70ch; line-height:1.55;}
+figcaption b{color:var(--text-secondary);}
+.tablewrap{overflow-x:auto; border:1px solid var(--border); border-radius:12px; margin:18px 0;}
+table{border-collapse:collapse; width:100%; font-size:13.6px; min-width:520px;}
+th,td{padding:9px 13px; text-align:left; border-bottom:1px solid var(--border); white-space:nowrap;}
+th{background:var(--surface-2); color:var(--text-secondary); font-weight:650; font-size:12px; text-transform:uppercase; letter-spacing:.03em;}
+td{font-variant-numeric:tabular-nums; color:var(--text-primary);}
+tr:last-child td{border-bottom:none;}
+.tag{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:650; padding:3px 10px; border-radius:99px;}
+.tag-mdd{background:color-mix(in srgb, var(--series-2) 16%, transparent); color:var(--series-2);}
+.tag-ctrl{background:color-mix(in srgb, var(--series-1) 16%, transparent); color:var(--series-1);}
+.tag-risk{background:color-mix(in srgb, var(--status-critical) 15%, transparent); color:var(--status-critical);}
+.tag-protect{background:color-mix(in srgb, var(--status-good) 16%, transparent); color:var(--status-good);}
+.callout{border-left:3px solid var(--accent); background:var(--accent-soft); border-radius:0 10px 10px 0; padding:14px 18px; margin:18px 0; font-size:14.6px; color:var(--text-secondary);}
+.callout b{color:var(--text-primary);}
+.finding{border:1px solid var(--border); border-radius:12px; padding:16px 18px; margin:14px 0; background:var(--surface-1);}
+.finding .h{font-weight:700; font-size:14.8px; margin-bottom:4px;}
+.finding .d{font-size:14px; color:var(--text-secondary);}
+.reflist{list-style:none; padding:0; margin:14px 0; display:flex; flex-direction:column; gap:10px;}
+.reflist li{font-size:13.8px; color:var(--text-secondary); padding-left:18px; position:relative;}
+.reflist li::before{content:"—"; position:absolute; left:0; color:var(--text-muted);}
+.reflist a{color:var(--accent); text-decoration:none;}
+.reflist a:hover{text-decoration:underline;}
+code{background:var(--surface-2); padding:1px 6px; border-radius:5px; font-size:.9em;}
+.limits li{margin:6px 0; color:var(--text-secondary); font-size:14.6px;}
+footer{padding:36px 0 10px; color:var(--text-muted); font-size:12.5px;}
+.small{font-size:12.5px; color:var(--text-muted);}
+::selection{background:var(--accent-soft);}
+a{color:var(--accent);}
+</style>
