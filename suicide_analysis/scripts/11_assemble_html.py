@@ -131,8 +131,8 @@ B.append("""
   <a href="#intro">1. 배경</a><a href="#methods">2. 자료·방법</a><a href="#prevalence">3. 유병률</a>
   <a href="#riskfactors">4. 위험요인</a><a href="#repeat">5. 반복시도</a><a href="#fullsample">6. 전체표본 SI</a>
   <a href="#factor">7. 요인분석</a><a href="#network">8. 증상 네트워크</a><a href="#rfnetwork">9. 위험요인 네트워크</a>
-  <a href="#survival">10. 발병-시도 시간</a><a href="#lhc">11. 삽화 분석</a><a href="#discussion">12. 종합논의</a>
-  <a href="#limits">13. 제한점</a><a href="#refs">참고문헌</a>
+  <a href="#survival">10. 발병-시도 시간</a><a href="#lhc">11. 삽화 분석</a><a href="#lethality">12. 치명도 위험요인</a>
+  <a href="#discussion">13. 종합논의</a><a href="#limits">14. 제한점</a><a href="#refs">참고문헌</a>
 </nav>
 </div></header>
 """)

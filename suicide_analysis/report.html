@@ -115,8 +115,8 @@ a{color:var(--accent);}
   <a href="#intro">1. 배경</a><a href="#methods">2. 자료·방법</a><a href="#prevalence">3. 유병률</a>
   <a href="#riskfactors">4. 위험요인</a><a href="#repeat">5. 반복시도</a><a href="#fullsample">6. 전체표본 SI</a>
   <a href="#factor">7. 요인분석</a><a href="#network">8. 증상 네트워크</a><a href="#rfnetwork">9. 위험요인 네트워크</a>
-  <a href="#survival">10. 발병-시도 시간</a><a href="#lhc">11. 삽화 분석</a><a href="#discussion">12. 종합논의</a>
-  <a href="#limits">13. 제한점</a><a href="#refs">참고문헌</a>
+  <a href="#survival">10. 발병-시도 시간</a><a href="#lhc">11. 삽화 분석</a><a href="#lethality">12. 치명도 위험요인</a>
+  <a href="#discussion">13. 종합논의</a><a href="#limits">14. 제한점</a><a href="#refs">참고문헌</a>
 </nav>
 </div></header>
 
@@ -444,6 +444,14 @@ Kaplan–Meier 생존분석 및 로그순위검정, 삽화-수준 대응표본 W
 위험요인(증상심각도·생애스트레스·발병연령 등)은 반복 여부는 잘 구분하지 못해, <b>'시도 자체'와 '반복'은 부분적으로
 다른 위험기제</b>를 가질 수 있음을 시사합니다 — 이는 최근 문헌에서 자살시도(attempt)와 자살사망(death)의 위험요인이
 "중첩되지만 구별된다"는 JAMA Psychiatry의 보고와 궤를 같이합니다.</p>
+<div class="callout"><b>최근 문헌과의 비교 —</b> 2025년 발표된 5년 추적연구("Five-Year Outcomes of First Suicide
+Attempts: Insights on Lethality, Recurrence, and Mortality", <i>J Clin Psychiatry</i>)는 첫 시도자의 상당수가
+재시도를 경험하며 첫 시도의 치명도·물질사용이 이후 경과를 예측한다고 보고했습니다. 소아청소년 대상 체계적
+문헌고찰(PMC, 2023)과 한국 10년 자살시도 레지스트리 연구(<i>J Korean Med Sci</i>, 2024)도 여성·낮은 교육수준·
+불안/정신병적 장애 동반이 재시도 위험과 연관됨을 보고했는데, 이는 본 결과에서 <b>반복시도가 신경증이라는
+성격 차원과 더 강하게 연관되고, 급성 임상 심각도 지표와는 상대적으로 약하게 연관</b>된 것과 맥을 같이 합니다 —
+"누가 처음 시도하는가"와 "이미 시도한 사람 중 누가 반복하는가"는 서로 다른 예측변수 세트를 필요로 한다는 점에서
+일관됩니다.</div>
 </section>
 
 
@@ -1078,6 +1086,12 @@ Bartlett 구형성 검정 p&lt;.001).</p>
 <p style="font-size:14.5px">아동기 성적학대, 멜랑콜리아 아형, 이른 발병은 모두 <b>첫 시도까지의 시간을 유의하게
 단축</b>시켰습니다. 반면 우울증 가족력 자체는 시도 시점을 앞당기지는 않았는데, 이는 가족력이 발병 시점을
 앞당기는 경로로 간접 작용할 가능성(조기발병 경로)과 구분됩니다.</p>
+<div class="callout"><b>최근 문헌과의 비교 —</b> "발병 후 첫 3개월과 첫 5년이 가장 고위험 시기"라는 소견은 100명
+입원환자 대상의 고전적 연구(Malone et al., <i>J Affective Disorders</i>, 1995)에서 처음 보고된 이래 반복적으로
+재확인되어 왔으며, 미치료 이환기간이 길수록 위험요인의 구성 자체가 달라진다는 최신 연구(2024)와 초발·조기발병
+우울증의 노모그램 기반 예측모형 연구들(2025)도 발병 시점 근접성이 핵심 변수임을 강조합니다. 본 분석은 재발성
+우울장애 여성 3,000명이라는 상대적으로 큰 동양인 표본에서, Kaplan–Meier 생존분석과 CSA·아형·발병연령 층화를
+결합해 이 고전적 소견을 <b>현대적 방법론으로 재확인·정량화</b>했다는 점에서 의의가 있습니다.</div>
 </section>
 
 
@@ -1177,14 +1191,273 @@ Bartlett 구형성 검정 p&lt;.001).</p>
 즉 자살위험은 단일 급성 스트레스 사건보다 <b>만성적으로 더 가혹한 삽화 궤적을 겪는 하위집단</b>과 관련되어
 보이며, 이는 4절의 "생애 스트레스 누적 총점"이 다변량 모형에서 독립적 위험요인으로 남은 것과 개인-집계
 수준에서 일관됩니다.</div>
+
+<h3>11.4 자살시도-연관 삽화에는 어떤 '종류'의 스트레스 사건이 있었는가</h3>
+<p style="font-size:14.5px">11.1절의 종합지표를 사건 <b>유형별</b>로 분해했습니다. 각 유형에 대해 (a) 자살시도-연관
+삽화와 그 외 삽화 전체를 비교하는 모집단 수준 비교, (b) 같은 사람의 시도-연관 삽화 대 그 사람의 다른 삽화 평균을
+비교하는 개인 내 대응비교를 모두 수행했습니다.</p>
+<figure><svg viewBox="0 0 640 320" width="100%" role="img" aria-label="bar chart" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
+<line x1="60" y1="250.0" x2="620" y2="250.0" stroke="var(--gridline)" stroke-width="1"/>
+<text x="52" y="254.0" text-anchor="end" font-size="11" fill="var(--text-muted)">0%</text>
+<line x1="60" y1="195.0" x2="620" y2="195.0" stroke="var(--gridline)" stroke-width="1"/>
+<text x="52" y="199.0" text-anchor="end" font-size="11" fill="var(--text-muted)">20%</text>
+<line x1="60" y1="140.0" x2="620" y2="140.0" stroke="var(--gridline)" stroke-width="1"/>
+<text x="52" y="144.0" text-anchor="end" font-size="11" fill="var(--text-muted)">39%</text>
+<line x1="60" y1="85.0" x2="620" y2="85.0" stroke="var(--gridline)" stroke-width="1"/>
+<text x="52" y="89.0" text-anchor="end" font-size="11" fill="var(--text-muted)">59%</text>
+<line x1="60" y1="30.0" x2="620" y2="30.0" stroke="var(--gridline)" stroke-width="1"/>
+<text x="52" y="34.0" text-anchor="end" font-size="11" fill="var(--text-muted)">78%</text>
+<rect x="78.7" y="225.7" width="30.6" height="24.3" rx="3" fill="var(--series-1)"/>
+<text x="94.0" y="219.7" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">9%</text>
+<rect x="116.0" y="197.3" width="30.6" height="52.7" rx="3" fill="var(--status-critical)"/>
+<text x="131.3" y="191.3" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">19%</text>
+<text x="116.0" y="270" text-anchor="middle" font-size="12" fill="var(--text-primary)">폭행/신체적 공격</text>
+<rect x="190.7" y="99.8" width="30.6" height="150.2" rx="3" fill="var(--series-1)"/>
+<text x="206.0" y="93.8" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">53%</text>
+<rect x="228.0" y="66.7" width="30.6" height="183.3" rx="3" fill="var(--status-critical)"/>
+<text x="243.3" y="60.7" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">65%</text>
+<text x="228.0" y="270" text-anchor="middle" font-size="12" fill="var(--text-primary)">가족 갈등</text>
+<rect x="302.7" y="182.9" width="30.6" height="67.1" rx="3" fill="var(--series-1)"/>
+<text x="318.0" y="176.9" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">24%</text>
+<rect x="340.0" y="204.5" width="30.6" height="45.5" rx="3" fill="var(--status-critical)"/>
+<text x="355.3" y="198.5" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">16%</text>
+<text x="340.0" y="270" text-anchor="middle" font-size="12" fill="var(--text-primary)">기타 사건</text>
+<rect x="414.7" y="227.1" width="30.6" height="22.9" rx="3" fill="var(--series-1)"/>
+<text x="430.0" y="221.1" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">8%</text>
+<rect x="452.0" y="219.1" width="30.6" height="30.9" rx="3" fill="var(--status-critical)"/>
+<text x="467.3" y="213.1" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">11%</text>
+<text x="452.0" y="270" text-anchor="middle" font-size="12" fill="var(--text-primary)">파산</text>
+<rect x="526.7" y="225.5" width="30.6" height="24.5" rx="3" fill="var(--series-1)"/>
+<text x="542.0" y="219.5" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">9%</text>
+<rect x="564.0" y="217.5" width="30.6" height="32.5" rx="3" fill="var(--status-critical)"/>
+<text x="579.3" y="211.5" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text-primary)">12%</text>
+<text x="564.0" y="270" text-anchor="middle" font-size="12" fill="var(--text-primary)">이혼</text>
+<line x1="60" y1="250" x2="620" y2="250" stroke="var(--axis)" stroke-width="1.5"/>
+<rect x="60.0" y="11" width="10" height="10" rx="2" fill="var(--series-1)"/>
+<text x="75.0" y="20.0" font-size="11.5" fill="var(--text-secondary)">다른 삽화</text>
+<rect x="131.0" y="11" width="10" height="10" rx="2" fill="var(--status-critical)"/>
+<text x="146.0" y="20.0" font-size="11.5" fill="var(--text-secondary)">자살시도-연관 삽화</text>
+</svg><figcaption><b>그림 15.</b> 사건 유형별 발생률 — 다른 삽화 대비 자살시도-연관 삽화 (모집단 수준
+비교, 유의한 차이를 보인 상위 5개 유형).</figcaption></figure>
+<div class="tablewrap"><table>
+<thead><tr><th>사건 유형</th><th>다른 삽화</th><th>시도-연관 삽화</th><th>모집단 χ² p</th><th>개인 내 대응 p</th></tr></thead>
+<tbody>
+<tr><td>폭행/신체적 공격</td><td>8.6%</td><td class="tag tag-risk">18.7%</td><td>9.6×10⁻¹⁹</td><td class="tag tag-risk">5×10⁻⁶</td></tr>
+<tr><td>가족 갈등</td><td>53.3%</td><td class="tag tag-risk">65.1%</td><td>1.2×10⁻⁹</td><td class="tag tag-risk">.005</td></tr>
+<tr><td>기타 사건</td><td>23.8%</td><td class="tag tag-protect">16.1%</td><td>3.0×10⁻⁶</td><td>.577</td></tr>
+<tr><td>자연재해</td><td>0.7%</td><td>2.2%</td><td>1.4×10⁻⁴</td><td>.076</td></tr>
+<tr><td>파산</td><td>8.1%</td><td>11.0%</td><td>.010</td><td>.619</td></tr>
+<tr><td>이혼</td><td>8.7%</td><td>11.5%</td><td>.013</td><td>.384</td></tr>
+<tr><td>가족 구성원 사망</td><td>15.2%</td><td>14.8%</td><td>.798</td><td>.810</td></tr>
+<tr><td>배우자 사망</td><td>3.8%</td><td>3.7%</td><td>.906</td><td>.629</td></tr>
+</tbody></table></div>
+<div class="callout"><b>핵심 소견 —</b> <b>폭행/신체적 공격</b>과 <b>가족 갈등</b>만이 모집단 비교와 개인 내 대응비교
+<b>양쪽 모두에서</b> 일관되게 유의했습니다 — 즉 이 두 사건 유형은 단순히 시도자가 스트레스를 더 많이 겪어서가
+아니라, <b>그 사람의 다른 삽화와 비교해도</b> 시도가 발생한 바로 그 삽화에 유독 몰려 있었습니다. 사건 범주 수준
+집계(11절 도입부 표)에서도 '위협적 사건'과 '갈등 사건' 범주만 유의했던 것과 정확히 일치합니다. 반면 배우자·가족
+사망, 자연재해 등 상실·재난성 사건은 시도 시점과 특별히 연관되지 않았습니다 — 애도 자체보다 <b>대인관계 내
+위협·갈등(공격, 가족 갈등)</b>이 자살행동의 근접 방아쇠에 더 가깝다는, 최근 "표적 거부(targeted rejection)와
+대인관계 상실이 자살사고·행동의 근위험요인"이라는 문헌(2024–2025)과 부합하는 소견입니다.</div>
+</section>
+
+
+<section id="lethality">
+<div class="sec-num">12</div>
+<h2>자살 치명도의 위험요인</h2>
+<p class="lede">"누가 시도하는가"와 "시도가 얼마나 치명적인가"는 다른 질문입니다. 평생 자살시도 경험자(n=802) 중
+치명도 정보가 있는 대상자에서, (A) 신체적 손상 정도(5단계 순서형, 서수 로지스틱회귀)와 (B) 고치명도 방법
+사용 여부(목맴·투신 vs 과량복용·기타, 로지스틱회귀)를 각각 예측하는 모형을 적합했습니다.</p>
+<div class="grid2">
+<div>
+<h4 style="margin-top:0">A. 신체적 손상 정도 (서수 로지스틱, n=719)</h4>
+<figure><svg viewBox="0 0 680 506" width="100%" role="img" aria-label="forest plot" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
+<line x1="311.2" y1="30" x2="311.2" y2="446" stroke="var(--gridline)" stroke-width="1" stroke-dasharray="2,2"/>
+<text x="311.2" y="464" text-anchor="middle" font-size="11" fill="var(--text-muted)">0.5</text>
+<line x1="475.6" y1="30" x2="475.6" y2="446" stroke="var(--gridline)" stroke-width="1" stroke-dasharray="0"/>
+<text x="475.6" y="464" text-anchor="middle" font-size="11" fill="var(--text-muted)">1</text>
+<line x1="640.0" y1="30" x2="640.0" y2="446" stroke="var(--gridline)" stroke-width="1" stroke-dasharray="2,2"/>
+<text x="640.0" y="464" text-anchor="middle" font-size="11" fill="var(--text-muted)">2</text>
+<text x="415.0" y="480" text-anchor="middle" font-size="11.5" fill="var(--text-secondary)">Odds ratio (log scale, 95% CI)</text>
+<text x="180" y="47.0" text-anchor="end" font-size="12" fill="var(--text-primary)">정신과 입원력</text>
+<line x1="508.3" y1="43.0" x2="573.7" y2="43.0" stroke="var(--status-critical)" stroke-width="2"/>
+<circle cx="541.0" cy="43.0" r="5" fill="var(--status-critical)"/>
+<text x="648.0" y="47.0" font-size="11" fill="var(--text-secondary)">1.32 (1.15–1.51)</text>
+<text x="180" y="73.0" text-anchor="end" font-size="12" fill="var(--text-primary)">생애 스트레스 사건 총점</text>
+<line x1="497.2" y1="69.0" x2="570.5" y2="69.0" stroke="var(--status-critical)" stroke-width="2"/>
+<circle cx="533.9" cy="69.0" r="5" fill="var(--status-critical)"/>
+<text x="648.0" y="73.0" font-size="11" fill="var(--text-secondary)">1.28 (1.10–1.49)</text>
+<text x="180" y="99.0" text-anchor="end" font-size="12" fill="var(--text-primary)">반복 시도(2회 이상)</text>
+<line x1="496.6" y1="95.0" x2="565.9" y2="95.0" stroke="var(--status-critical)" stroke-width="2"/>
+<circle cx="531.2" cy="95.0" r="5" fill="var(--status-critical)"/>
+<text x="648.0" y="99.0" font-size="11" fill="var(--text-secondary)">1.26 (1.09–1.46)</text>
+<text x="180" y="125.0" text-anchor="end" font-size="12" fill="var(--text-primary)">삽화 횟수</text>
+<line x1="477.6" y1="121.0" x2="539.7" y2="121.0" stroke="var(--status-critical)" stroke-width="2"/>
+<circle cx="508.6" cy="121.0" r="5" fill="var(--status-critical)"/>
+<text x="648.0" y="125.0" font-size="11" fill="var(--text-secondary)">1.15 (1.01–1.31)</text>
+<text x="180" y="151.0" text-anchor="end" font-size="12" fill="var(--text-primary)">조증 증상 동반</text>
+<line x1="455.6" y1="147.0" x2="521.9" y2="147.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="488.8" cy="147.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="151.0" font-size="11" fill="var(--text-secondary)">1.06 (0.92–1.22)</text>
+<text x="180" y="177.0" text-anchor="end" font-size="12" fill="var(--text-primary)">신경증 성향</text>
+<line x1="453.1" y1="173.0" x2="524.4" y2="173.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="488.7" cy="173.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="177.0" font-size="11" fill="var(--text-secondary)">1.06 (0.91–1.23)</text>
+<text x="180" y="203.0" text-anchor="end" font-size="12" fill="var(--text-primary)">조증 가족력 비율</text>
+<line x1="449.5" y1="199.0" x2="514.9" y2="199.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="482.2" cy="199.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="203.0" font-size="11" fill="var(--text-secondary)">1.03 (0.90–1.18)</text>
+<text x="180" y="229.0" text-anchor="end" font-size="12" fill="var(--text-primary)">공황장애 동반</text>
+<line x1="437.6" y1="225.0" x2="503.3" y2="225.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="470.4" cy="225.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="229.0" font-size="11" fill="var(--text-secondary)">0.98 (0.85–1.12)</text>
+<text x="180" y="255.0" text-anchor="end" font-size="12" fill="var(--text-primary)">우울 증상 개수</text>
+<line x1="435.2" y1="251.0" x2="505.4" y2="251.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="470.3" cy="251.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="255.0" font-size="11" fill="var(--text-secondary)">0.98 (0.84–1.13)</text>
+<text x="180" y="281.0" text-anchor="end" font-size="12" fill="var(--text-primary)">범불안장애 동반</text>
+<line x1="435.6" y1="277.0" x2="503.5" y2="277.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="469.5" cy="277.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="281.0" font-size="11" fill="var(--text-secondary)">0.97 (0.84–1.12)</text>
+<text x="180" y="307.0" text-anchor="end" font-size="12" fill="var(--text-primary)">교육 수준</text>
+<line x1="432.7" y1="303.0" x2="502.5" y2="303.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="467.6" cy="303.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="307.0" font-size="11" fill="var(--text-secondary)">0.97 (0.83–1.12)</text>
+<text x="180" y="333.0" text-anchor="end" font-size="12" fill="var(--text-primary)">첫 시도 연령</text>
+<line x1="430.7" y1="329.0" x2="504.0" y2="329.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="467.3" cy="329.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="333.0" font-size="11" fill="var(--text-secondary)">0.97 (0.83–1.13)</text>
+<text x="180" y="359.0" text-anchor="end" font-size="12" fill="var(--text-primary)">우울증 가족력 비율</text>
+<line x1="431.8" y1="355.0" x2="500.5" y2="355.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="466.1" cy="355.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="359.0" font-size="11" fill="var(--text-secondary)">0.96 (0.83–1.11)</text>
+<text x="180" y="385.0" text-anchor="end" font-size="12" fill="var(--text-primary)">멜랑콜리아 아형</text>
+<line x1="431.4" y1="381.0" x2="499.8" y2="381.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="465.6" cy="381.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="385.0" font-size="11" fill="var(--text-secondary)">0.96 (0.83–1.11)</text>
+<text x="180" y="411.0" text-anchor="end" font-size="12" fill="var(--text-primary)">아동기 성적학대</text>
+<line x1="427.1" y1="407.0" x2="495.8" y2="407.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="461.5" cy="407.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="411.0" font-size="11" fill="var(--text-secondary)">0.94 (0.82–1.09)</text>
+<text x="180" y="437.0" text-anchor="end" font-size="12" fill="var(--text-primary)">비정형 증상</text>
+<line x1="427.3" y1="433.0" x2="493.9" y2="433.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="460.6" cy="433.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="437.0" font-size="11" fill="var(--text-secondary)">0.94 (0.82–1.08)</text>
+<line x1="190" y1="30" x2="190" y2="446" stroke="var(--axis)" stroke-width="1"/>
+</svg><figcaption><b>그림 16.</b> 손상 정도가 더 높은 범주에 속할 오즈비 (1SD 증가당).</figcaption></figure>
+</div>
+<div>
+<h4 style="margin-top:0">B. 고치명도 방법 사용 (목맴·투신, n=718, 25.6%)</h4>
+<figure><svg viewBox="0 0 680 506" width="100%" role="img" aria-label="forest plot" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,-apple-system,'Segoe UI',sans-serif">
+<line x1="311.2" y1="30" x2="311.2" y2="446" stroke="var(--gridline)" stroke-width="1" stroke-dasharray="2,2"/>
+<text x="311.2" y="464" text-anchor="middle" font-size="11" fill="var(--text-muted)">0.5</text>
+<line x1="475.6" y1="30" x2="475.6" y2="446" stroke="var(--gridline)" stroke-width="1" stroke-dasharray="0"/>
+<text x="475.6" y="464" text-anchor="middle" font-size="11" fill="var(--text-muted)">1</text>
+<line x1="640.0" y1="30" x2="640.0" y2="446" stroke="var(--gridline)" stroke-width="1" stroke-dasharray="2,2"/>
+<text x="640.0" y="464" text-anchor="middle" font-size="11" fill="var(--text-muted)">2</text>
+<text x="415.0" y="480" text-anchor="middle" font-size="11.5" fill="var(--text-secondary)">Odds ratio (log scale, 95% CI)</text>
+<text x="180" y="47.0" text-anchor="end" font-size="12" fill="var(--text-primary)">우울 증상 개수</text>
+<line x1="478.1" y1="43.0" x2="573.2" y2="43.0" stroke="var(--status-critical)" stroke-width="2"/>
+<circle cx="525.6" cy="43.0" r="5" fill="var(--status-critical)"/>
+<text x="648.0" y="47.0" font-size="11" fill="var(--text-secondary)">1.23 (1.01–1.51)</text>
+<text x="180" y="73.0" text-anchor="end" font-size="12" fill="var(--text-primary)">교육 수준</text>
+<line x1="477.2" y1="69.0" x2="563.1" y2="69.0" stroke="var(--status-critical)" stroke-width="2"/>
+<circle cx="520.2" cy="69.0" r="5" fill="var(--status-critical)"/>
+<text x="648.0" y="73.0" font-size="11" fill="var(--text-secondary)">1.21 (1.01–1.45)</text>
+<text x="180" y="99.0" text-anchor="end" font-size="12" fill="var(--text-primary)">조증 가족력 비율</text>
+<line x1="466.4" y1="95.0" x2="542.6" y2="95.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="504.5" cy="95.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="99.0" font-size="11" fill="var(--text-secondary)">1.13 (0.96–1.33)</text>
+<text x="180" y="125.0" text-anchor="end" font-size="12" fill="var(--text-primary)">반복 시도(2회 이상)</text>
+<line x1="459.5" y1="121.0" x2="545.3" y2="121.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="502.4" cy="121.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="125.0" font-size="11" fill="var(--text-secondary)">1.12 (0.93–1.34)</text>
+<text x="180" y="151.0" text-anchor="end" font-size="12" fill="var(--text-primary)">아동기 성적학대</text>
+<line x1="457.5" y1="147.0" x2="543.5" y2="147.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="500.5" cy="147.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="151.0" font-size="11" fill="var(--text-secondary)">1.11 (0.93–1.33)</text>
+<text x="180" y="177.0" text-anchor="end" font-size="12" fill="var(--text-primary)">첫 시도 연령</text>
+<line x1="443.4" y1="173.0" x2="535.9" y2="173.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="489.6" cy="173.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="177.0" font-size="11" fill="var(--text-secondary)">1.06 (0.87–1.29)</text>
+<text x="180" y="203.0" text-anchor="end" font-size="12" fill="var(--text-primary)">멜랑콜리아 아형</text>
+<line x1="443.7" y1="199.0" x2="534.4" y2="199.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="489.0" cy="199.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="203.0" font-size="11" fill="var(--text-secondary)">1.06 (0.87–1.28)</text>
+<text x="180" y="229.0" text-anchor="end" font-size="12" fill="var(--text-primary)">조증 증상 동반</text>
+<line x1="443.0" y1="225.0" x2="525.7" y2="225.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="484.3" cy="225.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="229.0" font-size="11" fill="var(--text-secondary)">1.04 (0.87–1.24)</text>
+<text x="180" y="255.0" text-anchor="end" font-size="12" fill="var(--text-primary)">우울증 가족력 비율</text>
+<line x1="439.5" y1="251.0" x2="526.0" y2="251.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="482.8" cy="251.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="255.0" font-size="11" fill="var(--text-secondary)">1.03 (0.86–1.24)</text>
+<text x="180" y="281.0" text-anchor="end" font-size="12" fill="var(--text-primary)">공황장애 동반</text>
+<line x1="431.2" y1="277.0" x2="514.9" y2="277.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="473.0" cy="277.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="281.0" font-size="11" fill="var(--text-secondary)">0.99 (0.83–1.18)</text>
+<text x="180" y="307.0" text-anchor="end" font-size="12" fill="var(--text-primary)">범불안장애 동반</text>
+<line x1="421.5" y1="303.0" x2="507.6" y2="303.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="464.5" cy="303.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="307.0" font-size="11" fill="var(--text-secondary)">0.95 (0.80–1.14)</text>
+<text x="180" y="333.0" text-anchor="end" font-size="12" fill="var(--text-primary)">비정형 증상</text>
+<line x1="417.2" y1="329.0" x2="501.2" y2="329.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="459.2" cy="329.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="333.0" font-size="11" fill="var(--text-secondary)">0.93 (0.78–1.11)</text>
+<text x="180" y="359.0" text-anchor="end" font-size="12" fill="var(--text-primary)">삽화 횟수</text>
+<line x1="408.0" y1="355.0" x2="504.8" y2="355.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="456.4" cy="355.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="359.0" font-size="11" fill="var(--text-secondary)">0.92 (0.75–1.13)</text>
+<text x="180" y="385.0" text-anchor="end" font-size="12" fill="var(--text-primary)">정신과 입원력</text>
+<line x1="404.5" y1="381.0" x2="488.2" y2="381.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="446.4" cy="381.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="385.0" font-size="11" fill="var(--text-secondary)">0.88 (0.74–1.05)</text>
+<text x="180" y="411.0" text-anchor="end" font-size="12" fill="var(--text-primary)">생애 스트레스 사건 총점</text>
+<line x1="394.6" y1="407.0" x2="488.0" y2="407.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="441.3" cy="407.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="411.0" font-size="11" fill="var(--text-secondary)">0.87 (0.71–1.05)</text>
+<text x="180" y="437.0" text-anchor="end" font-size="12" fill="var(--text-primary)">신경증 성향</text>
+<line x1="392.8" y1="433.0" x2="479.2" y2="433.0" stroke="var(--text-muted)" stroke-width="2"/>
+<circle cx="436.0" cy="433.0" r="3.5" fill="var(--text-muted)"/>
+<text x="648.0" y="437.0" font-size="11" fill="var(--text-secondary)">0.85 (0.71–1.02)</text>
+<line x1="190" y1="30" x2="190" y2="446" stroke="var(--axis)" stroke-width="1"/>
+</svg><figcaption><b>그림 17.</b> 과량복용·기타 대비 목맴/투신을 사용할 오즈비 (1SD 증가당).</figcaption></figure>
+</div>
+</div>
+<div class="tablewrap"><table>
+<thead><tr><th colspan="4">A. 손상 정도 — 유의한 예측인자</th></tr>
+<tr><th>변수</th><th>OR</th><th>95% CI</th><th>p</th></tr></thead>
+<tbody>
+<tr><td>정신과 입원력</td><td class="tag tag-risk">1.32</td><td>1.15–1.51</td><td>&lt;.001</td></tr>
+<tr><td>반복 시도(2회 이상)</td><td class="tag tag-risk">1.26</td><td>1.09–1.46</td><td>.002</td></tr>
+<tr><td>생애 스트레스 사건 총점</td><td class="tag tag-risk">1.28</td><td>1.10–1.49</td><td>.002</td></tr>
+<tr><td>삽화 횟수</td><td class="tag tag-risk">1.15</td><td>1.01–1.31</td><td>.037</td></tr>
+</tbody></table></div>
+<div class="tablewrap"><table>
+<thead><tr><th colspan="4">B. 고치명도 방법 — 유의한 예측인자</th></tr>
+<tr><th>변수</th><th>OR</th><th>95% CI</th><th>p</th></tr></thead>
+<tbody>
+<tr><td>우울 증상 개수</td><td class="tag tag-risk">1.23</td><td>1.01–1.51</td><td>.039</td></tr>
+<tr><td>교육 수준</td><td class="tag tag-risk">1.21</td><td>1.01–1.45</td><td>.042</td></tr>
+<tr><td>신경증 성향</td><td>0.85</td><td>0.71–1.02</td><td>.073 (경계)</td></tr>
+</tbody></table></div>
+<div class="callout"><b>핵심 소견 —</b> 4절에서 '시도 여부'를 예측했던 요인들(신경증, 이른 발병, CSA, 가족력,
+공황장애)은 치명도 모형에서는 대부분 유의하지 않았습니다. 대신 <b>정신과 입원력·반복시도·생애 스트레스
+누적·삽화 재발 횟수</b>라는, "질병이 얼마나 심하고 오래 진행되었는가"를 반영하는 변수들만 손상 정도를 예측했고,
+방법의 치명성은 <b>현재 증상 심각도와 (반직관적으로) 높은 교육 수준</b>이 예측했습니다. 즉 <b>'누가 시도하는가',
+'시도가 얼마나 반복되는가', '시도가 얼마나 치명적인가'는 서로 다른 위험요인 조합을 가진 세 개의 구별되는 질문</b>
+이라는 것이 본 분석 전체를 관통하는 결론입니다. 이는 "치명적 방법 선택과 관련된 요인은 재발/반복 관련 요인과
+다르다"는 최근 문헌(<i>Journal of Affective Disorders</i> 2025 치명도-재발 종단연구; 고치명도 방법 선택 예측인자
+연구)과 일치합니다.</div>
+<p class="small">교육수준이 높을수록 고치명도 방법을 사용할 오즈가 높았다는 소견은 반직관적이며, 계획성·정보
+접근성 등 미측정 요인에 의한 혼재 가능성이 있어 단독으로 해석하기보다 추가 검증이 필요합니다.</p>
 </section>
 
 
 <section id="discussion">
-<div class="sec-num">12</div>
+<div class="sec-num">13</div>
 <h2>종합 논의</h2>
-<p class="lede">세 가지 서로 다른 분석 층위 — <b>회귀분석(4·5·6절)</b>, <b>네트워크 분석(8·9절)</b>,
-<b>종단·삽화 분석(10·11절)</b> — 은 하나의 일관된 그림으로 수렴합니다.</p>
+<p class="lede">네 가지 서로 다른 분석 층위 — <b>회귀분석(4·5·6절)</b>, <b>네트워크 분석(8·9절)</b>,
+<b>종단·삽화 분석(10·11절)</b>, <b>치명도 분석(12절)</b> — 은 하나의 일관된 그림으로 수렴합니다.</p>
 <div class="finding"><div class="h">1. 자살위험은 '증상 심각도 + 만성적 스트레스 + 신경증'의 조합에서 나온다</div>
 <div class="d">현재 우울증상 개수, 생애 누적 스트레스, 신경증 성향은 회귀모형(4절)에서 독립적 위험요인이었고,
 네트워크 분석(9절)에서도 자살행동 심각도 노드와 직접 연결된 소수의 요인이었으며, 삽화 분석(11.3절)에서는
@@ -1210,11 +1483,24 @@ Bartlett 구형성 검정 p&lt;.001).</p>
 동시에 자살사고는 대조군 네트워크에서는 주변적(매개중심성 0)이었지만 환자군 네트워크에서는 다른 증상들을
 잇는 통합된 노드로 나타나, "동일한 증상이라도 임상적 맥락에 따라 증상망 내 위상이 달라진다"는 최근 네트워크
 정신병리학의 주장을 뒷받침합니다.</div></div>
+<div class="finding"><div class="h">6. '시도 여부'·'반복'·'치명도'는 세 개의 구별되는 위험요인 조합을 가진다</div>
+<div class="d">첫 시도(4절)는 증상심각도·생애스트레스·신경증·이른 발병이, 반복(5절)은 신경증이, 치명도(12절)는
+입원력·반복력·누적 스트레스 부담(손상 정도) 및 증상심각도·교육수준(방법 선택)이 각각 독립적으로 예측했습니다.
+게다가 손상 정도를 예측한 변수(입원력, 반복시도, 누적 스트레스)는 대부분 <b>시도 자체를 예측한 변수와도 겹치지
+않았습니다</b> — 아동기 성적학대·가족력·공황장애처럼 '누가 시도하는가'를 가른 요인이 '얼마나 치명적인가'는
+전혀 가르지 못했습니다. 자살위험을 하나의 단일 스펙트럼이 아니라 <b>서로 다른 예방 전략이 필요한 복수의
+하위 질문</b>으로 다뤄야 한다는 최근 정밀정신의학적 접근과 일치하는 결론입니다.</div></div>
+<div class="finding"><div class="h">7. 시도로 이어지는 삽화는 '상실'이 아니라 '위협·갈등'으로 촉발된다</div>
+<div class="d">11.4절에서, 배우자·가족의 사망과 같은 상실성 사건은 자살시도가 발생한 삽화와 특별한 연관이
+없었던 반면, <b>신체적 폭행과 가족 갈등</b>은 모집단·개인 내 비교 양쪽 모두에서 일관되게 시도-연관 삽화에
+몰려 있었습니다. 이는 대인관계 내 위협·표적 거부가 자살행동의 근접 방아쇠라는 최근 실시간 추적 연구들의
+결론과 부합하며, 임상적으로는 애도 반응보다 <b>가정폭력·가족 갈등 이력</b>에 대한 선별이 급성기 자살위험
+평가에서 더 우선될 필요가 있음을 시사합니다.</div></div>
 </section>
 
 
 <section id="limits">
-<div class="sec-num">13</div>
+<div class="sec-num">14</div>
 <h2>제한점</h2>
 <ul class="limits">
 <li><b>횡단적·회고적 설계</b> — 자살사고/시도, 아동기 학대, 양육태도 등 대부분의 변수가 단면 면접에서 회고적으로
@@ -1236,6 +1522,10 @@ Psychiatry)에 비추어, 본 결과를 완결 자살 위험 예측에 직접 �
 연령 차이가 가장 작은 삽화로 근사 배정했습니다. 삽화 경계가 부정확한 사례가 일부 포함되었을 수 있습니다.</li>
 <li><b>단일 성별·단일 문화권 표본</b> — 모든 대상자가 한국인 여성으로, 남성 및 다른 문화권으로의 일반화는
 제한적입니다.</li>
+<li><b>치명도·사건유형 분석의 표본 크기와 이질성</b> — 손상 정도·방법 모형은 치명도 정보가 있는 시도자
+(n≈718–719)에 한정되며, "기타" 방법·"기타" 사건 범주는 서로 이질적인 하위유형을 묶은 것이라 해석에 주의가
+필요합니다. 사건 유형 11개에 대해 각각 검정을 반복했으므로(11.4절) 다중비교 보정 없이 얻어진 개별 p값은
+가장 강한 두 소견(폭행, 가족갈등)을 중심으로 보수적으로 해석해야 합니다.</li>
 </ul>
 </section>
 
@@ -1260,6 +1550,16 @@ Psychiatry)에 비추어, 본 결과를 완결 자살 위험 예측에 직접 �
 <li>Understanding and comparing risk factors and subtypes in South Korean women's suicidal ideation/attempt — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11138197/" target="_blank">PMC (2024)</a>.</li>
 <li>Factors associated with suicidal ideation among unmarried Korean women in their twenties — <a href="https://link.springer.com/article/10.1186/s12905-026-04472-5" target="_blank">BMC Women's Health (2026)</a>.</li>
 <li>Labor market discrimination and suicidal ideation: a longitudinal study of Korean women — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11423394/" target="_blank">PMC (2024)</a>.</li>
+<li>Malone KM, et al. Major depression and the risk of attempted suicide — <i>Journal of Affective Disorders</i> (1995); first 3 months / first 5 years post-onset as highest-risk window (classic, still widely re-confirmed).</li>
+<li>Clinical characteristics, metabolic parameters, and risk factors for suicide attempts vary with untreated major depressive disorder duration — <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11921834/" target="_blank">PMC (2024)</a>.</li>
+<li>Predicting suicide attempts in early-onset major depressive disorder: a nomogram-based approach — <a href="https://www.sciencedirect.com/science/article/abs/pii/S0022395625006582" target="_blank">Journal of Psychiatric Research (2025)</a>.</li>
+<li>Five-Year Outcomes of First Suicide Attempts: Insights on Lethality, Recurrence, and Mortality — <i>Journal of Clinical Psychiatry</i> (2025).</li>
+<li>Factors associated with first suicide attempt vs. re-attempt in children and adolescents: a systematic review and meta-analysis — <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10660565/" target="_blank">PMC (2023)</a>.</li>
+<li>Risk Factors for Multiple Suicide Attempts in Adolescents From a 10-Year Suicide Repository — <i>Journal of Korean Medical Science</i> (2024).</li>
+<li>Predicting the risk of future multiple suicide attempt among first-time suicide attempters — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9032869/" target="_blank">PMC</a>.</li>
+<li>Lethality and recidivism in suicide attempters: a longitudinal study — <a href="https://www.sciencedirect.com/science/article/abs/pii/S0022395625003310" target="_blank">Journal of Psychiatric Research (2025)</a>.</li>
+<li>Factors associated with choice of high lethality methods in suicide attempters: a cross-sectional study — <a href="https://link.springer.com/article/10.1186/1752-4458-8-43" target="_blank">International Journal of Mental Health Systems</a>.</li>
+<li>Assessing the risk factors of violent and non-violent suicide attempt methods: a population-based cross-sectional study — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11743438/" target="_blank">PMC (2024–2025)</a>.</li>
 </ul>
 <p class="small">문헌 검색은 2026년 8월 기준 웹 검색으로 수행되었으며, 학술지 자체 검증(peer-review 확인)은
 수행하지 못했습니다. 본 목록은 분석 설계의 출발점으로 활용한 참고자료이며, 완전한 체계적 문헌고찰이 아닙니다.</p>
@@ -1267,7 +1567,7 @@ Psychiatry)에 비추어, 본 결과를 완결 자살 위험 예측에 직접 �
 
 
 <footer><div class="wrap" style="padding:0">
-분석 스크립트: <code>suicide_analysis/scripts/01–15_*.py</code> · 산출물: <code>suicide_analysis/outputs/*.csv</code> ·
+분석 스크립트: <code>suicide_analysis/scripts/01–18_*.py</code> · 산출물: <code>suicide_analysis/outputs/*.csv</code> ·
 재현 가능한 전체 파이프라인은 저장소에 포함되어 있습니다. 본 보고서는 탐색적(exploratory) 분석 결과이며 임상적
 의사결정에 단독으로 사용되어서는 안 됩니다.
 </div></footer>
