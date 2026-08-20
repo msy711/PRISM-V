@@ -27,7 +27,7 @@ for idx, r in lethA.iterrows():
     direction = "risk" if (sig and r.OR > 1) else ("protect" if (sig and r.OR < 1) else "ns")
     rowsA.append(dict(label=idx, or_=r.OR, lo=r.CI_low, hi=r.CI_high, sig=sig, direction=direction))
 rowsA = sorted(rowsA, key=lambda x: -x['or_'])
-c16 = forest_plot(rowsA, h=len(rowsA)*26+90, xmax=2.0, margin=(30, 40, 40, 190))
+c16 = forest_plot(rowsA, h=len(rowsA)*26+90, xmax=2.0, margin=(30, 140, 40, 190))
 
 # ---- c17: forest plot, high-lethality method logistic model ----
 lethB = pd.read_csv(os.path.join(OUT, "lethality_method_logistic.csv"), index_col=0)
@@ -37,7 +37,7 @@ for idx, r in lethB.iterrows():
     direction = "risk" if (sig and r.OR > 1) else ("protect" if (sig and r.OR < 1) else "ns")
     rowsB.append(dict(label=idx, or_=r.OR, lo=r.CI_low, hi=r.CI_high, sig=sig, direction=direction))
 rowsB = sorted(rowsB, key=lambda x: -x['or_'])
-c17 = forest_plot(rowsB, h=len(rowsB)*26+90, xmax=2.0, margin=(30, 40, 40, 190))
+c17 = forest_plot(rowsB, h=len(rowsB)*26+90, xmax=2.0, margin=(30, 140, 40, 190))
 
 C['c15'] = c15
 C['c16'] = c16

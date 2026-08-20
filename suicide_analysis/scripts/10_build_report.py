@@ -91,7 +91,7 @@ for _, r in fac.iterrows():
     sig = not (r.CI_low < 1 < r.CI_high)
     direction = "risk" if (sig and r.OR_per_SD > 1) else ("protect" if (sig and r.OR_per_SD < 1) else "ns")
     frows.append(dict(label=flabel[r['var']], or_=r.OR_per_SD, lo=r.CI_low, hi=r.CI_high, sig=sig, direction=direction))
-c6 = forest_plot(frows, h=len(frows)*26+90, xmax=1.6, margin=(30,40,40,170))
+c6 = forest_plot(frows, h=len(frows)*26+90, xmax=1.6, margin=(30,140,40,170))
 
 # ============================================================ CHART 7/8: SCL networks (MDD vs Control)
 with open(os.path.join(OUT, "networks.pkl"), "rb") as f:

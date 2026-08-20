@@ -78,7 +78,7 @@ def grouped_bar_chart(categories, series, w=640, h=320, margin=(24, 24, 50, 60),
     return "\n".join(svg)
 
 
-def forest_plot(rows, w=680, h=None, margin=(30, 40, 40, 210), xmax=None, title=None):
+def forest_plot(rows, w=760, h=None, margin=(30, 140, 40, 210), xmax=None, title=None):
     """rows: list of dict(label, or_, lo, hi, sig(bool), direction('risk'|'protect'|'ns'))"""
     top, right, bottom, left = margin
     n = len(rows)
